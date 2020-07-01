@@ -1,6 +1,0 @@
-setup.py
-tests/src.egg-info/PKG-INFO
-tests/src.egg-info/SOURCES.txt
-tests/src.egg-info/dependency_links.txt
-tests/src.egg-info/requires.txt
-tests/src.egg-info/top_level.txt

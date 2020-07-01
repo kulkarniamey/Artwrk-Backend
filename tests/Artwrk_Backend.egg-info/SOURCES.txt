@@ -1,7 +1,0 @@
-README.md
-setup.py
-tests/Artwrk_Backend.egg-info/PKG-INFO
-tests/Artwrk_Backend.egg-info/SOURCES.txt
-tests/Artwrk_Backend.egg-info/dependency_links.txt
-tests/Artwrk_Backend.egg-info/requires.txt
-tests/Artwrk_Backend.egg-info/top_level.txt
