@@ -1,0 +1,80 @@
+WARNING 2020-06-30 00:26:51,613 - Create user request invalid
+WARNING 2020-06-30 00:26:57,390 - No data found with id :email#alumnijnec@gmail.comand composite key :unique_email
+WARNING 2020-06-30 00:26:57,695 - No data found with id :artist_prashant3and composite key :profile
+WARNING 2020-06-30 00:27:29,953 - Create user request invalid
+WARNING 2020-06-30 00:27:35,373 - No data found with id :email#alumnijnec@gmail.comand composite key :unique_email
+WARNING 2020-06-30 00:27:36,090 - No data found with id :artist_prashant3and composite key :profile
+WARNING 2020-06-30 00:29:14,908 - Missing keys: 'email', 'password', 'type'
+WARNING 2020-06-30 00:29:20,776 - No data found with id :email#alumnijnec@gmail.comand composite key :unique_email
+WARNING 2020-06-30 00:29:21,032 - No data found with id :artist_prashant3and composite key :profile
+WARNING 2020-06-30 00:32:41,379 - No data found with id :email#alumnijnec@gmail.comand composite key :unique_email
+WARNING 2020-06-30 00:32:41,625 - No data found with id :artist_prashant3and composite key :profile
+WARNING 2020-06-30 00:35:36,344 - No data found with id :email#alumnijnec@gmail.comand composite key :unique_email
+WARNING 2020-06-30 00:35:36,585 - No data found with id :artist_prashant3and composite key :profile
+WARNING 2020-06-30 00:40:44,534 - No data found with id :email#alumnijnec@gmail.comand composite key :unique_email
+WARNING 2020-06-30 00:40:45,394 - No data found with id :artist_prashant3and composite key :profile
+WARNING 2020-06-30 00:41:16,542 - No data found with id :email#alumnijnec@gmail.comand composite key :unique_email
+WARNING 2020-06-30 00:41:17,374 - No data found with id :artist_prashant3and composite key :profile
+WARNING 2020-06-30 16:00:21,385 - No data found with id :email#alumnijnec@gmail.comand composite key :unique_email
+WARNING 2020-06-30 16:00:21,657 - No data found with id :artist_prashant3and composite key :profile
+WARNING 2020-06-30 16:00:29,878 - Key 'password' error:
+<lambda>('jnec') should evaluate to True
+WARNING 2020-06-30 16:00:37,628 - No data found with id :email#alumnijnec@gmail.comand composite key :unique_email
+WARNING 2020-06-30 16:00:37,860 - No data found with id :artist_prashant3and composite key :profile
+WARNING 2020-06-30 16:00:45,796 - Key 'password' error:
+<lambda>('jnec') should evaluate to True
+WARNING 2020-06-30 16:59:00,463 - No data found with id :email#alumnijnec@gmail.comand composite key :unique_email
+WARNING 2020-06-30 16:59:00,697 - No data found with id :artist_prashant3and composite key :profile
+WARNING 2020-06-30 16:59:08,722 - Key 'password' error:
+<lambda>('jnec') should evaluate to True
+WARNING 2020-06-30 16:59:24,682 - No data found with id :email#alumnijnec@gmail.comand composite key :unique_email
+WARNING 2020-06-30 16:59:24,908 - No data found with id :artist_prashant3and composite key :profile
+WARNING 2020-06-30 16:59:32,658 - Key 'password' error:
+<lambda>('jnec') should evaluate to True
+WARNING 2020-06-30 17:04:39,964 - No data found with id :email#alumnijnec@gmail.comand composite key :unique_email
+WARNING 2020-06-30 17:04:40,193 - No data found with id :artist_prashant3and composite key :profile
+WARNING 2020-06-30 17:04:49,568 - type object 'Schemas' has no attribute 'get_posts_by_artists'
+WARNING 2020-06-30 17:05:50,734 - No data found with id :email#alumnijnec@gmail.comand composite key :unique_email
+WARNING 2020-06-30 17:05:50,962 - No data found with id :artist_prashant3and composite key :profile
+WARNING 2020-07-01 00:03:26,421 - No data found with id :email#alumnijnec@gmail.comand composite key :unique_email
+WARNING 2020-07-01 00:03:27,237 - No data found with id :artist_prashant3and composite key :profile
+WARNING 2020-07-01 00:05:16,405 - No data found with id :email#alumnijnec@gmail.comand composite key :unique_email
+WARNING 2020-07-01 00:05:16,667 - No data found with id :artist_prashant3and composite key :profile
+WARNING 2020-07-01 00:07:14,320 - No data found with id :email#alumnijnec@gmail.comand composite key :unique_email
+WARNING 2020-07-01 00:07:14,631 - No data found with id :artist_prashant3and composite key :profile
+WARNING 2020-07-01 00:07:26,178 - type object 'Schemas' has no attribute 'get_posts_by_artists'
+WARNING 2020-07-01 00:10:38,605 - No data found with id :email#alumnijnec@gmail.comand composite key :unique_email
+WARNING 2020-07-01 00:10:38,829 - No data found with id :artist_prashant3and composite key :profile
+WARNING 2020-07-01 00:10:51,301 - type object 'Schemas' has no attribute 'get_posts_by_artists'
+WARNING 2020-07-01 00:11:41,787 - No data found with id :email#alumnijnec@gmail.comand composite key :unique_email
+WARNING 2020-07-01 00:11:42,092 - No data found with id :artist_prashant3and composite key :profile
+WARNING 2020-07-01 00:25:12,472 - No data found with id :email#alumnijnec@gmail.comand composite key :unique_email
+WARNING 2020-07-01 00:25:12,779 - No data found with id :artist_prashant3and composite key :profile
+WARNING 2020-07-01 00:26:35,413 - No data found with id :email#alumnijnec@gmail.comand composite key :unique_email
+WARNING 2020-07-01 00:26:35,722 - No data found with id :artist_prashant3and composite key :profile
+WARNING 2020-07-01 00:26:47,425 - No data found with id :prashant3and composite key :profile
+WARNING 2020-07-01 00:28:43,412 - No data found with id : email#alumnijnec@gmail.comand composite key : unique_email
+WARNING 2020-07-01 00:28:43,651 - No data found with id : artist_prashant3and composite key : profile
+WARNING 2020-07-01 00:28:56,112 - No data found with id : prashant3and composite key : profile
+WARNING 2020-07-01 00:30:23,762 - No data found with id : email#alumnijnec@gmail.comand composite key : unique_email
+WARNING 2020-07-01 00:30:24,069 - No data found with id : artist_prashant3and composite key : profile
+WARNING 2020-07-01 00:30:35,997 - No data found with id : prashant3and composite key : profile
+WARNING 2020-07-01 00:31:22,374 - No data found with id : email#alumnijnec@gmail.comand composite key : unique_email
+WARNING 2020-07-01 00:31:22,640 - No data found with id : artist_prashant3and composite key : profile
+WARNING 2020-07-01 00:31:25,303 - No data found with id : prashant3and composite key : profile
+WARNING 2020-07-01 00:33:11,310 - Username or email_id already exists
+WARNING 2020-07-01 00:33:43,381 - No data found with id : email#alumnijnec@gmail.comand composite key : unique_email
+WARNING 2020-07-01 00:33:43,644 - No data found with id : artist_prashant3and composite key : profile
+WARNING 2020-07-01 00:33:55,770 - Passwords didn't match!
+WARNING 2020-07-01 00:35:29,072 - No data found with id : email#alumnijnec@gmail.comand composite key : unique_email
+WARNING 2020-07-01 00:35:29,658 - No data found with id : artist_prashant3and composite key : profile
+WARNING 2020-07-01 00:35:41,916 - Passwords didn't match!
+WARNING 2020-07-01 00:36:06,796 - No data found with id : email#alumnijnec@gmail.comand composite key : unique_email
+WARNING 2020-07-01 00:36:07,040 - No data found with id : artist_prashant3and composite key : profile
+WARNING 2020-07-01 00:36:17,909 - Passwords didn't match!
+WARNING 2020-07-01 00:37:18,710 - Username or email_id already exists
+WARNING 2020-07-01 00:37:50,540 - Username or email_id already exists
+WARNING 2020-07-01 00:39:28,857 - No data found with id : email#alumnijnec@gmail.comand composite key : unique_email
+WARNING 2020-07-01 00:39:29,134 - No data found with id : artist_prashant3and composite key : profile
+WARNING 2020-07-01 13:18:40,753 - No data found with id : email#alumnijnec@gmail.comand composite key : unique_email
+WARNING 2020-07-01 13:18:40,984 - No data found with id : artist_prashant3and composite key : profile

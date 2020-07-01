@@ -1,0 +1,13 @@
+boto3==1.14.12
+botocore==1.17.12
+contextlib2==0.6.0.post1
+docutils==0.15.2
+jmespath==0.10.0
+PyJWT==1.7.1
+pynamodb==4.3.2
+python-dateutil==2.8.1
+s3transfer==0.3.3
+schema==0.7.2
+six==1.15.0
+src==0.0.1
+urllib3==1.25.9
