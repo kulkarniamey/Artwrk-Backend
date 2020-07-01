@@ -2,3 +2,4 @@ Logger.log
 /dist
 /__pycache__
 /build/bdist.win32
+*.log
