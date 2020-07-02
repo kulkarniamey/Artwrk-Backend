@@ -1,14 +1,15 @@
 from artwrk.schemas.artwrk_schemas import Schemas
 from artwrk.config.config import logger
+from artwrk.service import User_Service
 
 
-
-
+user=User_Service()
 class ValidateRequest:
     def create_user(self,event):
         try:
             Schemas.create_user_schema.validate(event)
-            return True
+            return user.create_user(event)
+            
         except Exception as e:
             logger.warning(e)
             return False
@@ -17,7 +18,7 @@ class ValidateRequest:
     def sign_in(self,event):
         try:
             Schemas.sign_in_schema.validate(event)
-            return True
+            return user.sign_in(event)
         except Exception as e:
             logger.warning(e)
             return False
@@ -26,7 +27,7 @@ class ValidateRequest:
     def forgot_password(self,event):
         try:
             Schemas.forgot_password_schema.validate(event)
-            return True
+            return user.forgot_password(event)
         except Exception as e:
             logger.warning(e)
             return False
@@ -35,35 +36,15 @@ class ValidateRequest:
     def resend_otp(self,event):
         try:
             Schemas.resend_otp_schema.validate(event)
-            return True
+            return user.resend_otp(event)
         except Exception as e:
             logger.warning(e)
-            return False
-
-
-    def upvote(self,event):
-        if len(event)==3:
-            try:
-                event['user_id']
-                event['post_id']
-            except:
-                return False
-            return True
-        else:
             return False
 
     def change_password(self,event):
         try:
             Schemas.change_password_schema.validate(event)
-            return True
-        except Exception as e:
-            logger.warning(e)
-            return False
-    
-    def get_posts_by_artists(self,event):
-        try:
-            Schemas.get_posts_by_artist.validate(event)
-            return True
+            return user.change_password(event)
         except Exception as e:
             logger.warning(e)
             return False
@@ -71,20 +52,14 @@ class ValidateRequest:
     def change_password_authenticated(self,event):
         try:
             Schemas.change_password_authenticated_schema.validate(event)
-            return True
+            return user.change_password_authenticated(event)
         except Exception as e:
             logger.warning(e)
             return False
-
-
-    def get_jobs_by_user(self,event):
-        if len(event)==3:
-            try:
-                event['user_id']
-                event['type']
-            except:
-                return False
-            return True
-        else:
+    
+    def delete_user(self,event):
+        try:
+            return user.delete_user(event)
+        except Exception as e:
+            logger.warning(e)
             return False
-        

@@ -8,8 +8,8 @@ server.login(email,password)
 
 
 class User_Service(User_Repository):
-    def delete_user(self,user_id,email):
-        deleted=User_Repository.delete_user(self,user_id,email)
+    def delete_user(self,event):
+        deleted=User_Repository.delete_user(self,event['user_id'],event['email'])
         if deleted:
             return{
                 "statusCode":200,
@@ -18,9 +18,8 @@ class User_Service(User_Repository):
             return{
                 "statusCode":409,
                 }
-
-    def create_user(self,username,email,password,type):
-        response=User_Repository.create_user(self,username,email,password,type)
+    def create_user(self,event):
+        response=User_Repository.create_user(self,event['username'],event['email'],event['password'],event['type'])
         if response:
             message="Hey "+response['username']+",\n\n Thank you for registering with ArtWrk!\n\n Your OTP is :"+response['otp']
             to=response['email']
@@ -34,8 +33,8 @@ class User_Service(User_Repository):
                 "statusCode":409,
                 }
         
-    def sign_in(self,username,password,type):
-        token=User_Repository.sign_in(self,username,password,type)
+    def sign_in(self,event):
+        token=User_Repository.sign_in(self,event['username'],event['password'],event['type'])
         if token:
             return{
                 "statusCode":200,
@@ -46,8 +45,8 @@ class User_Service(User_Repository):
                 "statusCode":409
                 }
     
-    def resend_otp(self,username,type):
-        response=User_Repository.generate_otp(self,username,type)
+    def resend_otp(self,event):
+        response=User_Repository.generate_otp(self,event['username'],event['type'])
         if response:
             message="Hey "+response['username']+",\n\n Your OTP is :"+response['otp']
             to=response['email']
@@ -61,8 +60,8 @@ class User_Service(User_Repository):
                 "statusCode":409,
                 }
 
-    def forgot_password(self,username,type):
-        response=User_Repository.generate_otp(self,username,type)
+    def forgot_password(self,event):
+        response=User_Repository.generate_otp(self,event['username'],event['type'])
         if response:
             message="Hey "+response['username']+",\n\n Your OTP for changing password is :"+response['otp']
             to=response['email']
@@ -88,8 +87,8 @@ class User_Service(User_Repository):
                 "statusCode":409,
                 }
 
-    def change_password_authenticated(self,user_id,old_password,new_password):
-        changed=User_Repository.change_password_authenticated(self,user_id,old_password,new_password)
+    def change_password_authenticated(self,event):
+        changed=User_Repository.change_password_authenticated(self,event['user_id'],event['old_password'],event['new_password'])
         if changed:
             return{
                 "statusCode":200,
@@ -99,8 +98,8 @@ class User_Service(User_Repository):
                 "statusCode":409,
                 }
     
-    def change_password(self,username,password,type,otp):
-        changed=User_Repository.change_password(self,username,password,type,otp)
+    def change_password(self,event):
+        changed=User_Repository.change_password(self,event['username'],event['password'],event['type'],event['otp'])
         if changed:
             return{
                 "statusCode":200,
