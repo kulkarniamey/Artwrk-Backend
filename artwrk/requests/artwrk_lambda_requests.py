@@ -63,3 +63,10 @@ class ValidateRequest:
         except Exception as e:
             logger.warning(e)
             return False
+
+    def upvote(self,event):
+        try:
+            return user.upvote(event)
+        except Exception as e:
+            logger.warning(e)
+            return False

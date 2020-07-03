@@ -12,6 +12,7 @@ def lambda_handler(event, context):
         'resend_otp': request_handler.resend_otp(event),
         'change_password': request_handler.change_password(event),
         'change_password_authenticated': request_handler.change_password_authenticated(event),
+        'upvote': request_handler.upvote(event),
     }
     if operation in operations:
         return operations[operation]

@@ -122,8 +122,8 @@ class User_Service(User_Repository):
                 }
 
     
-    def upvote(self,id,post_id):
-        upvoted=User_Repository.upvote(self,id,post_id)
+    def upvote(self,event):
+        upvoted=User_Repository.upvote(self,event['user_id'],event['post_id'],event['upvoter_id'])
         if upvoted:
             return{
                 "statusCode":200,

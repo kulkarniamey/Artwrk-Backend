@@ -13,6 +13,13 @@ class TestData:
         "email":"alumnijnec@gmail.com",
         }
 
+    upvote_event={
+        "operation":"upvote",
+        "user_id":"abcd786",
+        "post_id":"posts",
+        "upvoter_id":"artist_prashant654"
+        }
+
 
     sign_in_event={
         "operation":"sign_in",

@@ -150,16 +150,21 @@ class User_Repository(DAL_abstract):
         else:
             return False
     
-    def upvote(self,id,post_id):
+    def upvote(self,id,post_id,upvoter_id):
         post=self.get_object(id,post_id)
-        if post:
-            upvoteCount=post.upvote+1
-            post.update(
-            actions=[
-                UserModel.upvote.set(upvoteCount)
-            ]
-            )
-            return True
+        upvoter=self.get_object(upvoter_id,"profile")
+        actions=[]
+        if post:        
+            liked_by=post.liked_by
+            if upvoter_id not in liked_by:
+                upvoteCount=post.upvote+1
+                liked_by[upvoter_id]=upvoter.username
+                actions.append(UserModel.upvote.set(upvoteCount))
+                actions.append(UserModel.liked_by.set(liked_by))
+                post.update(actions)
+                return True
+            else:
+                return False
         else:
             return False
 

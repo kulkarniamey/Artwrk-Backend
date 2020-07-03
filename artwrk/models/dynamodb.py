@@ -1,5 +1,5 @@
 from pynamodb.models import Model
-from pynamodb.attributes import UnicodeAttribute,NumberAttribute
+from pynamodb.attributes import UnicodeAttribute,NumberAttribute,ListAttribute,MapAttribute
 
 class UserModel(Model):
     class Meta:
@@ -16,3 +16,4 @@ class UserModel(Model):
     upvote=NumberAttribute(null=True)
     job_id=UnicodeAttribute(null=True)
     url=UnicodeAttribute(null=True)
+    liked_by=MapAttribute(null=True)
