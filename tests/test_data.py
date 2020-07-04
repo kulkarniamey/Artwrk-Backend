@@ -17,7 +17,7 @@ class TestData:
         "operation":"upvote",
         "user_id":"abcd786",
         "post_id":"posts",
-        "upvoter_id":"artist_prashant654"
+        "upvoter_id":"artist_prashant"
         }
 
 

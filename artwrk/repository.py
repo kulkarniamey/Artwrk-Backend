@@ -61,6 +61,7 @@ class User_Repository(DAL_abstract):
                         'secret',
                         algorithm='HS256'
                         )
+                    print(token.decode('UTF-8'))
                     token=jwt.decode(token,'secret',algorithms=['HS256'])
                     return token
                 else:
@@ -154,9 +155,13 @@ class User_Repository(DAL_abstract):
         post=self.get_object(id,post_id)
         upvoter=self.get_object(upvoter_id,"profile")
         actions=[]
+        flag=1
         if post:        
             liked_by=post.liked_by
-            if upvoter_id not in liked_by:
+            for i in liked_by:
+                if upvoter_id==i:
+                    flag=0
+            if flag==1:
                 upvoteCount=post.upvote+1
                 liked_by[upvoter_id]=upvoter.username
                 actions.append(UserModel.upvote.set(upvoteCount))

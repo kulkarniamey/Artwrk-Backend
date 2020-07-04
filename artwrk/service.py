@@ -2,6 +2,7 @@ from .repository import User_Repository
 from email.mime.multipart import MIMEMultipart
 from .config.config import email,password,smtp_host
 from email.mime.text import MIMEText
+import jwt
 import smtplib
 server=smtplib.SMTP_SSL(smtp_host,465)
 server.login(email,password)
@@ -35,6 +36,12 @@ class User_Service(User_Repository):
         
     def sign_in(self,event):
         token=User_Repository.sign_in(self,event['username'],event['password'],event['type'])
+        try:
+            tk="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InByYXNoYW50MyIsInVzZXJfaWQiOiJhcnRpc3RfcHJhc2hhbnQzIiwidXNlcl90eXBlIjoiYXJ0aXN0IiwidmVyaWZpZWQiOiJGYWxzZSJ9.JjdrLF4qd5v-q3QujYkEUSMKl3y05HAfhmqNEbmEZkE"
+            jwt.decode(tk,'secret',algorithms=['HS256'])
+            print("valid")
+        except:
+            print("Invalid")
         if token:
             return{
                 "statusCode":200,
