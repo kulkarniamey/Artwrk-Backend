@@ -13,8 +13,10 @@ def lambda_handler(event, context):
         'change_password': request_handler.change_password(event),
         'change_password_authenticated': request_handler.change_password_authenticated(event),
         'upvote': request_handler.upvote(event),
+        'send_notification': request_handler.send_notification(event),
     }
     if operation in operations:
         return operations[operation]
     else:
         raise ValueError('Unrecognized operation "{}"'.format(operation))
+

@@ -127,6 +127,17 @@ class User_Service(User_Repository):
             return{
                 "statusCode":409,
                 }
+    
+    def send_notification(self,event):
+        updated=User_Repository.send_notification(self,event['list'],event['notification'])
+        if updated:
+            return{
+                "statusCode":200,
+                }
+        else:
+            return{
+                "statusCode":409,
+                }
 
     
     def upvote(self,event):

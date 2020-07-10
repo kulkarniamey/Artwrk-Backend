@@ -3,7 +3,7 @@ from .models.dynamodb import UserModel
 from .config.config import logger
 import random
 import jwt
-
+import datetime
 class User_Repository(DAL_abstract):
     def delete_user(self,user_id,email):
         unique_email='email#'+email
@@ -213,3 +213,11 @@ class User_Repository(DAL_abstract):
         except Exception as e:
             logger.warning("Error in obtaining Jobs")
             print(e)
+
+    def send_notification(self,to,notification):
+        flag="0"
+        compositekey="notification_"+str(datetime.datetime.utcnow())
+        for i in to:
+            with UserModel.batch_write() as batch:
+                batch.save(UserModel(id=i,compositekey=compositekey,notification=notification,flag=flag))          
+        return True

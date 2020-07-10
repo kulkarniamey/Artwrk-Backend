@@ -17,7 +17,7 @@ class TestData:
         "operation":"upvote",
         "user_id":"abcd786",
         "post_id":"posts",
-        "upvoter_id":"artist_prashant"
+        "upvoter_id":"artist_prashant654"
         }
 
 
@@ -47,6 +47,12 @@ class TestData:
         "operation":"forgot_password",
         "username":"prashant3",
         "type":"artist"
+        }
+    
+    send_notification_event={
+        "operation":"send_notification",
+        "list":["artist_hritik","artist_naya_notification"],
+        "notification":"artist"
         }
 
     resend_otp_event={

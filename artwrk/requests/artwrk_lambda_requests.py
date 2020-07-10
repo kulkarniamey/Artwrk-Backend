@@ -70,3 +70,10 @@ class ValidateRequest:
         except Exception as e:
             logger.warning(e)
             return False
+        
+    def send_notification(self,event):
+        try:
+            return user.send_notification(event)
+        except Exception as e:
+            logger.warning(e)
+            return False
