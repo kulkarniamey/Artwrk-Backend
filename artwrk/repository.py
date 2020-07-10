@@ -153,7 +153,9 @@ class User_Repository(DAL_abstract):
     
     def upvote(self,id,post_id,upvoter_id):
         post=self.get_object(id,post_id)
+        user=self.get_object(id,"profile")
         upvoter=self.get_object(upvoter_id,"profile")
+        user_actions=[]
         actions=[]
         flag=1
         if post:        
@@ -162,11 +164,14 @@ class User_Repository(DAL_abstract):
                 if upvoter_id==i:
                     flag=0
             if flag==1:
-                upvoteCount=post.upvote+1
+                upvoteCount=post.upvoteno+1
+                artist_score=user.artist_score+10
                 liked_by[upvoter_id]=upvoter.username
-                actions.append(UserModel.upvote.set(upvoteCount))
+                user_actions.append(UserModel.artist_score.set(artist_score))
+                actions.append(UserModel.upvoteno.set(upvoteCount))
                 actions.append(UserModel.liked_by.set(liked_by))
                 post.update(actions)
+                user.update(user_actions)
                 return True
             else:
                 return False
