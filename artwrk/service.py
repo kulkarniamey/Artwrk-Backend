@@ -1,13 +1,7 @@
-from .repository import User_Repository
-from email.mime.multipart import MIMEMultipart
-from .config.config import email,password,smtp_host
+from artwrk.repository import User_Repository
+from artwrk.config.config import email,password,smtp_host
 from botocore.exceptions import ClientError
-from email.mime.text import MIMEText
-import jwt
 import boto3
-import smtplib
-server=smtplib.SMTP_SSL(smtp_host,465)
-server.login(email,password)
 
 
 class User_Service(User_Repository):

@@ -1,6 +1,6 @@
-from .interfaces.interface import DAL_abstract
-from .models.dynamodb import UserModel
-from .config.config import logger
+from artwrk.interfaces.interface import DAL_abstract
+from artwrk.models.dynamodb import UserModel
+from artwrk.config.config import logger
 import random
 import jwt
 import datetime
