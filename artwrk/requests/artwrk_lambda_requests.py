@@ -41,18 +41,18 @@ class ValidateRequest:
             logger.warning(e)
             return False
 
-    def change_password(self,event):
+    def reset_password(self,event):
         try:
-            Schemas.change_password_schema.validate(event)
-            return user.change_password(event)
+            Schemas.reset_password_schema.validate(event)
+            return user.reset_password(event)
         except Exception as e:
             logger.warning(e)
             return False
     
-    def change_password_authenticated(self,event):
+    def change_password(self,event):
         try:
-            Schemas.change_password_authenticated_schema.validate(event)
-            return user.change_password_authenticated(event)
+            Schemas.change_password_schema.validate(event)
+            return user.change_password(event)
         except Exception as e:
             logger.warning(e)
             return False

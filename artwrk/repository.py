@@ -22,10 +22,11 @@ class User_Repository(DAL_abstract):
         unique_email="email#"+email
         otp=str(random.randint(100000,999999))
         test_email=self.get_object(unique_email,'unique_email')
-        test_id=self.get_object(id,'profile')
-        if not test_email and not test_id:
+        artist_username=self.get_object("artist_"+username,'profile')
+        recruiter_username=self.get_object("recruiter_"+username,'profile')
+        if not test_email and not artist_username and not recruiter_username:
             with UserModel.batch_write() as batch:
-                    batch.save(UserModel(id=id,compositekey="profile",email=email,password=password,otp=otp,username=username))
+                    batch.save(UserModel(id=id,compositekey="profile",email=email,password=password,otp=otp,username=username,verified="False"))
                     batch.save(UserModel(id=unique_email,compositekey="unique_email",password=password,userid=id))
             return {"email":email,"otp":otp,'username':username}
         else:
@@ -57,12 +58,11 @@ class User_Repository(DAL_abstract):
             if user:
                 if password==user.password:
                     token = jwt.encode(
-                        {'username':user.username,'user_id': user.id,'user_type': type,'verified':user.verified},
+                        {'user_id': user.id,'user_type': type,'verified':user.verified,'exp':datetime.datetime.utcnow()+datetime.timedelta(seconds=60)},
                         'secret',
                         algorithm='HS256'
                         )
-                    print(token.decode('UTF-8'))
-                    token=jwt.decode(token,'secret',algorithms=['HS256'])
+                    token=token.decode('UTF-8')
                     return token
                 else:
                     return False
@@ -110,7 +110,7 @@ class User_Repository(DAL_abstract):
         else:
             return False
 
-    def change_password_authenticated(self,user_id,old_password,new_password):
+    def change_password(self,user_id,old_password,new_password):
         user=self.get_object(user_id,'profile')
         if user:
             if user.password==old_password:
@@ -122,7 +122,7 @@ class User_Repository(DAL_abstract):
         else:
             return False
 
-    def change_password(self,username,password,type,recieved_otp):
+    def reset_password(self,username,password,type,recieved_otp):
         id=self.get_userid(username,type)
         status=self.verify_otp(username,type,recieved_otp)
         if status:
@@ -158,7 +158,7 @@ class User_Repository(DAL_abstract):
         user_actions=[]
         actions=[]
         flag=1
-        if post:        
+        if post and user and upvoter:        
             liked_by=post.liked_by
             for i in liked_by:
                 if upvoter_id==i:

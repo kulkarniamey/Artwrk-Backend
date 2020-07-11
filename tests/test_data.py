@@ -28,16 +28,16 @@ class TestData:
         "type":"artist"
         }
 
-    change_password_event={
-        "operation":"change_password",
+    reset_password_event={
+        "operation":"reset_password",
         "username":"prashant3",
         "password":"jnec789",
         "type":"artist",
         "otp":"902001"
         }
 
-    change_password_authenticated_event={
-        "operation":"change_password_authenticated",
+    change_password_event={
+        "operation":"change_password",
         "user_id":"artist_prashant3",
         "old_password":"jnec123",
         "new_password":"jnec989"

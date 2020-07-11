@@ -31,16 +31,16 @@ class Schemas:
             'type': And(str, Use(str.lower),
             lambda s: s in ('artist', 'recruiter'))
         })
-    change_password_schema = Schema(
-        {   'operation': And(str, Use(str.lower), lambda s: s in ('change_password',)),
+    reset_password_schema = Schema(
+        {   'operation': And(str, Use(str.lower), lambda s: s in ('reset_password',)),
             'username':  And(Use(str)),
             'otp':And(Use(str),lambda s: len(s)==6),
             'password':And(str,lambda s: len(s)>6),
             'type': And(str, Use(str.lower),
             lambda s: s in ('artist', 'recruiter'))
         })
-    change_password_authenticated_schema = Schema(
-        {   'operation': And(str, Use(str.lower), lambda s: s in ('change_password_authenticated',)),
+    change_password_schema = Schema(
+        {   'operation': And(str, Use(str.lower), lambda s: s in ('change_password',)),
             'user_id':  And(Use(str)),
             'old_password':And(str,lambda s: len(s)>6),
             'new_password':And(str,lambda s: len(s)>6)

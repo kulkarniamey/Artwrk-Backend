@@ -10,8 +10,8 @@ def lambda_handler(event, context):
         'sign_in': request_handler.sign_in(event),
         'forgot_password': request_handler.forgot_password(event),
         'resend_otp': request_handler.resend_otp(event),
+        'reset_password': request_handler.reset_password(event),
         'change_password': request_handler.change_password(event),
-        'change_password_authenticated': request_handler.change_password_authenticated(event),
         'upvote': request_handler.upvote(event),
         'send_notification': request_handler.send_notification(event),
     }
