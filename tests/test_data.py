@@ -48,12 +48,13 @@ class TestData:
         "username":"prashant3",
         "type":"artist"
         }
-    
-    send_notification_event={
-        "operation":"send_notification",
-        "list":["artist_hritik","artist_naya_notification"],
-        "notification":"artist"
+    verify_account_event={
+        "operation":"verify_account",
+        "username":"prashant3",
+        "type":"artist",
+        "otp":"123546"
         }
+    
 
     resend_otp_event={
         "operation":"resend_otp",

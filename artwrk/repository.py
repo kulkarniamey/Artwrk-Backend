@@ -1,5 +1,5 @@
 from artwrk.interfaces.interface import DAL_abstract
-from artwrk.models.dynamodb import UserModel
+from artwrk.models.dynamodb import User,Artist,Recruiter,Post,Notification
 from artwrk.config.config import logger
 import random
 import jwt
@@ -7,32 +7,41 @@ import datetime
 class User_Repository(DAL_abstract):
     def delete_user(self,user_id,email):
         unique_email='email#'+email
-        user=self.get_object(unique_email,'unique_email')
-        user1=self.get_object(user_id,'profile')
-        if user and user1:
-            user.delete()
-            user1.delete()
+        email=self.get_object(unique_email,'unique_email')
+        profile=self.get_object(user_id,'profile')
+        if email and profile:
+            profile.delete()
+            email.delete()
             return True
         else:
             return False
 
     
     def create_user(self,username,email,password,type):
-        id= type+"_"+username
-        unique_email="email#"+email
-        otp=str(random.randint(100000,999999))
-        test_email=self.get_object(unique_email,'unique_email')
-        artist_username=self.get_object("artist_"+username,'profile')
-        recruiter_username=self.get_object("recruiter_"+username,'profile')
-        if not test_email and not artist_username and not recruiter_username:
-            with UserModel.batch_write() as batch:
-                    batch.save(UserModel(id=id,compositekey="profile",email=email,password=password,otp=otp,username=username,verified="False"))
-                    batch.save(UserModel(id=unique_email,compositekey="unique_email",password=password,userid=id))
-            return {"email":email,"otp":otp,'username':username}
-        else:
-            logger.warning("Username or email_id already exists")
+        try:
+            id= type+"_"+username
+            unique_email="email#"+email
+            otp=str(random.randint(100000,999999))
+            test_email=self.get_object(unique_email,'unique_email')
+            artist_username=self.get_object("artist_"+username,'profile')
+            recruiter_username=self.get_object("recruiter_"+username,'profile')
+            if not test_email and not artist_username and not recruiter_username:
+                with User.batch_write() as batch:
+                    if type=='artist':
+                        batch.save(Artist(id=id,compositekey="profile",email=email,password=password,otp=otp,username=username,email_verification="False",skill_tags=[],education_history=[],employer_history=[],awards_recognition=[],followers=[],following=[]))
+                    else:
+                        batch.save(Recruiter(id=id,compositekey="profile",email=email,password=password,otp=otp,username=username,email_verification="False",admin_verification="False",awards_recognition=[],followers=[],following=[]))
+                    batch.save(User(id=unique_email,compositekey="unique_email",password=password,userid=id))
+                if type=='recruiter':
+                    User_Repository.send_notification(self,['admin'],username+" has just joined Artwrk. Click to verify his profile.")
+                return {"email":email,"otp":otp,'username':username}
+            else:
+                return False
+        except Exception as e:
+            logger.warning(e)
             return False
-            
+
+
     def get_userid(self,username,type):
         if '@' in username:
             email="email#"+username
@@ -141,11 +150,11 @@ class User_Repository(DAL_abstract):
             actions=[]
             for key,value in kwargs.items():
                 if key=="password":
-                    actions.append(UserModel.password.set(value))
+                    actions.append(User.password.set(value))
                 if key=="verified":
-                    actions.append(UserModel.verified.set(value))
+                    actions.append(User.email_verification.set(value))
                 if key=="otp":
-                    actions.append(UserModel.otp.set(value))
+                    actions.append(User.otp.set(value))
             user.update(actions)
             return True
         else:
@@ -167,9 +176,9 @@ class User_Repository(DAL_abstract):
                 upvoteCount=post.upvoteno+1
                 artist_score=user.artist_score+10
                 liked_by[upvoter_id]=upvoter.username
-                user_actions.append(UserModel.artist_score.set(artist_score))
-                actions.append(UserModel.upvoteno.set(upvoteCount))
-                actions.append(UserModel.liked_by.set(liked_by))
+                user_actions.append(Artist.artist_score.set(artist_score))
+                actions.append(Post.vote_count.set(upvoteCount))
+                actions.append(Post.voters.set(liked_by))
                 post.update(actions)
                 user.update(user_actions)
                 return True
@@ -180,16 +189,16 @@ class User_Repository(DAL_abstract):
 
     def get_object(self,id,compositekey):
         try:
-            object=UserModel.get(id,compositekey)
+            object=User.get(id,compositekey)
             return object
         except:
-            logger.warning("No data found with id : "+id+"and composite key : "+compositekey)
+            logger.warning("No data found with id : "+id+" and composite key : "+compositekey)
             return False
     
     def get_posts_by_artists(self,id):
         data = []
         try:
-            user=UserModel.query(id,UserModel.compositekey.startswith('post'))
+            user=User.query(id,User.compositekey.startswith('post'))
             for i in user:
                 data.append({
                     'id': i.id,
@@ -205,9 +214,9 @@ class User_Repository(DAL_abstract):
         jobs=[]
         try:
             if type=="artist":
-                user=UserModel.query(id,UserModel.compositekey.startswith('post'))
+                user=User.query(id,User.compositekey.startswith('post'))
             if type=="recruiter":
-                user=UserModel.query(id,UserModel.compositekey.startswith('job'))
+                user=User.query(id,User.compositekey.startswith('job'))
             for i in user:
                 jobs.append({
                     'id': i.id,
@@ -220,9 +229,9 @@ class User_Repository(DAL_abstract):
             print(e)
 
     def send_notification(self,to,notification):
-        flag="0"
-        compositekey="notification_"+str(datetime.datetime.utcnow())
+        flag=0
+        compositekey="notification_"+str(datetime.datetime.now().timestamp())
         for i in to:
-            with UserModel.batch_write() as batch:
-                batch.save(UserModel(id=i,compositekey=compositekey,notification=notification,flag=flag))          
+            with Notification.batch_write() as batch:
+                batch.save(Notification(id=i,compositekey=compositekey,notification=notification,flag=flag))          
         return True

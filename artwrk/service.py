@@ -4,7 +4,7 @@ from botocore.exceptions import ClientError
 import boto3
 
 
-class User_Service(User_Repository):
+class Service(User_Repository):
     def delete_user(self,event):
         deleted=User_Repository.delete_user(self,event['user_id'],event['email'])
         if deleted:
@@ -74,8 +74,8 @@ class User_Service(User_Repository):
                 }
 
     
-    def verify_account(self,username,type,otp):
-        verified=User_Repository.verify_account(self,username,type,otp)
+    def verify_account(self,event):
+        verified=User_Repository.verify_account(self,event['username'],event['type'],event['otp'])
         if verified:
             return{
                 "statusCode":200,

@@ -3,50 +3,66 @@ from artwrk.config.config import logger
 
 class Schemas:
 
-    create_user_schema = Schema(
-        {   'operation': And(str, Use(str.lower), lambda s: s in ('create_user',)),
-            'username':  And(Use(str)),
-            'email':And(Use(str)),
-            'password':And(str,lambda s: len(s)>6),
-            'type': And(str, Use(str.lower),
-            lambda s: s in ('artist', 'recruiter'))
+    Account = Schema(
+        {   
+            'operation':And(Use(str)),
+            Optional('username'):  And(Use(str)),
+            Optional('type'): And(str, Use(str.lower),
+            lambda s: s in ('artist', 'recruiter')),
+            Optional('otp'):And(Use(str),lambda s: len(s)==6),
+            Optional('email'):And(Use(str)),
+            Optional('password'):And(str,lambda s: len(s)>6),
+            Optional('user_id'):And(Use(str)),
         })
+    Profile = Schema(
+        {
+            'operation':And(Use(str)),
+            'authorizationToken':And(Use(str)),
+            Optional('current_employer'):And(Use(str)),
+            Optional('username'):And(Use(str)),
+            Optional('facebook_link'):And(Use(str)),
+            Optional('twitter_link'):And(Use(str)),
+            Optional('employer_history'):And(Use(str)),
+            Optional('education_history'):And(Use(str)),
+            Optional('skill_tags'):And(Use(str)),
+            Optional('awards_recognition'):And(Use(str)),
+            Optional('name'):And(Use(str)),
+            Optional('phone'):And(Use(str)),
+            Optional('user_id'):And(Use(str)),
+            Optional('artist_type'):And(Use(str)),
+            Optional('email_verification'):And(Use(str)),
+            Optional('otp'):And(Use(str),lambda s: len(s)==6),
+            Optional('company_type'):And(Use(str)),
+            Optional('admin_verification'):And(Use(str)),
 
-    sign_in_schema = Schema(
-        {   'operation': And(str, Use(str.lower), lambda s: s in ('sign_in',)),
-            'username':  And(Use(str),lambda s: len(s)>4),
-            'password':And(str,lambda s: len(s)>6),
-            'type': And(str, Use(str.lower),
-            lambda s: s in ('artist', 'recruiter'))
-        })
-    forgot_password_schema = Schema(
-        {   'operation': And(str, Use(str.lower), lambda s: s in ('forgot_password',)),
-            'username':  And(Use(str)),
-            'type': And(str, Use(str.lower),
-            lambda s: s in ('artist', 'recruiter'))
-        })
-    resend_otp_schema = Schema(
-        {   'operation': And(str, Use(str.lower), lambda s: s in ('resend_otp',)),
-            'username':  And(Use(str)),
-            'type': And(str, Use(str.lower),
-            lambda s: s in ('artist', 'recruiter'))
-        })
-    reset_password_schema = Schema(
-        {   'operation': And(str, Use(str.lower), lambda s: s in ('reset_password',)),
-            'username':  And(Use(str)),
-            'otp':And(Use(str),lambda s: len(s)==6),
-            'password':And(str,lambda s: len(s)>6),
-            'type': And(str, Use(str.lower),
-            lambda s: s in ('artist', 'recruiter'))
-        })
-    change_password_schema = Schema(
-        {   'operation': And(str, Use(str.lower), lambda s: s in ('change_password',)),
-            'user_id':  And(Use(str)),
-            'old_password':And(str,lambda s: len(s)>6),
-            'new_password':And(str,lambda s: len(s)>6)
-        })
-    get_posts_by_artist=Schema(
-        {   'operation': And(str, Use(str.lower), lambda s: s in ('get_posts_by_artists',)),
-            'user_id':  And(Use(str)),
-        })
-
+        }
+    )
+    
+    Post = Schema(
+        {
+            'operation':And(Use(str)),
+            'authorizationToken':And(Use(str)),
+            Optional('post_id'):And(Use(str)),
+            Optional('user_id'):And(Use(str)),
+            Optional('time'):And(Use(str)),
+            Optional('content'):And(Use(str)),
+            Optional('url'):And(Use(str)),
+            Optional('voters'):And(Use(str)),
+            Optional('vote_count'):And(Use(str)),
+        }
+    )
+    
+    Job = Schema(
+        {
+            'operation':And(Use(str)),
+            'authorizationToken':And(Use(str)),
+            Optional('job_id'):And(Use(str)),
+            Optional('user_id'):And(Use(str)),
+            Optional('time'):And(Use(str)),
+            Optional('content'):And(Use(str)),
+            Optional('url'):And(Use(str)),
+            Optional('applicants'):And(Use(str)),
+            Optional('hiring_type'):And(Use(str)),
+        }
+    )
+    
