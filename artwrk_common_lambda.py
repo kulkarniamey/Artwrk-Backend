@@ -46,5 +46,19 @@ def lambda_handler(event, context):
         return "INVALID OPERATION"    
 
 
-a=lambda_handler({"operation":"get_profile","authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicmVjcnVpdGVyX2FydHdyayIsInVzZXJfdHlwZSI6ImFydGlzdCIsImV4cCI6MTU5NTM4NzIyOX0.wO_orRm1dHN3r8vWf2sF0cgrRGpfl5I-j0nnBVKWAtA"},"context")
+# a=lambda_handler({"operation":"get_profile","authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicmVjcnVpdGVyX2FydHdyayIsInVzZXJfdHlwZSI6ImFydGlzdCIsImV4cCI6MTU5NTM4NzIyOX0.wO_orRm1dHN3r8vWf2sF0cgrRGpfl5I-j0nnBVKWAtA"},"context")
+
+a=lambda_handler({
+    "operation":"update_profile",
+    "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
+    "id":"artist_prashant123",
+    "name":"Prashant Dolawat",
+    "facebook_link":"abcd",
+    "twitter_link":"defg",
+    "employer_history":["Artwrk11334"],
+    "skill_tags":["ASP.NET","C++"],
+    "awards_recognition":["6* Codechef"],
+    "education_history":["1"],
+    "current_employer":"Infosys",
+},"context")
 print(a)

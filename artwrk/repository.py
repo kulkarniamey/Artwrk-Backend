@@ -247,6 +247,7 @@ class User_Repository(DAL_abstract):
         except Exception as e:
             logger.warning(e)
             return False
+            
     def apply_job(self,event):
         try:
             user = self.get_object(event['id'],'profile')
