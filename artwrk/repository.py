@@ -1,5 +1,5 @@
 from artwrk.interfaces.interface import DAL_abstract
-from artwrk.models.dynamodb import User,Artist,Recruiter,Post,Notification
+from artwrk.models.dynamodb import User,Artist,Recruiter,Post,Notification,Job
 from artwrk.config.config import logger
 import random
 import jwt
@@ -28,12 +28,12 @@ class User_Repository(DAL_abstract):
             if not test_email and not artist_username and not recruiter_username:
                 with User.batch_write() as batch:
                     if type=='artist':
-                        batch.save(Artist(id=id,compositekey="profile",email=email,password=password,otp=otp,username=username,email_verification="False",skill_tags=[],education_history=[],employer_history=[],awards_recognition=[],followers=[],following=[]))
+                        batch.save(Artist(id=id,compositekey="profile",email=email,password=password,otp=otp,username=username,email_verification="False",skill_tags=[],education_history=[],employer_history=[],awards_recognition=[],followers={},following={},certificates={},applied_jobs={},artist_score=0))
                     else:
-                        batch.save(Recruiter(id=id,compositekey="profile",email=email,password=password,otp=otp,username=username,email_verification="False",admin_verification="False",awards_recognition=[],followers=[],following=[]))
+                        batch.save(Recruiter(id=id,compositekey="profile",email=email,password=password,otp=otp,username=username,email_verification="False",admin_verification="False",awards_recognition=[],followers={},following={}))
                     batch.save(User(id=unique_email,compositekey="unique_email",password=password,userid=id))
                 if type=='recruiter':
-                    User_Repository.send_notification(self,['admin'],username+" has just joined Artwrk. Click to verify his profile.")
+                    User_Repository.send_notification(['admin'],username+" has just joined Artwrk. Click to verify his profile.")
                 return {"email":email,"otp":otp,'username':username}
             else:
                 return False
@@ -67,7 +67,7 @@ class User_Repository(DAL_abstract):
             if user:
                 if password==user.password:
                     token = jwt.encode(
-                        {'user_id': user.id,'user_type': type,'verified':user.verified,'exp':datetime.datetime.utcnow()+datetime.timedelta(seconds=60)},
+                        {'user_id': user.id,'user_type': type,'username':user.username,'exp':datetime.datetime.utcnow()+datetime.timedelta(minutes=180)},
                         'secret',
                         algorithm='HS256'
                         )
@@ -82,10 +82,12 @@ class User_Repository(DAL_abstract):
     
     def generate_otp(self,username,type):
         otp=str(random.randint(100000,999999))
+        print(otp)
         id=self.get_userid(username,type)
         if id:
-            self.update_profile(id,otp=otp)
+            self.update_profile({"id":id,"otp":otp})
             user=self.get_object(id,'profile')
+            print(user.otp)
         if user:
             return {"otp":user.otp,"email":user.email,"username":user.username}
         else:
@@ -98,6 +100,7 @@ class User_Repository(DAL_abstract):
             user=self.get_object(id,'profile')
             if user:
                 if recieved_otp==user.otp:
+                    print("TRUE")
                     return True
                 else:
                     return False
@@ -109,7 +112,7 @@ class User_Repository(DAL_abstract):
         status=self.verify_otp(username,type,recieved_otp)
         if status:
             if id:
-                user=self.update_profile(id,verified="True")
+                user=self.update_profile({"id":id,"email_verification":"True"})
                 if user:
                     return True
                 else:
@@ -123,7 +126,7 @@ class User_Repository(DAL_abstract):
         user=self.get_object(user_id,'profile')
         if user:
             if user.password==old_password:
-                user=self.update_profile(user.id,password=new_password)
+                user=self.update_profile({"id":user.id,"password":new_password})
                 return True
             else:
                 logger.warning("Passwords didn't match!")
@@ -136,7 +139,7 @@ class User_Repository(DAL_abstract):
         status=self.verify_otp(username,type,recieved_otp)
         if status:
             if id:
-                user=self.update_profile(id,password=password)
+                user=self.update_profile({"id":id,"password":password})
                 if user:
                     return True
             else:
@@ -144,48 +147,177 @@ class User_Repository(DAL_abstract):
         else:
             return False
 
-    def update_profile(self,id,**kwargs):
-        user=self.get_object(id,'profile')
-        if user:
-            actions=[]
-            for key,value in kwargs.items():
-                if key=="password":
-                    actions.append(User.password.set(value))
-                if key=="verified":
-                    actions.append(User.email_verification.set(value))
-                if key=="otp":
-                    actions.append(User.otp.set(value))
-            user.update(actions)
-            return True
-        else:
+    def get_profile(self,user_id):
+        try:
+            followers=dict()
+            following=dict()
+            certificates=dict()
+            applied_jobs=dict()            
+            if user_id.startswith('artist'):
+                user=Artist.get(user_id,'profile')
+                for i in user.followers:
+                    followers[i]=user.followers[i]
+                for i in user.certificates:
+                    certificates[i]=user.certificates[i]
+                for i in user.following:
+                    following[i]=user.following[i]
+                for i in user.applied_jobs:
+                    applied_jobs[i]=user.applied_jobs[i]
+                profile={
+                            'user_id': user.id,
+                            'username': user.username,
+                            'artist_score':user.artist_score,
+                            'awards_recognition':user.awards_recognition,
+                            'current_employer':user.current_employer,
+                            'education_history':user.education_history,
+                            'email_verfication':user.email_verification,
+                            'employer_history':user.employer_history,
+                            'facebook_link':user.facebook_link,
+                            'followers':followers,
+                            'following':following,
+                            'name':user.name,
+                            'skill_tags':user.skill_tags,
+                            'twitter_link':user.twitter_link,
+                            'certificates':certificates,
+                            'applied_jobs':applied_jobs,
+                            'email':user.email,
+                            'artist_type':user.artist_type,
+
+                        }
+            elif user_id.startswith("recruiter"):
+                user=Recruiter.get(user_id,'profile')
+                for i in user.followers:
+                    followers[i]=user.followers[i]
+                for i in user.following:
+                    following[i]=user.following[i]
+                profile={
+                            'user_id': user.id,
+                            'awards_recognition':user.awards_recognition,
+                            'email_verfication':user.email_verification,
+                            'facebook_link':user.facebook_link,
+                            'followers':followers,
+                            'following':following,
+                            'name':user.name,
+                            'twitter_link':user.twitter_link,
+                            'email':user.email,
+                            'admin_verification':user.admin_verification,
+                            'company_type':user.company_type,
+                            'address':user.address,
+                            
+                            }
+            return profile
+        except Exception as e:
+            logger.info(e)
             return False
-    
-    def upvote(self,id,post_id,upvoter_id):
-        post=self.get_object(id,post_id)
-        user=self.get_object(id,"profile")
-        upvoter=self.get_object(upvoter_id,"profile")
-        user_actions=[]
-        actions=[]
-        flag=1
-        if post and user and upvoter:        
-            liked_by=post.liked_by
-            for i in liked_by:
-                if upvoter_id==i:
-                    flag=0
-            if flag==1:
-                upvoteCount=post.upvoteno+1
-                artist_score=user.artist_score+10
-                liked_by[upvoter_id]=upvoter.username
-                user_actions.append(Artist.artist_score.set(artist_score))
-                actions.append(Post.vote_count.set(upvoteCount))
-                actions.append(Post.voters.set(liked_by))
-                post.update(actions)
-                user.update(user_actions)
+
+
+    def update_profile(self,event):
+        try:
+            user= self.get_object(event['id'],'profile')
+            if user:
+                actions=[]
+                for key in event:
+                    if key == 'id':
+                        pass
+                    else:
+                        if key=="employer_history":
+                            actions.append(Artist.employer_history.set(Artist.employer_history.append(event[key])))
+                        if key=="education_history":
+                            actions.append(Artist.education_history.set(Artist.education_history.append(event[key])))
+                        if key=="email_verification":
+                            actions.append(Artist.email_verification.set(event[key]))
+                        if key=="otp":
+                            actions.append(User.otp.set(event[key]))                                
+                        if key=="facebook_link":
+                            actions.append(User.facebook_link.set(event[key]))
+                        if key=="twitter_link":
+                            actions.append(User.twitter_link.set(event[key]))
+                        if key=="current_employer":
+                            actions.append(Artist.current_employer.set(event[key]))
+                        if key=="name":
+                            actions.append(User.name.set(event[key]))
+                        if key=="password":
+                            actions.append(Artist.password.set(event[key]))
+                        if key=="skill_tags":
+                            actions.append(Artist.skill_tags.set(Artist.skill_tags.append(event[key])))
+                        if key=="awards_recognition":
+                            actions.append(User.awards_recognition.set(User.awards_recognition.append(event[key])))
+                user.update(actions)
+                return True
+        except Exception as e:
+            logger.warning(e)
+            return False
+    def apply_job(self,event):
+        try:
+            user = self.get_object(event['id'],'profile')
+            job= self.get_object(event['recruiter_id'],event['job_id'])
+            actions = []
+            if job and user:
+                job_apply = job.applicants
+                job_apply[event['id']]=user.username
+                actions.append(Job.applicants.set(job_apply))
+                job.update(actions)
+
+                actions = []   
+                applied_job = user.applied_jobs
+                applied_job[event['recruiter_id']]=event['job_id']
+                actions.append(Artist.applied_jobs.set(applied_job))  
+                user.update(actions)
+                User_Repository.send_notification([event['recruiter_id']],"%s has applied to your job for %s"%(user.username,job.job_title))
+                return True
+        except Exception as e:
+            logger.warning(e)   
+            return False
+
+    def connect_to_users(self,event):
+        try:
+            user1=self.get_object(event['id'],'profile')
+            user2=self.get_object(event['other_id'],'profile')
+            actions=[]
+
+            if user1 and user2:
+                followingg=user2.following
+                followingg[event['id']]=user1.username
+                actions.append(User.following.set(followingg))
+                user2.update(actions)
+            
+                actions=[]
+                follower=user1.followers
+                follower[event['other_id']]=user2.username
+                actions.append(User.followers.set(follower))
+                user1.update(actions)    
+
+                User_Repository.send_notification([event['other_id']],'%s has started following you.'%(user1.username))
                 return True
             else:
+                print("FAILURE")
                 return False
-        else:
+        except Exception as e:
+            logger.warning(e)
             return False
+
+    def get_all_notifications(self,event):
+        try:
+            a = []
+            for i in User.query(event['id'],User.compositekey.startswith('notification')):
+                a.append(i.notification)
+            return a
+        except Exception as e:
+            logger.warning(e)
+            return False
+
+
+    def get_post(self,event):
+        try:
+            post = self.get_object(event['id'],event['post_id'])
+            if post:
+                print(post.caption)
+                print(post.url)
+                return post
+        except Exception as e:
+            logger.warning(e)
+            return False
+
 
     def get_object(self,id,compositekey):
         try:
@@ -227,7 +359,7 @@ class User_Repository(DAL_abstract):
         except Exception as e:
             logger.warning("Error in obtaining Jobs")
             print(e)
-
+    @classmethod
     def send_notification(self,to,notification):
         flag=0
         compositekey="notification_"+str(datetime.datetime.now().timestamp())
@@ -235,3 +367,131 @@ class User_Repository(DAL_abstract):
             with Notification.batch_write() as batch:
                 batch.save(Notification(id=i,compositekey=compositekey,notification=notification,flag=flag))          
         return True
+
+    def vote(self,event):
+        try:
+            post=self.get_object(event['id'],event['post_id'])
+            upvoter=self.get_object(event['other_id'],"profile")
+            actions=[]
+            flag=1
+            if post:       
+                liked_by=post.voters
+                for i in liked_by:
+                    if event['other_id']==i:
+                        flag=0
+                if flag==1:
+                    upvoteCount=post.vote_count+1
+                    voters = post.voters
+                    voters[event['other_id']]=upvoter.username
+                    actions.append(Post.vote_count.set(upvoteCount))
+                    actions.append(Post.voters.set(voters))
+                    post.update(actions)  
+                    self.scoring(event['id'])
+                    User_Repository.send_notification([event['id']],event['post_id']+" liked by "+event['other_id'])
+                    return True 
+        except Exception as e:
+            logger.warning(e)
+            return False
+
+
+    def scoring(self,id):
+        user=self.get_object(id,"profile")
+        user_actions=[]
+        artist_score=user.artist_score+10
+        user_actions.append(Artist.artist_score.set(artist_score))
+        user.update(user_actions)
+
+
+    def get_unverified_recruiter_list(self,event):
+        recruiters=[]
+        try:
+            # profile=self.get_object(id,'profile')
+            # if profile.type == "admin" :
+            if event['type'] == "admin":
+                search=User.query("applications",User.compositekey.startswith('recruiter_'))
+            for i in search:
+                recruiters.append({
+                    'recruiter_id': i.compositekey,
+                })
+            if recruiters:
+                return recruiters
+            else :
+                return 'no recruiters pending verification'
+        except Exception as e:
+            logger.warning("Error in obtaining Unverified Recruiter list")
+            print(e)
+            return False
+
+
+    def verify_delete_recruiter(self,event):
+        try:
+            # profile=self.get_object(id,'profile')
+            # if profile.type == "admin"
+            actions=[]
+            if event['type'] == "admin":
+                user=self.get_object(event['recruiter_id'],"profile")
+                if event['recruiter_id'].startswith("recruiter") :
+                    if event['activity'] == "valid" :
+                        try:
+                            actions.append(Recruiter.admin_verification.set("True"))
+                            user.update(actions)
+                            search= self.get_object("applications",event['recruiter_id'])
+                            search.delete()
+                            return True
+                        except Exception as e:
+                            logger.warning("Error in updating Recruiter Status to Valid")
+                            print(e)    
+                            return False
+                    elif event['activity'] == "delete" :
+                        try:
+                            unique_email='email#'+user.email
+                            user_mail=self.get_object(unique_email,'unique_email')
+                            user_mail.delete()
+                            user.delete()
+                            search= self.get_object("applications",event['recruiter_id'])
+                            search.delete()
+                            return True
+                        except Exception as e:
+                            logger.warning("Error in deleting Recruiter Profile")
+                            print(e)
+                            return False
+        except Exception as e:
+            logger.warning("Error in updating Recruiter Status")
+            print(e)
+            return False
+
+    def get_posts_by_user(self,event):
+        try:
+            a = []
+            for i in User.query(event['id'],User.compositekey.startswith('post')):
+                a.append(
+                    {
+                        'id': i.id,
+                        'post_id': i.compositekey,
+                        'url': i.url,
+                    }
+                )
+            print(a)
+            return a
+        except Exception as e:
+            logger.warning(e)
+            return False
+
+    def get_all_jobs_by_user(self,event):
+        try:
+            a = []
+            for i in User.query(event['id'],User.compositekey.startswith('job')):
+                a.append(
+                    {
+                        'id': i.id,
+                        'job_id': i.compositekey,
+                        'url': i.url,
+                    }
+                )
+            print(a)
+            return a
+        except Exception as e:
+            logger.warning(e)
+            return False
+
+    
