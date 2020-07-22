@@ -2,11 +2,12 @@ from artwrk.repository import User_Repository
 from artwrk.config.config import email,password,smtp_host
 from botocore.exceptions import ClientError
 import boto3
+import jwt
 
 
 class Service(User_Repository):
     def delete_user(self,event):
-        deleted=User_Repository.delete_user(self,event['user_id'],event['email'])
+        deleted=User_Repository.delete_user(self,user_id=event['user_id'],email=event['email'])
         if deleted:
             return{
                 "statusCode":200,
@@ -15,6 +16,17 @@ class Service(User_Repository):
             return{
                 "statusCode":409,
                 }
+    def get_all_jobs(self):
+        deleted=User_Repository.get_all_jobs(self)
+        if deleted:
+            return{
+                "statusCode":200,
+                }
+        else:
+            return{
+                "statusCode":409,
+                }
+            
 
     def create_user(self,event):
         response=User_Repository.create_user(self,event['username'],event['email'],event['password'],event['type'])
@@ -25,10 +37,12 @@ class Service(User_Repository):
             self.send_mail(to,subject,message)
             return{
                 "statusCode":200,
+                "message":"Registration Successful.",
                 }
         else:
             return {
                 "statusCode":409,
+                "message":"Email or Username already exists.",
                 }
         
     def sign_in(self,event):
@@ -36,11 +50,13 @@ class Service(User_Repository):
         if token:
             return{
                 "statusCode":200,
-                "token":token
+                "token":token,
+                "message":"Login successful",
                 }
         else:
             return{
-                "statusCode":409
+                "statusCode":409,
+                "message":"Invalid username or password",
                 }
     
     def resend_otp(self,event):
@@ -52,10 +68,12 @@ class Service(User_Repository):
             self.send_mail(to,subject,message)
             return{
                 "statusCode":200,
+                "message":"OTP has been sent to email : "+response['email']
                 }
         else:
             return{
                 "statusCode":409,
+                "message":"Invalid username or email.",
                 }
 
     def forgot_password(self,event):
@@ -67,10 +85,12 @@ class Service(User_Repository):
             self.send_mail(to,subject,message)
             return{
                 "statusCode":200,
+                "message":"OTP has been sent to the email : "+response['email'],
                 }
         else:
             return{
                 "statusCode":409,
+                "message":"Invalid username or email.",
                 }
 
     
@@ -79,10 +99,12 @@ class Service(User_Repository):
         if verified:
             return{
                 "statusCode":200,
+                "message":"Account verification successful."
                 }
         else:
             return{
                 "statusCode":409,
+                "message":"Invalid OTP."
                 }
 
     def change_password(self,event):
@@ -90,10 +112,12 @@ class Service(User_Repository):
         if changed:
             return{
                 "statusCode":200,
+                "message":"Password Changed Successfully."
                 }
         else:
             return{
                 "statusCode":409,
+                "message":"Error in changing password."
                 }
     
     def reset_password(self,event):
@@ -101,38 +125,41 @@ class Service(User_Repository):
         if changed:
             return{
                 "statusCode":200,
+                "message":"Password reset successful."
+                }
+        else:
+            return{
+                "statusCode":409,
+                "message":"Invalid OTP."
+                }
+
+    
+    def update_profile(self,event):
+        updated=User_Repository.update_profile(self,event)
+        if updated:
+            return{
+                "statusCode":200,
                 }
         else:
             return{
                 "statusCode":409,
                 }
 
-    
-    def update_profile(self,id,**kwargs):
-        updated=User_Repository.update_profile(self,id,**kwargs)
-        if updated:
+    def apply_job(self,event):
+        got = User_Repository.apply_job(self,event)
+        if got:
             return{
                 "statusCode":200,
-                }
+            }       
         else:
             return{
-                "statusCode":409,
-                }
-    
-    def send_notification(self,event):
-        updated=User_Repository.send_notification(self,event['list'],event['notification'])
-        if updated:
-            return{
-                "statusCode":200,
-                }
-        else:
-            return{
-                "statusCode":409,
-                }
+                "statusCode":409
+            }
+
 
     
     def upvote(self,event):
-        upvoted=User_Repository.upvote(self,event['user_id'],event['post_id'],event['upvoter_id'])
+        upvoted=User_Repository.vote(self,event)
         if upvoted:
             return{
                 "statusCode":200,
@@ -140,6 +167,7 @@ class Service(User_Repository):
         else:
             return{
                 "statusCode":409,
+                "message":"User has already voted for the post."
                 }
 
     
@@ -219,3 +247,115 @@ class Service(User_Repository):
                 "statusCode":409
             }
             
+    def connect_to_users(self,event):
+        got = User_Repository.connect_to_users(self,event)
+        if got:
+            return{
+                "statusCode":200,
+            }       
+        else:
+            return{
+                "statusCode":409
+            }
+
+    def get_all_notifications(self,event):
+        got = User_Repository.get_all_notifications(self,event)
+        if got:
+            return{
+                "statusCode":200,
+            }       
+        else:
+            return{
+                "statusCode":409
+            }
+
+    def get_post(self,event):
+        got = User_Repository.get_post(self,event)
+        if got:
+            return{
+                "statusCode":200,
+            }       
+        else:
+            return{
+                "statusCode":409
+             }
+    
+
+    def vote(self,event):
+        upvoted=User_Repository.vote(self,event)
+        if upvoted:
+            return{
+                "statusCode":200,
+                }
+        else:
+            return{
+                "statusCode":409,
+                }
+
+    def get_unverified_recruiter_list(self,event):
+        got=User_Repository.get_unverified_recruiter_list(self,event)
+        print(got)
+        if got and type(got) is list:
+            return{
+                "statusCode":200,
+            }
+        elif type(got) is str:
+            return{
+                "statusCode":204,
+            }
+        else:
+            return{
+                "statusCode":409,
+            }
+
+    def verify_delete_recruiter(self,event):
+        got=User_Repository.verify_delete_recruiter(self,event)
+        if got:
+            return{
+                "statusCode":200,
+            }
+        else:
+            return{
+                "statusCode":409
+            }
+
+    def get_posts_by_user(self,event):
+        got=User_Repository.get_posts_by_user(self,event)
+        if got:
+            return{
+                "statusCode":200,
+            }
+        else:
+            return{
+                "statusCode":409
+            }
+
+    def get_all_jobs_by_user(self,event):
+        got=User_Repository.get_all_jobs_by_user(self,event)
+        if got:
+            return{
+                "statusCode":200,
+            }
+        else:
+            return{
+                "statusCode":409
+            }
+        
+    def get_profile(self,event):
+        try:
+            token=event['authorizationToken']
+            token=jwt.decode(token,'secret',algorithms=['HS256'])
+            got=User_Repository.get_profile(self,token['user_id'])
+        except:
+            got=User_Repository.get_profile(self,event['user_id'])
+        finally:
+            if got:
+                return{
+                    "statusCode":200,
+                    'profile': got,
+                }
+            else:
+                return{
+                    "statusCode":409,
+                    "message":"Invalid User-id"
+                }            
