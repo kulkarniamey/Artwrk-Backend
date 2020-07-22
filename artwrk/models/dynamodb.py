@@ -56,7 +56,11 @@ class User(Model):
     facebook_link = UnicodeAttribute(null=True)
     twitter_link = UnicodeAttribute(null=True)
     phone= UnicodeAttribute(null=True)
+<<<<<<< HEAD
     user_id=UnicodeAttribute(null=True)
+=======
+
+>>>>>>> 6bbd8089ac681d551324d66efe5520cedcbc3d9b
 class Artist(User):
     class Meta:
         table_name = 'new'
@@ -71,8 +75,13 @@ class Artist(User):
     skill_tags = ListAttribute(null=True)
     current_employer =UnicodeAttribute(null=True)
     certificates = MapAttribute(null=True)
+<<<<<<< HEAD
     Resume = UnicodeAttribute(null=True)
     applied_jobs=MapAttribute(null=True)
+=======
+    applied_jobs = MapAttribute(null=True)
+    Resume = UnicodeAttribute(null=True)
+>>>>>>> 6bbd8089ac681d551324d66efe5520cedcbc3d9b
 
 
 class Recruiter(User):

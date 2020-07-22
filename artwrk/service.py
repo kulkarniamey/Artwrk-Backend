@@ -139,6 +139,7 @@ class Service(User_Repository):
         if updated:
             return{
                 "statusCode":200,
+                "profile": User_Repository.get_profile(self,event['id'])
                 }
         else:
             return{

@@ -1,5 +1,9 @@
 from artwrk.interfaces.interface import DAL_abstract
+<<<<<<< HEAD
 from artwrk.models.dynamodb import User,Artist,Recruiter,Post,Notification,Job,GSIModel
+=======
+from artwrk.models.dynamodb import User,Artist,Recruiter,Post,Notification,Job
+>>>>>>> 6bbd8089ac681d551324d66efe5520cedcbc3d9b
 from artwrk.config.config import logger
 import random
 import jwt
@@ -35,10 +39,16 @@ class User_Repository(DAL_abstract):
                 with User.batch_write() as batch:
                     if type=='artist':
                         batch.save(Artist(id=id,compositekey="profile",email=email,password=password,otp=otp,username=username,email_verification="False",skill_tags=[],education_history=[],employer_history=[],awards_recognition=[],followers={},following={},certificates={},applied_jobs={},artist_score=0))
+<<<<<<< HEAD
                         batch.save(User(id=unique_email,compositekey="unique_email",password=password,user_id=id))
                     else:
                         batch.save(Recruiter(id=id,compositekey="profile",email=email,password=password,otp=otp,username=username,email_verification="False",admin_verification="False",awards_recognition=[],followers={},following={}))
                         batch.save(User(id=unique_email,compositekey="unique_email",password=password,user_id=id))
+=======
+                    else:
+                        batch.save(Recruiter(id=id,compositekey="profile",email=email,password=password,otp=otp,username=username,email_verification="False",admin_verification="False",awards_recognition=[],followers={},following={}))
+                    batch.save(User(id=unique_email,compositekey="unique_email",password=password,userid=id))
+>>>>>>> 6bbd8089ac681d551324d66efe5520cedcbc3d9b
                 if type=='recruiter':
                     User_Repository.send_notification(['admin'],username+" has just joined Artwrk. Click to verify his profile.")
                 return {"email":email,"otp":otp,'username':username}
@@ -254,6 +264,10 @@ class User_Repository(DAL_abstract):
         except Exception as e:
             logger.warning(e)
             return False
+<<<<<<< HEAD
+=======
+            
+>>>>>>> 6bbd8089ac681d551324d66efe5520cedcbc3d9b
     def apply_job(self,event):
         try:
             user = self.get_object(event['id'],'profile')
@@ -501,6 +515,7 @@ class User_Repository(DAL_abstract):
             logger.warning(e)
             return False
 
+<<<<<<< HEAD
     def get_all_jobs(self):
         try:
             a = []
@@ -517,4 +532,6 @@ class User_Repository(DAL_abstract):
         except Exception as e:
             logger.warning(e)
             return False
+=======
+>>>>>>> 6bbd8089ac681d551324d66efe5520cedcbc3d9b
     
