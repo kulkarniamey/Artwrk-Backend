@@ -156,7 +156,6 @@ class RequestHandler:
             return Service.get_all_jobs_by_user(event)
         except Exception as e:
             logger.warning(e)
-<<<<<<< HEAD
             return False   
 
     def get_all_jobs(self):
@@ -164,8 +163,6 @@ class RequestHandler:
             return Service.get_all_jobs()
         except Exception as e:
             logger.warning(e)
-=======
->>>>>>> 6bbd8089ac681d551324d66efe5520cedcbc3d9b
             return False        
 
     def get_posts_by_user(self,event):

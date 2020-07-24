@@ -21,6 +21,7 @@ class Service(User_Repository):
         if deleted:
             return{
                 "statusCode":200,
+                "jobs": deleted
                 }
         else:
             return{
