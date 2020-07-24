@@ -47,15 +47,15 @@ class DAL_abstract(ABC):
 #     def upvote(self,user_id_of_upvoter,post_id):
 #         pass 
 #         #increment the upvote variable by 1 and add user_id to the upvoters list
-    @abstractmethod
-    def get_posts_by_artists(self,user_id):
-        pass
+    # @abstractmethod
+    # def get_posts_by_artists(self,user_id):
+    #     pass
 #         #Pass primary key as "user_id" and sort_key begins_with "post"
 #         #returns json object for all jobs posted by the recruiter
 # # ------------------------------------------------------------------------------------------------------
 
-    @abstractmethod
-    def get_jobs_by_user(self,user_id,type):
-        pass
+    # @abstractmethod
+    # def get_jobs_by_user(self,user_id,type):
+    #     pass
 
 

@@ -227,16 +227,6 @@ class Service(User_Repository):
     
 
     
-    def get_posts_by_artists(self,id):
-        got=User_Repository.get_posts_by_artists(self,id)
-        if got:
-            return{
-                "statusCode":200,
-            }
-        else:
-            return{
-                "statusCode":409
-            }
 
     def get_jobs_by_user(self,id,type):
         got=User_Repository.get_jobs_by_user(self,id,type)
@@ -261,10 +251,11 @@ class Service(User_Repository):
             }
 
     def get_all_notifications(self,event):
-        got = User_Repository.get_all_notifications(self,event)
-        if got:
+        notifications = User_Repository.get_all_notifications(self,event)
+        if notifications:
             return{
                 "statusCode":200,
+                "notifications":notifications
             }       
         else:
             return{
@@ -322,10 +313,11 @@ class Service(User_Repository):
             }
 
     def get_posts_by_user(self,event):
-        got=User_Repository.get_posts_by_user(self,event)
-        if got:
+        post_list=User_Repository.get_posts_by_user(self,event)
+        if post_list:
             return{
                 "statusCode":200,
+                "posts":post_list
             }
         else:
             return{
@@ -333,7 +325,7 @@ class Service(User_Repository):
             }
 
     def get_all_jobs_by_user(self,event):
-        got=User_Repository.get_all_jobs_by_user(self,event)
+        got=User_Repository.get_jobs_by_user(self,event['id'])
         if got:
             return{
                 "statusCode":200,
@@ -350,14 +342,14 @@ class Service(User_Repository):
             got=User_Repository.get_profile(self,token['user_id'])
         except:
             got=User_Repository.get_profile(self,event['user_id'])
-        finally:
-            if got:
-                return{
-                    "statusCode":200,
-                    'profile': got,
-                }
-            else:
-                return{
-                    "statusCode":409,
-                    "message":"Invalid User-id"
-                }            
+        if got:
+            return{
+                "statusCode":200,
+                'profile': got,
+            }
+        else:
+            print(got)
+            return{
+                "statusCode":409,
+                "message":"Invalid User-id"
+            }

@@ -89,12 +89,10 @@ class User_Repository(DAL_abstract):
     
     def generate_otp(self,username,type):
         otp=str(random.randint(100000,999999))
-        print(otp)
         id=self.get_userid(username,type)
         if id:
             self.update_profile({"id":id,"otp":otp})
             user=self.get_object(id,'profile')
-            print(user.otp)
         if user:
             return {"otp":user.otp,"email":user.email,"username":user.username}
         else:
@@ -107,7 +105,6 @@ class User_Repository(DAL_abstract):
             user=self.get_object(id,'profile')
             if user:
                 if recieved_otp==user.otp:
-                    print("TRUE")
                     return True
                 else:
                     return False
@@ -155,48 +152,102 @@ class User_Repository(DAL_abstract):
             return False
 
     def get_profile(self,user_id):
+
         try:
-            followers=dict()
-            following=dict()
-            certificates=dict()
-            applied_jobs=dict()            
+
+            followers=[]
+
+            following=[]
+
+            certificates=[]
+
+            applied_jobs=[]          
+
             if user_id.startswith('artist'):
                 user=Artist.get(user_id,'profile')
-                for i in user.followers:
-                    followers[i]=user.followers[i]
-                for i in user.certificates:
-                    certificates[i]=user.certificates[i]
-                for i in user.following:
-                    following[i]=user.following[i]
-                for i in user.applied_jobs:
-                    applied_jobs[i]=user.applied_jobs[i]
+
+                a = user.followers
+                for key in a:
+                    b = {}
+                    b[key]=a[key]
+                    followers.append(b)
+
+                a = user.following
+                for key in a:
+                    b = {}
+                    b[key]=a[key]
+                    followers.append(b)
+                
+                a = user.certificates
+                for key in a:
+                    b = {}
+                    b[key]=a[key]
+                    followers.append(b)
+
+                a = user.applied_jobs
+                for key in a:
+                    b = {}
+                    b[key]=a[key]
+                    followers.append(b)
+
                 profile={
+
                             'user_id': user.id,
+
                             'username': user.username,
+
                             'artist_score':user.artist_score,
+
                             'awards_recognition':user.awards_recognition,
+
                             'current_employer':user.current_employer,
+
                             'education_history':user.education_history,
+
                             'email_verfication':user.email_verification,
+
                             'employer_history':user.employer_history,
+
                             'facebook_link':user.facebook_link,
+
                             'followers':followers,
+
                             'following':following,
+
                             'name':user.name,
+
                             'skill_tags':user.skill_tags,
+
                             'twitter_link':user.twitter_link,
+
                             'certificates':certificates,
+
                             'applied_jobs':applied_jobs,
+
                             'email':user.email,
+
                             'artist_type':user.artist_type,
 
+
+
                         }
+
             elif user_id.startswith("recruiter"):
+
                 user=Recruiter.get(user_id,'profile')
-                for i in user.followers:
-                    followers[i]=user.followers[i]
-                for i in user.following:
-                    following[i]=user.following[i]
+
+                a = user.followers
+                for key in a:
+                    b = {}
+                    b[key]=a[key]
+                    followers.append(b)
+
+                a = user.following
+                for key in a:
+                    b = {}
+                    b[key]=a[key]
+                    followers.append(b)
+                    
                 profile={
                             'user_id': user.id,
                             'awards_recognition':user.awards_recognition,
@@ -210,13 +261,12 @@ class User_Repository(DAL_abstract):
                             'admin_verification':user.admin_verification,
                             'company_type':user.company_type,
                             'address':user.address,
-                            
                             }
             return profile
+
         except Exception as e:
             logger.info(e)
-            return False
-
+            return e
 
     def update_profile(self,event):
         try:
@@ -298,7 +348,6 @@ class User_Repository(DAL_abstract):
                 User_Repository.send_notification([event['other_id']],'%s has started following you.'%(user1.username))
                 return True
             else:
-                print("FAILURE")
                 return False
         except Exception as e:
             logger.warning(e)
@@ -307,8 +356,10 @@ class User_Repository(DAL_abstract):
     def get_all_notifications(self,event):
         try:
             a = []
-            for i in User.query(event['id'],User.compositekey.startswith('notification')):
-                a.append(i.notification)
+            for i in Notification.query(event['id'],User.compositekey.startswith('notification')):
+                a.append({"notification":i.notification,
+                          "flag":i.flag,
+                })
             return a
         except Exception as e:
             logger.warning(e)
@@ -335,38 +386,25 @@ class User_Repository(DAL_abstract):
             logger.warning("No data found with id : "+id+" and composite key : "+compositekey)
             return False
     
-    def get_posts_by_artists(self,id):
-        data = []
-        try:
-            user=User.query(id,User.compositekey.startswith('post'))
-            for i in user:
-                data.append({
-                    'id': i.id,
-                    'post_id': i.compositekey,
-                    'url': i.url
-                })
-            return data
-        except Exception as e:
-            logger.warning(e)
-            return False
 
-    def get_jobs_by_user(self,id,type):
+    def get_jobs_by_user(self,id):
         jobs=[]
         try:
-            if type=="artist":
-                user=User.query(id,User.compositekey.startswith('post'))
-            if type=="recruiter":
-                user=User.query(id,User.compositekey.startswith('job'))
-            for i in user:
+            if id.startswith("artist"):
+                job_list=Job.query(id,User.compositekey.startswith('post'))
+            if id.startswith("recruiter"):
+                job_list=Job.query(id,User.compositekey.startswith('job'))
+            for i in job_list:
                 jobs.append({
                     'id': i.id,
                     'post_id': i.compositekey,
                     'url': i.url
                 })
             return jobs
+
         except Exception as e:
-            logger.warning("Error in obtaining Jobs")
-            print(e)
+            logger.warning(e)
+
     @classmethod
     def send_notification(self,to,notification):
         flag=0
@@ -426,8 +464,7 @@ class User_Repository(DAL_abstract):
             else :
                 return 'no recruiters pending verification'
         except Exception as e:
-            logger.warning("Error in obtaining Unverified Recruiter list")
-            print(e)
+            logger.warning(e)
             return False
 
 
@@ -447,8 +484,7 @@ class User_Repository(DAL_abstract):
                             search.delete()
                             return True
                         except Exception as e:
-                            logger.warning("Error in updating Recruiter Status to Valid")
-                            print(e)    
+                            logger.warning(e)   
                             return False
                     elif event['activity'] == "delete" :
                         try:
@@ -460,18 +496,16 @@ class User_Repository(DAL_abstract):
                             search.delete()
                             return True
                         except Exception as e:
-                            logger.warning("Error in deleting Recruiter Profile")
-                            print(e)
+                            logger.warning(e)
                             return False
         except Exception as e:
-            logger.warning("Error in updating Recruiter Status")
-            print(e)
+            logger.warning(e)
             return False
 
     def get_posts_by_user(self,event):
         try:
             a = []
-            for i in User.query(event['id'],User.compositekey.startswith('post')):
+            for i in Post.query(event['id'],User.compositekey.startswith('post')):
                 a.append(
                     {
                         'id': i.id,
@@ -479,28 +513,11 @@ class User_Repository(DAL_abstract):
                         'url': i.url,
                     }
                 )
-            print(a)
             return a
         except Exception as e:
             logger.warning(e)
             return False
 
-    def get_all_jobs_by_user(self,event):
-        try:
-            a = []
-            for i in User.query(event['id'],User.compositekey.startswith('job')):
-                a.append(
-                    {
-                        'id': i.id,
-                        'job_id': i.compositekey,
-                        'url': i.url,
-                    }
-                )
-            print(a)
-            return a
-        except Exception as e:
-            logger.warning(e)
-            return False
 
     def get_all_jobs(self):
         try:
@@ -513,7 +530,6 @@ class User_Repository(DAL_abstract):
                         'url': i.url,
                     }
                 )
-            print(a)
             return a
         except Exception as e:
             logger.warning(e)

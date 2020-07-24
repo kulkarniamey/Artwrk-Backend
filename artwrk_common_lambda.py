@@ -48,5 +48,5 @@ def lambda_handler(event, context):
         return "INVALID OPERATION"    
 
 
-a=lambda_handler({"operation":"get_all_jobs","authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicmVjcnVpdGVyX2FydHdyayIsInVzZXJfdHlwZSI6ImFydGlzdCIsImV4cCI6MTU5NTM4NzIyOX0.wO_orRm1dHN3r8vWf2sF0cgrRGpfl5I-j0nnBVKWAtA"},"context")
-print(a)
+# a=lambda_handler({"operation":"get_all_jobs","authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicmVjcnVpdGVyX2FydHdyayIsInVzZXJfdHlwZSI6ImFydGlzdCIsImV4cCI6MTU5NTM4NzIyOX0.wO_orRm1dHN3r8vWf2sF0cgrRGpfl5I-j0nnBVKWAtA"},"context")
+# print(a)
