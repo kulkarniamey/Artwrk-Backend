@@ -1,5 +1,5 @@
 from artwrk.interfaces.interface import DAL_abstract
-from artwrk.models.dynamodb import User,Artist,Recruiter,Post,Notification,Job,GSIModel,Score_vote
+from artwrk.models.dynamodb import User,Artist,Recruiter,Post,Notification,Job,GSIModel
 from artwrk.config.config import logger
 import random
 import jwt
@@ -34,10 +34,10 @@ class User_Repository(DAL_abstract):
             if self.validate_unique_constraints(username,email):
                 with User.batch_write() as batch:
                     if type=='artist':
-                        batch.save(Artist(id=id,compositekey="profile",email=email,password=password,otp=otp,username=username,email_verification="False",skill_tags=[],education_history=[],employer_history=[],awards_recognition=[],followers={},following={},certificates={},applied_jobs={},artist_score=0))
+                        batch.save(Artist(id=id,compositekey="profile",type=type,email=email,password=password,otp=otp,username=username,email_verification="False",skill_tags=[],education_history=[],employer_history=[],awards_recognition=[],followers={},following={},certificates={},applied_jobs={},artist_score=0))
                         batch.save(User(id=unique_email,compositekey="unique_email",password=password,user_id=id))
                     else:
-                        batch.save(Recruiter(id=id,compositekey="profile",email=email,password=password,otp=otp,username=username,email_verification="False",admin_verification="False",awards_recognition=[],followers={},following={}))
+                        batch.save(Recruiter(id=id,compositekey="profile",type=type,email=email,password=password,otp=otp,username=username,email_verification="False",admin_verification="False",awards_recognition=[],followers={},following={}))
                         batch.save(User(id=unique_email,compositekey="unique_email",password=password,user_id=id))
                 if type=='recruiter':
                     User_Repository.send_notification(['admin'],username+" has just joined Artwrk. Click to verify his profile.")
@@ -215,6 +215,8 @@ class User_Repository(DAL_abstract):
                             'following':following,
 
                             'name':user.name,
+                            
+                            'type':user.type,
 
                             'skill_tags':user.skill_tags,
 
@@ -256,6 +258,7 @@ class User_Repository(DAL_abstract):
                             'followers':followers,
                             'following':following,
                             'name':user.name,
+                            'type':user.type,
                             'twitter_link':user.twitter_link,
                             'email':user.email,
                             'admin_verification':user.admin_verification,
@@ -416,44 +419,28 @@ class User_Repository(DAL_abstract):
 
     def vote(self,event):
         try:
-            #Getting object of both users
-            user=self.get_object(event['post_id'],'post_metadata')   
-            upvoter=self.get_object(event['other_id'],"profile")   
-            actions=[]    
-            flag=1   
-            if user: 
-                #Validating whether the voter already exists      
-                liked_by=user.voters      
-                for i in liked_by:     
-                    if event['other_id']==i:    
-                        flag=0 
-                        break   
-                if flag==1:    
-                    #Changes in Post metadata 
-                    upvoteCount=user.vote_count+1     
-                    voters = user.voters    
-                    voters[event['other_id']]=upvoter.username  
-                    actions.append(Post.vote_count.set(upvoteCount))   
-                    actions.append(Post.voters.set(voters)) 
-
-                    #For triggering artist score lambda
-                    if event['type'] =='artist':  
-                        with Score_vote.batch_write() as batch:
-                                batch.save(Score_vote(id=event['id'],compositekey='votePost',vote_count=upvoteCount,voters=voters)) 
-    
-                    #updating all actions 
-                    try:    
-                        user.update(actions)     
-                    except:  
-                        print("upvoter id already exist")   
-
-                    #Notification to the user 
+            post=self.get_object(event['id'],event['post_id'])
+            upvoter=self.get_object(event['other_id'],"profile")
+            actions=[]
+            flag=1
+            if post:       
+                liked_by=post.voters
+                for i in liked_by:
+                    if event['other_id']==i:
+                        flag=0
+                if flag==1:
+                    upvoteCount=post.vote_count+1
+                    voters = post.voters
+                    voters[event['other_id']]=upvoter.username
+                    actions.append(Post.vote_count.set(upvoteCount))
+                    actions.append(Post.voters.set(voters))
+                    post.update(actions)  
+                    self.scoring(event['id'])
                     User_Repository.send_notification([event['id']],event['post_id']+" liked by "+event['other_id'])
-                    return True    
-        except Exception as e:    
-            logger.warning(e)    
-            return False   
-
+                    return True 
+        except Exception as e:
+            logger.warning(e)
+            return False
 
 
     def scoring(self,id):

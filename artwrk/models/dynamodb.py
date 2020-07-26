@@ -42,6 +42,7 @@ class User(Model):
         aws_secret_access_key = 'TfslNt1LNJYm7w7VNndDdQMDeuGUf6QW1ef/J6DK'
         host = 'https://dynamodb.us-east-1.amazonaws.com'
     id = UnicodeAttribute(hash_key=True)
+    type = UnicodeAttribute(null=True)
     compositekey = UnicodeAttribute(range_key=True)
     email = UnicodeAttribute(null=True)
     password = UnicodeAttribute(null=True)
