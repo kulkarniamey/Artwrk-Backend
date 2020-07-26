@@ -76,4 +76,19 @@ class Schemas:
             Optional('hiring_type'):And(Use(str)),
         }
     )
+
+    Score_vote = Schema(
+        {
+            'operation':And(Use(str)),
+            'authorizationToken':And(Use(str)),
+            Optional('post_id'):And(Use(str)),
+            Optional('id'):And(Use(str)),
+            Optional('time'):And(Use(str)),
+            Optional('content'):And(Use(str)),
+            Optional('url'):And(Use(str)),
+            Optional('voters'):And(Use(str)),
+            Optional('vote_count'):And(Use(str)),
+        }
+    )
+    
     

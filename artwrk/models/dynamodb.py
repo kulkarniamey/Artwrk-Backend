@@ -52,11 +52,14 @@ class User(Model):
     email_verification=UnicodeAttribute(null=True)
     following = MapAttribute(null=True)
     followers = MapAttribute(null=True)
+    vote_count = NumberAttribute(null=True)    
     awards_recognition = ListAttribute(null=True)
     facebook_link = UnicodeAttribute(null=True)
     twitter_link = UnicodeAttribute(null=True)
     phone= UnicodeAttribute(null=True)
     user_id=UnicodeAttribute(null=True)
+    voters = MapAttribute(null=True)  
+
 class Artist(User):
     class Meta:
         table_name = 'new'
@@ -129,6 +132,22 @@ class Notification(Model):
     time = UnicodeAttribute(null=True)
     notification = UnicodeAttribute(null=True)
     flag = NumberAttribute(null=True)
+
+class Score_vote(Model):
+    class Meta:
+        table_name = 'Artwrk'
+        region = 'us-east-1'
+        aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
+        aws_secret_access_key = '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'
+        host = 'https://dynamodb.us-east-1.amazonaws.com'
+    id = UnicodeAttribute(hash_key=True)
+    compositekey = UnicodeAttribute(range_key=True)
+    url = UnicodeAttribute(null=True)
+    time = UnicodeAttribute(null=True)
+    caption = UnicodeAttribute(null=True)
+    vote_count = NumberAttribute(null=True)
+    voters = MapAttribute(null=True)  
+    post_id=UnicodeAttribute(null=True)  
 
 
 # class ViewIndex(GlobalSecondaryIndex):
