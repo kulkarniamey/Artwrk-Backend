@@ -1,0 +1,172 @@
+class TestData:
+    create_user_event={
+        "operation":"create_user",
+        "username":"prashant3",
+        "email":"pdolawat654@gmail.com",
+        "password":"jnec12345",
+        "type":"artist",
+        }
+
+    delete_user_event={
+        "operation":"delete_user",
+        "user_id":"artist_prashant3",
+        "email":"pdolawat654@gmail.com",
+        }
+
+    upvote_event={
+        "operation":"upvote",
+        "user_id":"abcd786",
+        "post_id":"posts",
+        "upvoter_id":"artist_prashant64321"
+        }
+
+
+    sign_in_event={
+        "operation":"sign_in",
+        "username":"prashant3",
+        "password":"jnec12345",
+        "type":"artist"
+        }
+
+    reset_password_event={
+        "operation":"reset_password",
+        "username":"prashant3",
+        "password":"jnec789",
+        "type":"artist",
+        "otp":"184500"
+        }
+
+    change_password_event={
+        "operation":"change_password",
+        "user_id":"artist_prashant3",
+        "old_password":"jnec789",
+        "new_password":"jnec989"
+        }
+
+    apply_job_event={
+        "operation":"apply_job",
+        "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
+        "id":"artist_vanshika",
+        "recruiter_id":"recruiter_hrithik",
+        "job_id":"job_timestamp_hrithik",
+    }
+
+    get_all_notifications={
+        "operation":"get_all_notifications",
+        "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
+        "id":"artist_vanshika",
+    }
+    connect_to_users={
+        "operation":"connect_to_users",
+        "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
+        "id":"artist_pallavi",
+        "other_id":"artist_vanshika",
+    }
+
+    get_post_event={
+        "operation":"get_post",
+        "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
+        "id":"artist_parimal1234",
+        "post_id":"post_timestamp_userId",
+    }
+    get_profile_event={
+        "operation":"get_profile",
+        # "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
+        "user_id":"artist_pallavi",
+    }
+    vote_event={
+        "operation":"vote",
+        "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
+        "id":"artist_parimal786",
+        "post_id":"post_1595584445.81924_parimal786",
+        "other_id":"artist_avnee",
+        "type":"artist"
+        }
+
+    get_unverified_recruiter_list_event={
+
+        "operation":"get_unverified_recruiter_list",
+        "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
+        "id":"samyak",
+        "type":"admin",
+    }
+
+    get_all_jobs_by_user_event={
+        "operation":"get_all_jobs_by_user",
+        "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
+        "id":"recruiter_avnee",
+    }
+
+    get_posts_by_user_event={
+        "operation":"get_posts_by_user",
+        "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
+        "id":"artist_avnee345",
+    }
+    verify_delete_recruiter_event={
+        "operation":"verify_delete_recruiter",
+        "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
+        "id":"samyak",
+        "type":"admin",
+        "recruiter_id":"recruiter_hrithik",
+        "activity":"delete",
+    }
+
+    forgot_password_event={
+        "operation":"forgot_password",
+        "username":"prashant3",
+        "type":"artist"
+        }
+    verify_account_event={
+        "operation":"verify_account",
+        "username":"prashant3",
+        "type":"artist",
+        "otp":"184500"
+        }
+    
+
+    resend_otp_event={
+        "operation":"resend_otp",
+        "username":"prashant3",
+        "type":"artist"
+        }
+
+    invalid_request_event={
+        "operation":"create_user",
+        "username":"prashant3",
+        }
+
+    update_profile_event={
+        "operation":"update_profile",
+        "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
+        "id":"artist_vanshika",
+        "name":"Hrithik",
+        "username":"hrithik._078",
+        "facebook_link":"abc",
+        "twitter_link":"def",
+        "employer_history":["Artwrk1"],
+        "skill_tags":["ASP.NET"],
+        "awards_recognition":["6* Codechef"],
+        "education_history":["1"],
+        "current_employer":"Infosys",
+    }
+    sign_in_success={
+        'statusCode': 200,
+        'token': {
+        'user_id': 'artist_prashant3',
+        'user_type': 'artist',
+        'username': 'prashant3',
+        'verified': 'False'
+        }
+    }
+
+    success={
+        "statusCode":200
+        }
+
+    request_failed={
+        "statusCode":403
+        }
+
+    failed={
+        "statusCode":409
+        }
