@@ -180,3 +180,11 @@ class RequestHandler:
         except Exception as e:
             logger.warning(e)
             return False
+        
+    def get_searched_profile(self,event):
+        try:
+            Schemas.Profile.validate(event)
+            return Service.get_searched_profile(event)
+        except Exception as e:
+            logger.warning(e)
+            return False

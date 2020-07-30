@@ -21,5 +21,5 @@ setup(
     package_dir={'': 'artwrk','':'tests'},
     packages=find_packages(where=''),
     python_requires='>=3.7, <4',
-    install_requires=['pynamodb','pyjwt','schema'],
+    install_requires=['pynamodb','pyjwt','schema','requests','requests_aws4auth'],
 )

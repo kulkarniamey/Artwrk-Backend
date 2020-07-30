@@ -20,10 +20,12 @@ class TestArtWrkLambda(unittest.TestCase):
         # self.assertEqual(lambda_handler(test_data.get_all_notifications,"context"),test_data.success)
         #self.assertEqual(lambda_handler(test_data.get_post_event,"context"),test_data.success)
         # self.assertEqual(lambda_handler(test_data.get_profile_event,"context"),test_data.success)
-        self.assertEqual(lambda_handler(test_data.vote_event,"context"),test_data.success)
+        # self.assertEqual(lambda_handler(test_data.vote_event,"context"),test_data.success)
         # self.assertEqual(lambda_handler(test_data.get_unverified_recruiter_list_event,"context"),test_data.success)
         #self.assertEqual(lambda_handler(test_data.verify_delete_recruiter_event,"context"),test_data.success)
         # self.assertEqual(lambda_handler(test_data.get_all_jobs_by_user_event,"context"),test_data.success)
         # self.assertEqual(lambda_handler(test_data.get_posts_by_user_event,"context"),test_data.success)
+        self.assertEqual(lambda_handler(test_data.get_searched_profile_event,"context"),test_data.success)
+
 if __name__=='__main__':
     unittest.main()

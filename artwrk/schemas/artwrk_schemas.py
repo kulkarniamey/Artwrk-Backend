@@ -43,6 +43,7 @@ class Schemas:
             Optional('post_id'):And(Use(str)),
             Optional('activity'):And(Use(str)),
             Optional('recruiter_id'):And(Use(str)),
+            Optional('search'):And(Use(str)),
 
         }
     )
