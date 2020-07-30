@@ -60,6 +60,7 @@ class User(Model):
     phone= UnicodeAttribute(null=True)
     user_id=UnicodeAttribute(null=True)
     voters = MapAttribute(null=True)  
+    search=UnicodeAttribute(null=True)
 
 class Artist(User):
     class Meta:

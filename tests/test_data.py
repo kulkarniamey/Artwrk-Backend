@@ -127,6 +127,10 @@ class TestData:
         "otp":"184500"
         }
     
+    get_searched_profile_event={
+        "operation":"get_searched_profile",
+        "search": "parimal"
+    }
 
     resend_otp_event={
         "operation":"resend_otp",

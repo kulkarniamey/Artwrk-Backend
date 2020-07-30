@@ -4,6 +4,10 @@ from artwrk.config.config import logger
 import random
 import jwt
 import datetime
+import boto3
+import json
+import requests
+from requests_aws4auth import AWS4Auth
 
 class User_Repository(DAL_abstract):
     def delete_user(self,user_id,email):
@@ -548,3 +552,40 @@ class User_Repository(DAL_abstract):
             logger.warning(e)
             return False
     
+    def get_searched_profile(self,event):
+        try:
+            region = 'ap-south-1' # e.g. us-east-1
+            service = 'es'
+            credentials = boto3.Session().get_credentials()
+            print("credentials: ",dir(credentials))
+            awsauth = AWS4Auth(credentials.access_key, credentials.secret_key, region, service, session_token=credentials.token)
+            print("awsauth :",dir(awsauth ))
+            host = 'https://search-search-artwrk-db-erknahlaqc6bdsgglednqkmdgy.ap-south-1.es.amazonaws.com'
+            index = 'lambda-index'
+
+            url = host + '/' + index + '/' + '_search'
+
+            headers = { "Content-Type": "application/json" } 
+            query = {
+                "query": {
+                    "match": {
+                        "query": event['search']
+                    }
+                }
+            }
+
+            # ES 6.x requires an explicit Content-Type header
+            headers = { "Content-Type": "application/json" }
+
+            # Make the signed HTTP request
+            r = requests.get(url, auth=awsauth, headers=headers, data=json.dumps(query))
+            print(json.dumps(query))
+
+            # Create the response and add some extra content to support CORS
+            print("response:", r.text)
+
+            #return r.text
+            return True
+        except Exception as e:
+            logger.warning(e)
+            return False

@@ -366,3 +366,15 @@ class Service(User_Repository):
                 "statusCode":409,
                 "message":"Invalid User-id"
             }
+    
+    def get_searched_profile(self,event):
+        got=User_Repository.get_searched_profile(self,event)
+        if got:
+            return{
+                "statusCode":200,
+            }
+        else:
+            return{
+                "statusCode":409
+            }
+    

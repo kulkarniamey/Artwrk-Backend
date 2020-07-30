@@ -45,9 +45,13 @@ def lambda_handler(event, context):
     if operation=='get_all_jobs':
         return request_handler.get_all_jobs()
     if operation=='mark_as_read':
-        return request_handler.mark_as_read(event)        
+        return request_handler.mark_as_read(event)
+    if operation=='get_searched_profile':
+        return request_handler.get_searched_profile(event)      
     else:
-        return "INVALID OPERATION"    
+        return "INVALID OPERATION"   
+    
+     
 
 
 # a=lambda_handler({"operation":"get_all_jobs","authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicmVjcnVpdGVyX2FydHdyayIsInVzZXJfdHlwZSI6ImFydGlzdCIsImV4cCI6MTU5NTM4NzIyOX0.wO_orRm1dHN3r8vWf2sF0cgrRGpfl5I-j0nnBVKWAtA"},"context")
