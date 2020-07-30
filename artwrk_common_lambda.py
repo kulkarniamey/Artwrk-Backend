@@ -43,7 +43,9 @@ def lambda_handler(event, context):
     if operation=='get_profile':
         return request_handler.get_profile(event)
     if operation=='get_all_jobs':
-        return request_handler.get_all_jobs()        
+        return request_handler.get_all_jobs()
+    if operation=='mark_as_read':
+        return request_handler.mark_as_read(event)        
     else:
         return "INVALID OPERATION"    
 

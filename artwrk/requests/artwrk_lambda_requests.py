@@ -164,6 +164,13 @@ class RequestHandler:
         except Exception as e:
             logger.warning(e)
             return False        
+    
+    def mark_as_read(self,event):
+        try:
+            return Service.mark_as_read(event)
+        except Exception as e:
+            logger.warning(e)
+            return False        
 
     def get_posts_by_user(self,event):
         try:

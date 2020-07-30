@@ -4,6 +4,7 @@ from artwrk.config.config import logger
 import random
 import jwt
 import datetime
+
 class User_Repository(DAL_abstract):
     def delete_user(self,user_id,email):
         unique_email='email#'+email
@@ -48,6 +49,15 @@ class User_Repository(DAL_abstract):
             logger.warning(e)
             return False
 
+    def mark_as_read(self,user_id):
+        try:
+            for i in Notification.query(user_id,Notification.compositekey.startswith('notification')):
+                if i.flag==0:
+                    i.update([Notification.flag.set(1)])
+            return True
+        except Exception as e:
+            logger.warning(e)
+            return False
 
     def get_userid(self,username,type):
         if '@' in username:

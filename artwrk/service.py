@@ -173,6 +173,19 @@ class Service(User_Repository):
                 }
 
     
+    def mark_as_read(self,event):
+        marked=User_Repository.mark_as_read(self,event['user_id'])
+        if marked:
+            return{
+                "statusCode":200,
+                }
+        else:
+            return{
+                "statusCode":409,
+                "message":"Something went wrong."
+                }
+
+    
     def send_mail(self,to,subject,message):
         SENDER = "ArtWrk <artwrk.inbox@gmail.com>"
         RECIPIENT = to
