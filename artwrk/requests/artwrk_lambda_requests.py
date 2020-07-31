@@ -12,7 +12,7 @@ class RequestHandler:
             
         except Exception as e:
             logger.warning(e)
-            return False
+            return e
 
 
     def sign_in_request(self,event):
@@ -32,7 +32,7 @@ class RequestHandler:
             return Service.forgot_password(event)
         except Exception as e:
             logger.warning(e)
-            return False
+            return e
 
 
     def resend_otp_request(self,event):
@@ -42,7 +42,7 @@ class RequestHandler:
             return Service.resend_otp(event)
         except Exception as e:
             logger.warning(e)
-            return False
+            return e
 
     def reset_password_request(self,event):
         try:
@@ -51,7 +51,7 @@ class RequestHandler:
             return Service.reset_password(event)
         except Exception as e:
             logger.warning(e)
-            return False
+            return e
     
     def change_password_request(self,event):
         try:
@@ -60,7 +60,7 @@ class RequestHandler:
             return Service.change_password(event)
         except Exception as e:
             logger.warning(e)
-            return False
+            return e
     
     def delete_user_request(self,event):
         try:
@@ -68,7 +68,7 @@ class RequestHandler:
             return Service.delete_user(event)
         except Exception as e:
             logger.warning(e)
-            return False
+            return e
 
     def upvote_request(self,event):
         try:
@@ -76,7 +76,7 @@ class RequestHandler:
             return Service.upvote(event)
         except Exception as e:
             logger.warning(e)
-            return False
+            return e
 
     def update_profile_request(self,event):
         try:
@@ -84,7 +84,7 @@ class RequestHandler:
             return Service.update_profile(event)
         except Exception as e:
             logger.warning(e)
-            return False
+            return e
 
     def verify_account_request(self,event):
         try:
@@ -92,7 +92,7 @@ class RequestHandler:
             return Service.verify_account(event)
         except Exception as e:
             logger.warning(e)
-            return False
+            return e
     
     def apply_job(self,event):
         try:
@@ -100,7 +100,7 @@ class RequestHandler:
             return Service.apply_job(event)
         except Exception as e:
             logger.warning(e)
-            return False
+            return e
 
     def connect_to_users(self,event):
         try:
@@ -108,7 +108,7 @@ class RequestHandler:
             return Service.connect_to_users(event)
         except Exception as e:
             logger.warning(e)
-            return False
+            return e
 
     def get_all_notifications(self,event):
         try:
@@ -116,7 +116,7 @@ class RequestHandler:
             return Service.get_all_notifications(event)
         except Exception as e:
             logger.warning(e)
-            return False
+            return e
     
     def get_post(self,event):
         try:
@@ -124,7 +124,7 @@ class RequestHandler:
             return Service.get_post(event)
         except Exception as e:
             logger.warning(e)
-            return False
+            return e
 
     def vote(self,event):
         try:
@@ -132,7 +132,7 @@ class RequestHandler:
             return Service.vote(event)
         except Exception as e:
             logger.warning(e)
-            return False
+            return e
 
     def get_unverified_recruiter_list(self,event):
         try:
@@ -140,7 +140,7 @@ class RequestHandler:
             return Service.get_unverified_recruiter_list(event)
         except Exception as e:
             logger.warning(e)
-            return False
+            return e
 
     def verify_delete_recruiter(self,event):
         try:
@@ -148,7 +148,7 @@ class RequestHandler:
             return Service.verify_delete_recruiter(event)
         except Exception as e:
             logger.warning(e)
-            return False
+            return e
 
     def get_all_jobs_by_user(self,event):
         try:
@@ -156,21 +156,21 @@ class RequestHandler:
             return Service.get_all_jobs_by_user(event)
         except Exception as e:
             logger.warning(e)
-            return False   
+            return e   
 
     def get_all_jobs(self):
         try:
             return Service.get_all_jobs()
         except Exception as e:
             logger.warning(e)
-            return False        
+            return e        
     
     def mark_as_read(self,event):
         try:
             return Service.mark_as_read(event)
         except Exception as e:
             logger.warning(e)
-            return False        
+            return e        
 
     def get_posts_by_user(self,event):
         try:
@@ -178,7 +178,7 @@ class RequestHandler:
             return Service.get_posts_by_user(event)
         except Exception as e:
             logger.warning(e)
-            return False
+            return e
     
     def get_profile(self,event):
         try:
@@ -186,7 +186,7 @@ class RequestHandler:
             return Service.get_profile(event)
         except Exception as e:
             logger.warning(e)
-            return False
+            return e
         
     def get_searched_profile(self,event):
         try:
@@ -194,4 +194,4 @@ class RequestHandler:
             return Service.get_searched_profile(event)
         except Exception as e:
             logger.warning(e)
-            return False
+            return e
