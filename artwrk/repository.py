@@ -68,50 +68,55 @@ class User_Repository(DAL_abstract):
             email="email#"+username
             user=self.get_object(email,'unique_email')
             if user:
+                return user.userid
+            else:
                 logger.warning("Email doesn't exists")
                 return False
-            else:
-                return user.userid
+
         else:
             id=type+"_"+username
             get=self.get_object(id,'profile')
             if get:
-                return id
+                return get.id
             else:
                 logger.warning("User_id doesn't exists")
                 return False
 
     def sign_in(self,username,password,type):
-        id=self.get_userid(username,type)
-        if id:
-            user=self.get_object(id,'profile')
-            if user:
-                if password==user.password:
-                    token = jwt.encode(
-                        {'user_id': user.id,'user_type': type,'username':user.username,'exp':datetime.datetime.utcnow()+datetime.timedelta(minutes=180)},
-                        'secret',
-                        algorithm='HS256'
-                        )
-                    token=token.decode('UTF-8')
-                    return token
+        try:
+            id=self.get_userid(username,type)
+            if id:
+                user=self.get_object(id,'profile')
+                if user:
+                    if password==user.password:
+                        token = jwt.encode(
+                            {'user_id': user.id,'user_type': type,'username':user.username,'exp':datetime.datetime.utcnow()+datetime.timedelta(minutes=180)},
+                            'secret',
+                            algorithm='HS256'
+                            )
+                        token=token.decode('UTF-8')
+                        return token
+                    else:
+                        return False
                 else:
                     return False
-            else:
-                return False
-        else:
+        except Exception as e:
+            logger.log(e)
             return False
     
     def generate_otp(self,username,type):
-        otp=str(random.randint(100000,999999))
-        id=self.get_userid(username,type)
-        if id:
-            self.update_profile({"id":id,"otp":otp})
-            user=self.get_object(id,'profile')
-        if user:
-            return {"otp":user.otp,"email":user.email,"username":user.username}
-        else:
+        try:
+            otp=str(random.randint(100000,999999))
+            id=self.get_userid(username,type)
+            if id:
+                self.update_profile({"id":id,"otp":otp})
+                user=self.get_object(id,'profile')
+            if user:
+                return {"otp":user.otp,"email":user.email,"username":user.username}
+            else:
+                return False
+        except:
             return False
-    
     
     def verify_otp(self,username,type,recieved_otp):
         id=self.get_userid(username,type)

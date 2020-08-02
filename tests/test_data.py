@@ -23,8 +23,8 @@ class TestData:
 
     sign_in_event={
         "operation":"sign_in",
-        "username":"prashant3",
-        "password":"jnec12345",
+        "username":"pdolawat654@gmail.com",
+        "password":"prashant",
         "type":"artist"
         }
 
@@ -117,7 +117,7 @@ class TestData:
 
     forgot_password_event={
         "operation":"forgot_password",
-        "username":"prashant3",
+        "username":"pdolawat654@gmail.com",
         "type":"artist"
         }
     verify_account_event={
