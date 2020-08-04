@@ -44,6 +44,10 @@ class Schemas:
             Optional('activity'):And(Use(str)),
             Optional('recruiter_id'):And(Use(str)),
             Optional('search'):And(Use(str)),
+            Optional('del_skill_tags'):And(Use(int)),
+            Optional('del_education_history'):And(Use(int)),
+            Optional('del_employer_history'):And(Use(int)),
+            Optional('del_awards_recognition'):And(Use(int)),
 
         }
     )

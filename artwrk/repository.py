@@ -321,6 +321,14 @@ class User_Repository(DAL_abstract):
                             actions.append(Artist.skill_tags.set(Artist.skill_tags.append(event[key])))
                         if key=="awards_recognition":
                             actions.append(User.awards_recognition.set(User.awards_recognition.append(event[key])))
+                        if key=="del_skill_tags":
+                            actions.append(Artist.skill_tags.remove_indexes(event[key]))
+                        if key=="del_awards_recognition":
+                            actions.append(User.awards_recognition.remove_indexes(event[key]))
+                        if key=="del_employer_history":
+                            actions.append(Artist.employer_history.remove_indexes(event[key]))
+                        if key=="del_education_history":
+                            actions.append(Artist.education_history.remove_indexes(event[key]))
                 user.update(actions)
                 return True
         except Exception as e:
