@@ -195,3 +195,20 @@ class RequestHandler:
         except Exception as e:
             logger.warning(e)
             return {"statusCode":409,"error":"Invalid Request Body"}
+
+    def delete_post(self,event):
+        try:
+            Schemas.Post.validate(event)
+            return Service.delete_post(event)
+        except Exception as e:
+            logger.warning(e)
+            return {"statusCode":409,"error":"Invalid Request Body"}
+
+    def delete_job(self,event):
+        try:
+            Schemas.Job.validate(event)
+            return Service.delete_job(event)
+        except Exception as e:
+            logger.warning(e)
+            return {"statusCode":409,"error":"Invalid Request Body"}
+

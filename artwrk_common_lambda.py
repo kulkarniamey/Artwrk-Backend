@@ -47,7 +47,11 @@ def lambda_handler(event, context):
     if operation=='mark_as_read':
         return request_handler.mark_as_read(event)
     if operation=='get_searched_profile':
-        return request_handler.get_searched_profile(event)      
+        return request_handler.get_searched_profile(event)   
+    if operation=='delete_post':
+        return request_handler.delete_post(event)  
+    if operation=='delete_job':
+        return request_handler.delete_job(event)  
     else:
         return "INVALID OPERATION"   
     

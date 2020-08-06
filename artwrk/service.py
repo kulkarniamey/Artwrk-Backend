@@ -377,4 +377,26 @@ class Service(User_Repository):
             return{
                 "statusCode":409
             }
+
+    def delete_post(self,event):
+        deleted=User_Repository.delete_post(self,event)
+        if deleted:
+            return{
+                "statusCode":200,
+            }
+        else:
+            return{
+                "statusCode":409,
+            }
+
+    def delete_job(self,event):
+        deleted=User_Repository.delete_job(self,event)
+        if deleted:
+            return{
+                "statusCode":200,
+            }
+        else:
+            return{
+                "statusCode":409,
+            }
     

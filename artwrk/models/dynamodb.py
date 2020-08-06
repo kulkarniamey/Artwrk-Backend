@@ -61,6 +61,7 @@ class User(Model):
     user_id=UnicodeAttribute(null=True)
     voters = MapAttribute(null=True)  
     search=UnicodeAttribute(null=True)
+    key=UnicodeAttribute(null=True)
 
 class Artist(User):
     class Meta:

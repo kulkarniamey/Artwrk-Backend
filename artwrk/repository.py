@@ -8,6 +8,8 @@ import boto3
 import json
 import requests
 from requests_aws4auth import AWS4Auth
+import boto3
+s3=boto3.resource('s3')
 
 class User_Repository(DAL_abstract):
     def delete_user(self,user_id,email):
@@ -602,3 +604,41 @@ class User_Repository(DAL_abstract):
         except Exception as e:
             logger.warning(e)
             return False
+
+    def delete_post(self,event):
+        try:
+            #For obtaining key of the post
+            post=self.get_object(event['id'],event['post_id'])
+            Key=post.key
+            
+            object=s3.Object("artwrk-test-upload",Key) 
+            object.delete()
+
+            #Deleting row from dynamoDB
+            with User.batch_write() as batch:
+                    batch.delete(User(id=event['id'],compositekey=event['post_id']))
+                    batch.delete(User(id=event['post_id'],compositekey='post_metadata'))
+
+            return True
+        except Exception as e:
+            print(e)
+
+    def delete_job(self,event):
+        try:
+            #For obtaining key of the job
+            job=self.get_object(event['id'],event['job_id'])
+            try:
+                #If while posting job no image was provided
+                Key=job.key
+                object=s3.Object("artwrk-test-upload",Key) 
+                object.delete()
+            except Exception as e:
+                print("No image was provided")
+
+            #Deleting row from dynamoDB
+            with User.batch_write() as batch:
+                    batch.delete(User(id=event['id'],compositekey=event['job_id']))
+                    batch.delete(User(id=event['job_id'],compositekey='job_metadata'))
+            return True
+        except Exception as e:
+            print(e)

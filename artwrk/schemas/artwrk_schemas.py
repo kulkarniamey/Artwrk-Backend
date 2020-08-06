@@ -63,6 +63,7 @@ class Schemas:
             Optional('url'):And(Use(str)),
             Optional('voters'):And(Use(str)),
             Optional('vote_count'):And(Use(str)),
+            Optional('type'):And(Use(str)),
         }
     )
     
