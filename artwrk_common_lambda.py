@@ -34,6 +34,8 @@ def lambda_handler(event, context):
         return request_handler.vote(event)
     if operation=='get_post':
         return request_handler.get_post(event)
+    if operation=='get_job':
+        return request_handler.get_job(event)
     if operation=='connect_to_users':
         return request_handler.connect_to_users(event)
     if operation=='get_all_notifications':

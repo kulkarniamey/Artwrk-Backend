@@ -409,6 +409,16 @@ class User_Repository(DAL_abstract):
             logger.warning(e)
             return False
 
+    def get_job(self,event):
+        try:
+            job = self.get_object(event['id'],event['job_id'])
+            if job:
+                print(job.Description)
+                print(job.url)
+            return job
+        except Exception as e:
+            logger.warning(e)
+            return False
 
     def get_object(self,id,compositekey):
         try:

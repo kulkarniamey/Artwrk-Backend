@@ -69,6 +69,14 @@ class TestData:
         "id":"artist_parimal1234",
         "post_id":"post_timestamp_userId",
     }
+
+    get_job_event={
+        "operation":"get_job",
+        "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
+        "id":"recruiter_parimal4567",
+        "job_id":"job_1596792042.175569_parimal4567",
+    }
+
     get_profile_event={
         "operation":"get_profile",
         # "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
