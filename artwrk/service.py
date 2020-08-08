@@ -285,7 +285,17 @@ class Service(User_Repository):
             return{
                 "statusCode":409
              }
-    
+
+    def get_job(self,event):
+        got = User_Repository.get_job(self,event)
+        if got:
+            return{
+                "statusCode":200,
+            }       
+        else:
+            return{
+                "statusCode":409
+             }
 
     def vote(self,event):
         upvoted=User_Repository.vote(self,event)

@@ -126,6 +126,14 @@ class RequestHandler:
             logger.warning(e)
             return {"statusCode":409,"error":"Invalid Request Body"}
 
+    def get_job(self,event):
+        try:
+            Schemas.Job.validate(event)
+            return Service.get_job(event)
+        except Exception as e:
+            logger.warning(e)
+            return {"statusCode":409,"error":"Invalid Request Body"}
+
     def vote(self,event):
         try:
             Schemas.Profile.validate(event)
