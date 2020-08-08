@@ -48,6 +48,7 @@ class Schemas:
             Optional('del_education_history'):And(Use(int)),
             Optional('del_employer_history'):And(Use(int)),
             Optional('del_awards_recognition'):And(Use(int)),
+            Optional('del_certificates'):And(Use(int)),
 
         }
     )

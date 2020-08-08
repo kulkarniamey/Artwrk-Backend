@@ -72,7 +72,7 @@ class TestData:
     get_profile_event={
         "operation":"get_profile",
         # "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "user_id":"artist_pallavi",
+        "user_id":"artist_prashant",
     }
     vote_event={
         "operation":"vote",
@@ -159,20 +159,21 @@ class TestData:
     update_profile_event={
         "operation":"update_profile",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "id":"artist_pdolawat",
+        "id":"artist_prashant",
         "name":"prashant",
         "username":"p._078",
         "facebook_link":"abc",
         "twitter_link":"def",
-        # "employer_history":["Artwrk1"],
-        # "skill_tags":["ASP.NET"],
-        # "awards_recognition":["6* Codechef"],
-        # "education_history":["1"],
+        "employer_history":["Artwrk1"],
+        "skill_tags":["ASP.NET"],
+        "awards_recognition":["6* Codechef"],
+        "education_history":["1"],
         "current_employer":"Infosys",
         "del_skill_tags": 0,
         "del_employer_history":0,
         "del_awards_recognition":0,
         "del_education_history":0,
+        "del_certificates":0,
     }
     sign_in_success={
         'statusCode': 200,

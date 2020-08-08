@@ -199,11 +199,6 @@ class User_Repository(DAL_abstract):
                     b[key]=a[key]
                     followers.append(b)
                 
-                a = user.certificates
-                for key in a:
-                    b = {}
-                    b[key]=a[key]
-                    followers.append(b)
 
                 a = user.applied_jobs
                 for key in a:
@@ -243,7 +238,7 @@ class User_Repository(DAL_abstract):
 
                             'twitter_link':user.twitter_link,
 
-                            'certificates':certificates,
+                            'certificates':user.certificates,
 
                             'applied_jobs':applied_jobs,
 
@@ -331,6 +326,18 @@ class User_Repository(DAL_abstract):
                             actions.append(Artist.employer_history.remove_indexes(event[key]))
                         if key=="del_education_history":
                             actions.append(Artist.education_history.remove_indexes(event[key]))
+                        if key=="del_certificates":
+                            index = event[key]
+                            artist=Artist.get(event['id'],'profile')
+                            certificate = artist.certificates[event[key]]
+                            for key,value in certificate.items():
+                                certificate_to_del = value
+                            l = certificate_to_del.split('.com/')
+                            b = l[1]
+                            obj = s3.Object("artwrk-test-upload",b)
+                            obj.delete()
+                            actions.append(Artist.certificates.remove_indexes(index))
+                            
                 user.update(actions)
                 return True
         except Exception as e:

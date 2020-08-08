@@ -76,7 +76,7 @@ class Artist(User):
     education_history = ListAttribute(null=True)
     skill_tags = ListAttribute(null=True)
     current_employer =UnicodeAttribute(null=True)
-    certificates = MapAttribute(null=True)
+    certificates = ListAttribute(null=True)
     Resume = UnicodeAttribute(null=True)
     applied_jobs=MapAttribute(null=True)
 
