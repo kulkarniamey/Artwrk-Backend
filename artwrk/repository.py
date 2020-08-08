@@ -409,8 +409,6 @@ class User_Repository(DAL_abstract):
         try:
             post = self.get_object(event['id'],event['post_id'])
             if post:
-                print(post.caption)
-                print(post.url)
                 return post
         except Exception as e:
             logger.warning(e)
@@ -420,9 +418,7 @@ class User_Repository(DAL_abstract):
         try:
             job = self.get_object(event['id'],event['job_id'])
             if job:
-                print(job.Description)
-                print(job.url)
-            return job
+                return job
         except Exception as e:
             logger.warning(e)
             return False

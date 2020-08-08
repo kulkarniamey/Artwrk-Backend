@@ -241,16 +241,16 @@ class Service(User_Repository):
 
     
 
-    def get_jobs_by_user(self,id,type):
-        got=User_Repository.get_jobs_by_user(self,id,type)
-        if got:
-            return{
-                "statusCode":200,
-            }
-        else:
-            return{
-                "statusCode":409
-            }
+    # def get_jobs_by_user(self,id,type):
+    #     got=User_Repository.get_jobs_by_user(self,id,type)
+    #     if got:
+    #         return{
+    #             "statusCode":200,
+    #         }
+    #     else:
+    #         return{
+    #             "statusCode":409
+    #         }
             
     def connect_to_users(self,event):
         got = User_Repository.connect_to_users(self,event)
@@ -280,6 +280,7 @@ class Service(User_Repository):
         if got:
             return{
                 "statusCode":200,
+                "post":got,
             }       
         else:
             return{
@@ -291,6 +292,7 @@ class Service(User_Repository):
         if got:
             return{
                 "statusCode":200,
+                "job":got,
             }       
         else:
             return{
