@@ -70,7 +70,7 @@ class User_Repository(DAL_abstract):
             email="email#"+username
             user=self.get_object(email,'unique_email')
             if user:
-                return user.userid
+                return user.user_id
             else:
                 logger.warning("Email doesn't exists")
                 return False
