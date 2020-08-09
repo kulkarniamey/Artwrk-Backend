@@ -64,6 +64,9 @@ class User(Model):
     key=UnicodeAttribute(null=True)
     Description=UnicodeAttribute(null=True)
     url=UnicodeAttribute(null=True)
+    companyTitle = UnicodeAttribute(null=True)
+    jobTitle = UnicodeAttribute(null=True)
+    applicants = MapAttribute(null=True)
 
 class Artist(User):
     class Meta:
@@ -105,7 +108,7 @@ class Post(Model):
     compositekey = UnicodeAttribute(range_key=True)
     url = UnicodeAttribute(null=True)
     time = UnicodeAttribute(null=True)
-    caption = UnicodeAttribute(null=True)
+    Description=UnicodeAttribute(null=True)
     vote_count = NumberAttribute(null=True)
     voters = MapAttribute(null=True)
 
@@ -123,7 +126,9 @@ class Job(Model):
     content = UnicodeAttribute(null=True)
     applicants = MapAttribute(null=True)
     hiring_type= UnicodeAttribute(null=True)
-    
+    Description=UnicodeAttribute(null=True)
+    companyTitle = UnicodeAttribute(null=True)
+    jobTitle = UnicodeAttribute(null=True)
 
 class Notification(Model):
     class Meta:
