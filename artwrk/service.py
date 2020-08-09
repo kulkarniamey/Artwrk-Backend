@@ -354,6 +354,7 @@ class Service(User_Repository):
         if got:
             return{
                 "statusCode":200,
+                "jobs":got,
             }
         else:
             return{
