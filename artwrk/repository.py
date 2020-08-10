@@ -591,6 +591,7 @@ class User_Repository(DAL_abstract):
                         'companyTitle': i.companyTitle,
                         'description': i.Description,
                         'url': i.url,
+                        'recruiter_id': i.recruiter_id,
                     }
                 )
             return a
