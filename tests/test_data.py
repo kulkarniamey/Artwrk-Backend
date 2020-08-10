@@ -146,6 +146,11 @@ class TestData:
         "post_id":"post_1596715232.334853_parimal4567"
     }
 
+    get_all_jobs={
+        "operation":"get_all_jobs",
+        "authorizationToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiYXJ0aXN0X3BydXRodmkyIiwidXNlcl90eXBlIjoiYXJ0aXN0IiwidXNlcm5hbWUiOiJwcnV0aHZpMiIsImV4cCI6MTU5Njg4NTU5Mn0.SyjyBD0rBzGTsuNrgcb0pNCpojIQ7gPcTV1wT_VhWr4"
+    }
+
     delete_job_event={
         "operation":"delete_job",
         "id":"recruiter_parimal4567",

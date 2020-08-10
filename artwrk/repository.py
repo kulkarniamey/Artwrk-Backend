@@ -586,8 +586,12 @@ class User_Repository(DAL_abstract):
                 a.append(
                     {
                         
-                        'job_id': i.id,
+                        'jobId': i.id,
+                        'jobTitle':i.jobTitle, 
+                        'companyTitle': i.companyTitle,
+                        'description': i.Description,
                         'url': i.url,
+                        'recruiter_id': i.recruiter_id,
                     }
                 )
             return a
