@@ -32,6 +32,9 @@ class GSIModel(Model):
     content = UnicodeAttribute(null=True)
     applicants = MapAttribute(null=True)
     hiring_type= UnicodeAttribute(null=True)
+    jobTitle=UnicodeAttribute(null=True)
+    companyTitle=UnicodeAttribute(null=True)
+    Description=UnicodeAttribute(null=True)
     index=GSI()
 
 class User(Model):
