@@ -41,7 +41,7 @@ class User_Repository(DAL_abstract):
             if self.validate_unique_constraints(username,email):
                 with User.batch_write() as batch:
                     if type=='artist':
-                        batch.save(Artist(id=id,compositekey="profile",type=type,email=email,password=password,otp=otp,username=username,email_verification="False",skill_tags=[],education_history=[],employer_history=[],awards_recognition=[],followers={},following={},certificates={},applied_jobs={},artist_score=0))
+                        batch.save(Artist(id=id,compositekey="profile",type=type,email=email,password=password,otp=otp,username=username,email_verification="False",skill_tags=[],education_history=[],employer_history=[],awards_recognition=[],followers={},following={},certificates=[],applied_jobs={},artist_score=0))
                         batch.save(User(id=unique_email,compositekey="unique_email",password=password,user_id=id))
                     else:
                         batch.save(Recruiter(id=id,compositekey="profile",type=type,email=email,password=password,otp=otp,username=username,email_verification="False",admin_verification="False",awards_recognition=[],followers={},following={}))
