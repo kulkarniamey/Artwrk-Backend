@@ -454,6 +454,7 @@ class User_Repository(DAL_abstract):
             job_list=Job.query(id,User.compositekey.startswith('job'))
             for i in job_list:
                 jobs.append({
+                    'jobId': i.compositekey,
                     'jobTitle':i.jobTitle, 
                     'companyTitle': i.companyTitle,
                     'description': i.Description,
@@ -567,6 +568,7 @@ class User_Repository(DAL_abstract):
             for i in Post.query(event['id'],User.compositekey.startswith('post')):
                 a.append(
                     {
+                        'postid':i.compositekey,
                         'description':i.Description,
                         'url': i.url,
                     }
