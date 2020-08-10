@@ -67,7 +67,7 @@ class User(Model):
     companyTitle = UnicodeAttribute(null=True)
     jobTitle = UnicodeAttribute(null=True)
     applicants = MapAttribute(null=True)
-
+    applied_jobs = MapAttribute(null=True)
 class Artist(User):
     class Meta:
         table_name = 'new'

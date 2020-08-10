@@ -360,7 +360,7 @@ class User_Repository(DAL_abstract):
                 applied_job[event['recruiter_id']]=event['job_id']
                 actions.append(Artist.applied_jobs.set(applied_job))  
                 user.update(actions)
-                User_Repository.send_notification([event['recruiter_id']],"%s has applied to your job for %s"%(user.username,job.job_title))
+                User_Repository.send_notification([event['recruiter_id']],"%s has applied to your job for %s"%(user.username,job.jobTitle))
                 return True
         except Exception as e:
             logger.warning(e)   

@@ -46,9 +46,9 @@ class TestData:
     apply_job_event={
         "operation":"apply_job",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "id":"artist_vanshika",
-        "recruiter_id":"recruiter_hrithik",
-        "job_id":"job_timestamp_hrithik",
+        "id":"artist_pallavi",
+        "recruiter_id":"recruiter_parimal4567",
+        "job_id":"job_1596987093.61326_parimal4567",
     }
 
     get_all_notifications={
