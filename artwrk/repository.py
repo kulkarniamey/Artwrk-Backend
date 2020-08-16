@@ -662,8 +662,9 @@ class User_Repository(DAL_abstract):
             try:
                 #If while posting job no image was provided
                 Key=job.key
-                object=s3.Object("artwrk-test-upload",Key) 
-                object.delete()
+                if Key != "default/default.png":
+                    object=s3.Object("artwrk-test-upload",Key) 
+                    object.delete()
             except Exception as e:
                 print("No image was provided")
 
