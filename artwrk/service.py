@@ -316,10 +316,12 @@ class Service(User_Repository):
         if got and type(got) is list:
             return{
                 "statusCode":200,
+                "recruiters": got
             }
         elif type(got) is str:
             return{
                 "statusCode":204,
+                "message": 'no recruiters pending verification'
             }
         else:
             return{
