@@ -46,9 +46,8 @@ class User_Repository(DAL_abstract):
                     else:
                         batch.save(Recruiter(id=id,compositekey="profile",type=type,email=email,password=password,otp=otp,username=username,email_verification="False",admin_verification="False",awards_recognition=[],followers={},following={}))
                         batch.save(User(id=unique_email,compositekey="unique_email",password=password,user_id=id))
-                if type=='recruiter':
-                    batch.save(User(id="applications",compositekey=id))
-                    User_Repository.send_notification(['admin'],username+" has just joined Artwrk. Click to verify his profile.")
+                        batch.save(User(id="applications",compositekey=id))
+                        User_Repository.send_notification(['admin'],username+" has just joined Artwrk. Click to verify his profile.")
                 return {"email":email,"otp":otp,'username':username}
             else:
                 return False
