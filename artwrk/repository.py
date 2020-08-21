@@ -280,6 +280,7 @@ class User_Repository(DAL_abstract):
                             'admin_verification':user.admin_verification,
                             'company_type':user.company_type,
                             'address':user.address,
+                            'username':user.username,
                             }
             return profile
 
@@ -599,6 +600,28 @@ class User_Repository(DAL_abstract):
             logger.warning(e)
             return False
     
+    def get_all_posts(self):
+        try:
+            a = []
+            for i in GSIModel.index.query('post_metadata'):
+                a.append(
+                    {
+                        
+                        'post_id': i.id,
+                        'vote_count':i.vote_count, 
+                        'voters': i.voters,
+                        'description': i.Description,
+                        'url': i.url,
+                        'recruiter_id': i.recruiter_id,
+                        'date_time': i.date_time,                        
+                    }
+                )
+            return a
+        except Exception as e:
+            logger.warning(e)
+            return False
+    
+
     def get_searched_profile(self,event):
         try:
             region = 'ap-south-1' # e.g. us-east-1
