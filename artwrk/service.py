@@ -269,7 +269,12 @@ class Service(User_Repository):
             return{
                 "statusCode":200,
                 "notifications":notifications
-            }       
+            }   
+        elif notifications is None:
+            return{
+                "statusCode":200,
+                "Message": "No notifications available"
+            }    
         else:
             return{
                 "statusCode":409

@@ -54,7 +54,7 @@ class TestData:
     get_all_notifications={
         "operation":"get_all_notifications",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "id":"artist_vanshika",
+        "id":"artist_huzaif99",
     }
     connect_to_users={
         "operation":"connect_to_users",
