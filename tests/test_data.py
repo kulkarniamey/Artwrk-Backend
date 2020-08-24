@@ -66,8 +66,8 @@ class TestData:
     get_post_event={
         "operation":"get_post",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "id":"recruiter_parimal4567",
-        "post_id":"post_1595319127.837497_parimal4567",
+        "id":"artist_huzaif99",
+        "post_id":"post_1598254152.23753_huzaif99",
     }
 
     get_job_event={
@@ -90,6 +90,16 @@ class TestData:
         "other_id":"artist_avnee",
         "type":"artist"
         }
+
+    rate_post_event={
+        "operation":"rate_post",
+        "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
+        "id":"artist_huzaif99",
+        "user_id":"artist_avnee",
+        "post_id":"post_1598254152.23753_huzaif99",
+        "rate_score":5,
+        }
+
     mark_as_read_event={
         "operation":"mark_as_read",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",

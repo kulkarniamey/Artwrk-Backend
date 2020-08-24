@@ -32,6 +32,8 @@ def lambda_handler(event, context):
         return request_handler.get_all_jobs_by_user(event)
     if operation=='vote':
         return request_handler.vote(event)
+    if operation=='rate_post':
+        return request_handler.rate_post(event)
     if operation=='get_post':
         return request_handler.get_post(event)
     if operation=='get_job':

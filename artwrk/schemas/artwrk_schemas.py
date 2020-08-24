@@ -97,5 +97,18 @@ class Schemas:
             Optional('vote_count'):And(Use(str)),
         }
     )
+
+    Rate_post = Schema(
+        {
+            'operation':And(Use(str)),
+            'authorizationToken':And(Use(str)),
+            Optional('post_id'):And(Use(str)),
+            Optional('id'):And(Use(str)),
+            Optional('user_id'):And(Use(str)),
+            Optional('rate_score'):And(Use(int)),
+           
+        }
+    )
+    
     
     

@@ -420,3 +420,13 @@ class Service(User_Repository):
                 "statusCode":409,
             }
     
+    def rate_post(self,event):
+        rated = User_Repository.rate_post(self,event)
+        if rated:
+            return{
+                "statusCode":200,
+            }
+        else:
+            return{
+                "statusCode":409,
+            }

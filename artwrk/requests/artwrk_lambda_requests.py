@@ -220,3 +220,11 @@ class RequestHandler:
             logger.warning(e)
             return {"statusCode":409,"error":"Invalid Request Body"}
 
+    def rate_post(self,event):
+        try:
+            Schemas.Rate_post.validate(event)
+            return Service.rate_post(event)
+        except Exception as e:
+            logger.warning(e)
+            return {"statusCode":409,"error":"Invalid Request Body"}
+

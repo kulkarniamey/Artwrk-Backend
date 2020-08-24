@@ -415,7 +415,13 @@ class User_Repository(DAL_abstract):
                 post_obj['url'] = post.url
                 post_obj['description'] = post.Description
                 post_obj['vote_count']=post_meta.vote_count
-            
+
+                d = post.rated_by
+                rated = []
+                for key in d:
+                    rated.append({key:d[key]})
+                
+                post_obj['rated_by'] = rated
                 return post_obj
         except Exception as e:
             logger.warning(e)
@@ -698,3 +704,35 @@ class User_Repository(DAL_abstract):
             return True
         except Exception as e:
             print(e)
+
+    #Ratings to particular post is handled by the following function
+    def rate_post(self,event):
+        try:
+            #get objects to be updated.
+            post = self.get_object(event['id'],event['post_id'])
+            post_meta = self.get_object(event['post_id'],'post_metadata')
+            #adding user who rated the post.
+            rated_by = post.rated_by
+            rated_by[event['user_id']] = event['rate_score']
+
+            #calculating the ratings for the post
+            rate_sum = 0
+            n=0
+            for key in rated_by:
+                rate_sum+=rated_by[key]
+                n+=1
+
+            rate = rate_sum/n
+
+            #updating the ratings.
+            post.update([Artist.rated_by.set(rated_by),Artist.rate.set(rate)])
+            post_meta.update([Artist.rated_by.set(rated_by),Artist.rate.set(rate)])
+
+            #sending notification to the host for the post has been .
+            User_Repository.send_notification([event['id']],'%s has rated your post %s stars.'%(event['user_id'],event['rate_score']))
+            
+            return True
+        except Exception as e:
+            logger.warning(e)
+            return False
+        

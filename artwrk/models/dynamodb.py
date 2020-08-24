@@ -83,6 +83,7 @@ class User(Model):
     jobTitle = UnicodeAttribute(null=True)
     applicants = MapAttribute(null=True)
     applied_jobs = MapAttribute(null=True)
+    rated_by  =MapAttribute(null=True)
 class Artist(User):
     class Meta:
         table_name = 'new'
@@ -99,6 +100,8 @@ class Artist(User):
     certificates = ListAttribute(null=True)
     Resume = UnicodeAttribute(null=True)
     applied_jobs=MapAttribute(null=True)
+    rated_by = MapAttribute(null=True)
+    rate=NumberAttribute(null=True)
 
 
 class Recruiter(User):
