@@ -47,7 +47,7 @@ class TestData:
         "operation":"apply_job",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
         "id":"artist_pallavi",
-        "recruiter_id":"recruiter_parimal4567",
+        "recruiter_id":"recruiter_vdolawat",
         "job_id":"job_1596987093.61326_parimal4567",
     }
 
@@ -106,7 +106,7 @@ class TestData:
     get_all_jobs_by_user_event={
         "operation":"get_all_jobs_by_user",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "id":"recruiter_parimal4567",
+        "id":"recruiter_vdolawat",
     }
 
     get_posts_by_user_event={
