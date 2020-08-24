@@ -1,5 +1,5 @@
 from artwrk.interfaces.interface import DAL_abstract
-from artwrk.models.dynamodb import User,Artist,Recruiter,Post,Notification,Job,GSIModel
+from artwrk.models.dynamodb import User,Artist,Recruiter,Post,Notification,Job,GSIModel,Score_vote
 from artwrk.config.config import logger
 import random
 import jwt
@@ -280,6 +280,7 @@ class User_Repository(DAL_abstract):
                             'admin_verification':user.admin_verification,
                             'company_type':user.company_type,
                             'address':user.address,
+                            'username':user.username,
                             }
             return profile
 
@@ -476,28 +477,57 @@ class User_Repository(DAL_abstract):
 
     def vote(self,event):
         try:
-            post=self.get_object(event['id'],event['post_id'])
-            upvoter=self.get_object(event['other_id'],"profile")
-            actions=[]
-            flag=1
-            if post:       
-                liked_by=post.voters
-                for i in liked_by:
-                    if event['other_id']==i:
+            #Getting object of both users
+            user=self.get_object(event['post_id'],'post_metadata')   
+            upvoter=self.get_object(event['other_id'],"profile")   
+            actions=[]    
+            flag=1   
+            new={}
+            if user: 
+                #Validating whether the voter already exists      
+                liked_by=user.voters      
+                for i in liked_by:     
+                    if event['other_id']!=i:
+                        new[i]=liked_by[i]
+                    else:    
                         flag=0
-                if flag==1:
-                    upvoteCount=post.vote_count+1
-                    voters = post.voters
-                    voters[event['other_id']]=upvoter.username
-                    actions.append(Post.vote_count.set(upvoteCount))
-                    actions.append(Post.voters.set(voters))
-                    post.update(actions)  
-                    self.scoring(event['id'])
-                    User_Repository.send_notification([event['id']],event['post_id']+" liked by "+event['other_id'])
+
+                if flag==0:
+                    upvoteCount=user.vote_count-1     
+                    voters = user.voters    
+                    voters[event['other_id']]=upvoter.username  
+                    actions.append(Post.vote_count.set(upvoteCount))   
+                    actions.append(Post.voters.set(new)) 
+                    user.update(actions)  
                     return True 
-        except Exception as e:
-            logger.warning(e)
-            return False
+
+                           
+                if flag==1:    
+                    #Changes in Post metadata 
+                    upvoteCount=user.vote_count+1     
+                    voters = user.voters    
+                    voters[event['other_id']]=upvoter.username  
+                    actions.append(Post.vote_count.set(upvoteCount))   
+                    actions.append(Post.voters.set(voters)) 
+
+                    #For triggering artist score lambda
+                    if event['type'] =='artist':  
+                        with Score_vote.batch_write() as batch:
+                                batch.save(Score_vote(id=event['id'],compositekey='votePost',vote_count=upvoteCount,voters=voters)) 
+    
+                    #updating all actions 
+                    try:    
+                        user.update(actions)     
+                    except:  
+                        print("upvoter id already exist")   
+
+                    #Notification to the user 
+                    User_Repository.send_notification([event['id']],event['post_id']+" liked by "+event['other_id'])
+                    return True    
+        except Exception as e:    
+            logger.warning(e)    
+            return False   
+
 
 
     def scoring(self,id):
@@ -599,6 +629,28 @@ class User_Repository(DAL_abstract):
             logger.warning(e)
             return False
     
+    def get_all_posts(self):
+        try:
+            a = []
+            for i in GSIModel.index.query('post_metadata'):
+                a.append(
+                    {
+                        
+                        'post_id': i.id,
+                        'vote_count':i.vote_count, 
+                        'voters': i.voters,
+                        'description': i.Description,
+                        'url': i.url,
+                        'recruiter_id': i.recruiter_id,
+                        'date_time': i.date_time,                        
+                    }
+                )
+            return a
+        except Exception as e:
+            logger.warning(e)
+            return False
+    
+
     def get_searched_profile(self,event):
         try:
             region = 'ap-south-1' # e.g. us-east-1

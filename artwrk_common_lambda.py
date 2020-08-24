@@ -53,7 +53,9 @@ def lambda_handler(event, context):
     if operation=='delete_post':
         return request_handler.delete_post(event)  
     if operation=='delete_job':
-        return request_handler.delete_job(event)  
+        return request_handler.delete_job(event)
+    if operation=='get_all_posts':
+        return request_handler.get_all_posts()  
     else:
         return "INVALID OPERATION"   
     

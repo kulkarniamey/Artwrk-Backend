@@ -14,6 +14,10 @@ class GSI(GlobalSecondaryIndex):
         write_capacity_units = 2
         # All attributes are projected
         projection = AllProjection()
+        region = 'us-east-1'
+        aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
+        aws_secret_access_key = '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'
+        host = 'https://dynamodb.us-east-1.amazonaws.com'
 
     # This attribute is the hash key for the index
     # Note that this attribute must also exist
@@ -25,17 +29,24 @@ class GSIModel(Model):
     
     class Meta:
         table_name = 'new'
+        region = 'us-east-1'
+        aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
+        aws_secret_access_key = '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'
+        host = 'https://dynamodb.us-east-1.amazonaws.com'
     id = UnicodeAttribute(hash_key=True)
     compositekey = UnicodeAttribute(range_key=True)
     url = UnicodeAttribute(null=True)
     time = UnicodeAttribute(null=True)
     content = UnicodeAttribute(null=True)
+    voters = MapAttribute(null=True)
     applicants = MapAttribute(null=True)
+    date_time = UnicodeAttribute(null=True)
     hiring_type= UnicodeAttribute(null=True)
     jobTitle=UnicodeAttribute(null=True)
     companyTitle=UnicodeAttribute(null=True)
     Description=UnicodeAttribute(null=True)
     recruiter_id=UnicodeAttribute(null=True)
+    vote_count=NumberAttribute(null=True)
     index=GSI()
 
 class User(Model):
