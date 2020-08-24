@@ -1,9 +1,0 @@
-WARNING 2020-08-10 17:46:48,967 - 'GSIModel' object has no attribute 'jobTitle'
-WARNING 2020-08-10 17:49:27,936 - 'GSIModel' object has no attribute 'Description'
-WARNING 2020-08-10 21:05:05,213 - 'User' object has no attribute 'applied_jobs'
-WARNING 2020-08-10 21:05:57,721 - 'NoneType' object does not support item assignment
-WARNING 2020-08-24 10:21:40,688 - No data found with id : artist_parimal786 and composite key : post_1595584445.81924_parimal786
-WARNING 2020-08-24 10:24:46,584 - 'NoneType' object is not iterable
-WARNING 2020-08-24 10:26:13,733 - 'NoneType' object is not iterable
-WARNING 2020-08-24 10:29:13,835 - name 'Score_vote' is not defined
-WARNING 2020-08-24 10:58:13,533 - name 'Score_vote' is not defined
