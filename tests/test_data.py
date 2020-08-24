@@ -86,8 +86,8 @@ class TestData:
         "operation":"vote",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
         "id":"artist_parimal786",
-        "post_id":"post_1595584445.81924_parimal786",
-        "other_id":"artist_avnee",
+        "post_id":"post_1595588916.876566_parimal786",
+        "other_id":"artist_pdolawat",
         "type":"artist"
         }
     mark_as_read_event={
