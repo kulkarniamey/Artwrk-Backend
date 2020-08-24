@@ -54,7 +54,7 @@ class TestData:
     get_all_notifications={
         "operation":"get_all_notifications",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "id":"artist_vanshika",
+        "id":"artist_huzaif99",
     }
     connect_to_users={
         "operation":"connect_to_users",
@@ -153,8 +153,8 @@ class TestData:
 
     delete_job_event={
         "operation":"delete_job",
-        "id":"recruiter_parimal4567",
-        "job_id":"job_1596714541.107103_parimal4567",
+        "id":"recruiter_vdolawat",
+        "job_id":"job_1597557659.387179_vdolawat",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiYXJ0aXN0X3BydXRodmkyIiwidXNlcl90eXBlIjoiYXJ0aXN0IiwidXNlcm5hbWUiOiJwcnV0aHZpMiIsImV4cCI6MTU5NjcyNDI0Mn0.B_6Zb_La1wgSb4_mR_tcvoUP_59P1gJ00emFONO9NxQ"
     }
 

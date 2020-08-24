@@ -46,8 +46,8 @@ class User_Repository(DAL_abstract):
                     else:
                         batch.save(Recruiter(id=id,compositekey="profile",type=type,email=email,password=password,otp=otp,username=username,email_verification="False",admin_verification="False",awards_recognition=[],followers={},following={}))
                         batch.save(User(id=unique_email,compositekey="unique_email",password=password,user_id=id))
-                if type=='recruiter':
-                    User_Repository.send_notification(['admin'],username+" has just joined Artwrk. Click to verify his profile.")
+                        batch.save(User(id="applications",compositekey=id))
+                        User_Repository.send_notification(['admin'],username+" has just joined Artwrk. Click to verify his profile.")
                 return {"email":email,"otp":otp,'username':username}
             else:
                 return False
@@ -280,6 +280,7 @@ class User_Repository(DAL_abstract):
                             'admin_verification':user.admin_verification,
                             'company_type':user.company_type,
                             'address':user.address,
+                            'username':user.username,
                             }
             return profile
 
@@ -599,6 +600,28 @@ class User_Repository(DAL_abstract):
             logger.warning(e)
             return False
     
+    def get_all_posts(self):
+        try:
+            a = []
+            for i in GSIModel.index.query('post_metadata'):
+                a.append(
+                    {
+                        
+                        'post_id': i.id,
+                        'vote_count':i.vote_count, 
+                        'voters': i.voters,
+                        'description': i.Description,
+                        'url': i.url,
+                        'recruiter_id': i.recruiter_id,
+                        'date_time': i.date_time,                        
+                    }
+                )
+            return a
+        except Exception as e:
+            logger.warning(e)
+            return False
+    
+
     def get_searched_profile(self,event):
         try:
             region = 'ap-south-1' # e.g. us-east-1
@@ -662,8 +685,9 @@ class User_Repository(DAL_abstract):
             try:
                 #If while posting job no image was provided
                 Key=job.key
-                object=s3.Object("artwrk-test-upload",Key) 
-                object.delete()
+                if Key != "default/default.png":
+                    object=s3.Object("artwrk-test-upload",Key) 
+                    object.delete()
             except Exception as e:
                 print("No image was provided")
 

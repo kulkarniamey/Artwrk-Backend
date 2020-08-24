@@ -1,19 +1,4 @@
-WARNING 2020-08-07 12:34:27,982 - The data type of '{'L': [{'S': 'abcdef'}]}' must be one of ['BS', 'NS', 'SS']
-WARNING 2020-08-07 12:37:33,702 - The data type of '{'L': [{'S': 'abcdef'}]}' must be one of ['BS', 'NS', 'SS']
-WARNING 2020-08-07 12:42:13,283 - The data type of '{'L': [{'S': 'abcdef'}]}' must be one of ['BS', 'NS', 'SS']
-WARNING 2020-08-07 12:43:23,173 - The data type of '{'L': [{'S': 'abcdef'}]}' must be one of ['BS', 'NS', 'SS']
-WARNING 2020-08-07 12:46:12,620 - The data type of '{'L': [{'S': 'abcdef'}]}' must be one of ['BS', 'NS', 'SS']
-WARNING 2020-08-07 12:51:25,547 - The data type of '{'S': 'abcdef'}' must be one of ['BS', 'NS', 'SS']
-WARNING 2020-08-07 12:54:56,590 - The data type of '{'L': [{'S': 'abcdef'}]}' must be one of ['BS', 'NS', 'SS']
-WARNING 2020-08-07 12:57:45,617 - The data type of '{'L': [{'S': 'abcdef'}]}' must be one of ['BS', 'NS', 'SS']
-WARNING 2020-08-07 13:08:00,548 - Failed to update item: An error occurred (ValidationException) on request (8GU9K6QR1BKKSIHUPFO929ATTNVV4KQNSO5AEMVJF66Q9ASUAAJG) on table (new) when calling the UpdateItem operation: An operand in the update expression has an incorrect data type
-WARNING 2020-08-08 13:51:48,825 - 'User' object has no attribute 'certificates'
-WARNING 2020-08-08 13:57:23,326 - 'mnbvcxz'
-WARNING 2020-08-08 14:21:05,085 - No data found with id : artist_parimal1234 and composite key : post_timestamp_userId
-WARNING 2020-08-08 14:22:31,928 - 'User' object has no attribute 'caption'
-WARNING 2020-08-09 17:23:13,621 - 'User' object has no attribute 'companyTitle'
-WARNING 2020-08-09 17:25:45,602 - 'User' object has no attribute 'applicants'
-WARNING 2020-08-09 17:37:55,096 - 'Post' object has no attribute 'Description'
-WARNING 2020-08-10 21:15:31,140 - 'User' object has no attribute 'applied_jobs'
-WARNING 2020-08-10 21:15:58,893 - 'User' object has no attribute 'applied_jobs'
-WARNING 2020-08-10 21:16:40,874 - 'User' object has no attribute 'job_title'
+WARNING 2020-08-10 17:46:48,967 - 'GSIModel' object has no attribute 'jobTitle'
+WARNING 2020-08-10 17:49:27,936 - 'GSIModel' object has no attribute 'Description'
+WARNING 2020-08-10 21:05:05,213 - 'User' object has no attribute 'applied_jobs'
+WARNING 2020-08-10 21:05:57,721 - 'NoneType' object does not support item assignment
