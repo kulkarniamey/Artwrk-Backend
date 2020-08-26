@@ -8,7 +8,7 @@ class Schemas:
             'operation':And(Use(str)),
             Optional('username'):  And(Use(str)),
             Optional('type'): And(str, Use(str.lower),
-            lambda s: s in ('artist', 'recruiter')),
+            lambda s: s in ('artist', 'recruiter','admin')),
             Optional('otp'):And(Use(str),lambda s: len(s)==6),
             Optional('email'):And(Use(str)),
             Optional('password'):And(str,lambda s: len(s)>6),
