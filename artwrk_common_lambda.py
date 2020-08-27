@@ -48,6 +48,8 @@ def lambda_handler(event, context):
         return request_handler.get_profile(event)
     if operation=='get_all_jobs':
         return request_handler.get_all_jobs()
+    if operation=='get_all_posts':
+        return request_handler.get_all_posts()
     if operation=='mark_as_read':
         return request_handler.mark_as_read(event)
     if operation=='get_searched_profile':

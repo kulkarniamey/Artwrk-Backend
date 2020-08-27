@@ -171,6 +171,13 @@ class RequestHandler:
             return Service.get_all_jobs()
         except Exception as e:
             logger.warning(e)
+            return {"statusCode":409,"error":"Invalid Request Body"}
+
+    def get_all_posts(self):
+        try:
+            return Service.get_all_posts()
+        except Exception as e:
+            logger.warning(e)
             return {"statusCode":409,"error":"Invalid Request Body"}        
     
     def mark_as_read(self,event):

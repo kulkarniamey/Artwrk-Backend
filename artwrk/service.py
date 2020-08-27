@@ -27,6 +27,18 @@ class Service(User_Repository):
             return{
                 "statusCode":409,
                 }
+
+    def get_all_posts(self):
+        deleted=User_Repository.get_all_posts(self)
+        if deleted:
+            return{
+                "statusCode":200,
+                "posts": deleted
+                }
+        else:
+            return{
+                "statusCode":409,
+                }
             
 
     def create_user(self,event):
