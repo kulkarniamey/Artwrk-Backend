@@ -282,6 +282,22 @@ class User_Repository(DAL_abstract):
                             'address':user.address,
                             'username':user.username,
                             }
+            elif user_id.startswith("admin"):
+
+                user=User.get(user_id,'profile')
+
+
+                    
+                profile={
+                            'user_id': user.id,
+                            'email_verfication':user.email_verification,
+                            'name':user.name,
+                            'type':user.type,
+                            'email':user.email,
+                            'username':user.username,
+                            }
+
+                
             return profile
 
         except Exception as e:
