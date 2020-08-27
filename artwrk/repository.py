@@ -505,6 +505,9 @@ class User_Repository(DAL_abstract):
                     actions.append(Post.vote_count.set(upvoteCount))   
                     actions.append(Post.voters.set(new)) 
                     user.update(actions)  
+                    liked_posts=upvoter.liked_posts
+                    liked_posts.remove(event['post_id'])
+                    upvoter.update([User.liked_posts.set(liked_posts)])
                     return True 
 
                            
@@ -515,7 +518,7 @@ class User_Repository(DAL_abstract):
                     upvoter.update([User.liked_posts.set(liked_posts)])
                     upvoteCount=user.vote_count+1     
                     voters = user.voters    
-                    voters[event['other_id']]=upvoter.username
+                    voters[event['other_id']]=upvoter.username  
                     actions.append(Post.vote_count.set(upvoteCount))   
                     actions.append(Post.voters.set(voters)) 
 
