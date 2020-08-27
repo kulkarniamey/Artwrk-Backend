@@ -39,7 +39,9 @@ class GSIModel(Model):
     url = UnicodeAttribute(null=True)
     time = UnicodeAttribute(null=True)
     content = UnicodeAttribute(null=True)
+    voters = MapAttribute(null=True)
     applicants = MapAttribute(null=True)
+    date_time = UnicodeAttribute(null=True)
     hiring_type= UnicodeAttribute(null=True)
     jobTitle=UnicodeAttribute(null=True)
     companyTitle=UnicodeAttribute(null=True)
@@ -47,7 +49,6 @@ class GSIModel(Model):
     recruiter_id=UnicodeAttribute(null=True)
     date_time=UnicodeAttribute(null=True)
     vote_count=NumberAttribute(null=True)
-    voters=MapAttribute(null=True)
     index=GSI()
 
 class User(Model):
@@ -85,6 +86,8 @@ class User(Model):
     applicants = MapAttribute(null=True)
     applied_jobs = MapAttribute(null=True)
     rated_by  =MapAttribute(null=True)
+    liked_posts = ListAttribute(null=True)
+
 class Artist(User):
     class Meta:
         table_name = 'new'
