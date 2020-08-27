@@ -32,6 +32,7 @@ class GSIModel(Model):
         region = 'us-east-1'
         aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
         aws_secret_access_key = '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'
+        read_capacity_units = 5
         host = 'https://dynamodb.us-east-1.amazonaws.com'
     id = UnicodeAttribute(hash_key=True)
     compositekey = UnicodeAttribute(range_key=True)
