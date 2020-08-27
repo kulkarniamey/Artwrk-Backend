@@ -32,6 +32,10 @@ class GSIModel(Model):
         region = 'us-east-1'
         aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
         aws_secret_access_key = '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'
+<<<<<<< HEAD
+        read_capacity_units = 5
+=======
+>>>>>>> ea1437c3832f9c072a693499f062367acf4a944b
         host = 'https://dynamodb.us-east-1.amazonaws.com'
     id = UnicodeAttribute(hash_key=True)
     compositekey = UnicodeAttribute(range_key=True)
@@ -46,7 +50,13 @@ class GSIModel(Model):
     companyTitle=UnicodeAttribute(null=True)
     Description=UnicodeAttribute(null=True)
     recruiter_id=UnicodeAttribute(null=True)
+<<<<<<< HEAD
+    date_time=UnicodeAttribute(null=True)
     vote_count=NumberAttribute(null=True)
+    voters=MapAttribute(null=True)
+=======
+    vote_count=NumberAttribute(null=True)
+>>>>>>> ea1437c3832f9c072a693499f062367acf4a944b
     index=GSI()
 
 class User(Model):
@@ -84,6 +94,8 @@ class User(Model):
     applicants = MapAttribute(null=True)
     applied_jobs = MapAttribute(null=True)
     rated_by  =MapAttribute(null=True)
+    liked_posts = ListAttribute(null=True)
+
 class Artist(User):
     class Meta:
         table_name = 'new'
