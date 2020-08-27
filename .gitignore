@@ -4,3 +4,14 @@ Logger.log
 /build/bdist.win32
 *.log
 *.egg-info
+artwrk/__pycache__/repository.cpython-38.pyc
+artwrk/__pycache__/__init__.cpython-38.pyc
+artwrk/artwrk_lambda/__pycache__/__init__.cpython-38.pyc
+artwrk/config/__pycache__/__init__.cpython-38.pyc
+artwrk/interfaces/__pycache__/__init__.cpython-38.pyc
+artwrk/config/__pycache__/config.cpython-38.pyc
+artwrk/interfaces/__pycache__/interface.cpython-38.pyc
+artwrk/models/__pycache__/__init__.cpython-38.pyc
+artwrk/requests/__pycache__/__init__.cpython-38.pyc
+artwrk/schemas/__pycache__/__init__.cpython-38.pyc
+tests/__pycache__/__init__.cpython-38.pyc

@@ -32,22 +32,21 @@ class GSIModel(Model):
         region = 'us-east-1'
         aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
         aws_secret_access_key = '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'
-        read_capacity_units = 5
         host = 'https://dynamodb.us-east-1.amazonaws.com'
     id = UnicodeAttribute(hash_key=True)
     compositekey = UnicodeAttribute(range_key=True)
     url = UnicodeAttribute(null=True)
     time = UnicodeAttribute(null=True)
     content = UnicodeAttribute(null=True)
+    voters = MapAttribute(null=True)
     applicants = MapAttribute(null=True)
+    date_time = UnicodeAttribute(null=True)
     hiring_type= UnicodeAttribute(null=True)
     jobTitle=UnicodeAttribute(null=True)
     companyTitle=UnicodeAttribute(null=True)
     Description=UnicodeAttribute(null=True)
     recruiter_id=UnicodeAttribute(null=True)
-    date_time=UnicodeAttribute(null=True)
     vote_count=NumberAttribute(null=True)
-    voters=MapAttribute(null=True)
     index=GSI()
 
 class User(Model):
