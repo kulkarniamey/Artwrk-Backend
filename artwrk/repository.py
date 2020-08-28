@@ -592,7 +592,6 @@ class User_Repository(DAL_abstract):
             for i in GSIModel.index.query('job_metadata'):
                 a.append(
                     {
-                        
                         'jobId': i.id,
                         'jobTitle':i.jobTitle, 
                         'companyTitle': i.companyTitle,
@@ -609,19 +608,37 @@ class User_Repository(DAL_abstract):
     def get_all_posts(self):
         try:
             a = []
+        
+            voter=[]
+            print(1)
             for i in GSIModel.index.query('post_metadata'):
+                
+                try:
+                    c = i.voters
+                    
+                    for key in c:
+                        b = {}
+                        b[key]=c[key]
+                        voter.append(b)
+                
+                except Exception as e:
+                    print(e)
+                
+                
+
                 a.append(
                     {
                         
                         'post_id': i.id,
                         'vote_count':i.vote_count, 
-                        # 'voters': i.voters,
+                        'voters': voter,
                         'description': i.Description,
                         'url': i.url,
                         'recruiter_id': i.recruiter_id,
                         'date_time': i.date_time,                        
                     }
                 )
+
             return a
         except Exception as e:
             logger.warning(e)
