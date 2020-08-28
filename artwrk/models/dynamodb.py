@@ -9,15 +9,15 @@ class GSI(GlobalSecondaryIndex):
     """
     class Meta:
         # index_name is optional, but can be provided to override the default name
-        index_name = 'compositekey-id-index'
+        index_name = 'Gsi1'
         read_capacity_units = 2
         write_capacity_units = 2
         # All attributes are projected
         projection = AllProjection()
-        region = 'us-east-1'
+        region = 'ap-south-1'
         aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
         aws_secret_access_key = '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'
-        host = 'https://dynamodb.us-east-1.amazonaws.com'
+        host = 'https://dynamodb.ap-south-1.amazonaws.com'
 
     # This attribute is the hash key for the index
     # Note that this attribute must also exist
@@ -28,11 +28,11 @@ class GSI(GlobalSecondaryIndex):
 class GSIModel(Model):
     
     class Meta:
-        table_name = 'new'
-        region = 'us-east-1'
+        table_name = 'Artwrk'
+        region = 'ap-south-1'
         aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
         aws_secret_access_key = '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'
-        host = 'https://dynamodb.us-east-1.amazonaws.com'
+        host = 'https://dynamodb.ap-south-1.amazonaws.com'
     id = UnicodeAttribute(hash_key=True)
     compositekey = UnicodeAttribute(range_key=True)
     url = UnicodeAttribute(null=True)
@@ -52,11 +52,11 @@ class GSIModel(Model):
 
 class User(Model):
     class Meta:
-        table_name = 'new'
-        region = 'us-east-1'
+        table_name = 'Artwrk'
+        region = 'ap-south-1'
         aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
         aws_secret_access_key = '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'
-        host = 'https://dynamodb.us-east-1.amazonaws.com'
+        host = 'https://dynamodb.ap-south-1.amazonaws.com'
     id = UnicodeAttribute(hash_key=True)
     type = UnicodeAttribute(null=True)
     compositekey = UnicodeAttribute(range_key=True)
@@ -89,11 +89,11 @@ class User(Model):
 
 class Artist(User):
     class Meta:
-        table_name = 'new'
-        region = 'us-east-1'
+        table_name = 'Artwrk'
+        region = 'ap-south-1'
         aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
         aws_secret_access_key = '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'
-        host = 'https://dynamodb.us-east-1.amazonaws.com'
+        host = 'https://dynamodb.ap-south-1.amazonaws.com'
     artist_type= UnicodeAttribute(null=True)
     artist_score=NumberAttribute(null=True)
     employer_history = ListAttribute(null=True)
@@ -109,22 +109,22 @@ class Artist(User):
 
 class Recruiter(User):
     class Meta:
-        table_name = 'new'
-        region = 'us-east-1'
+        table_name = 'Artwrk'
+        region = 'ap-south-1'
         aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
         aws_secret_access_key = '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'
-        host = 'https://dynamodb.us-east-1.amazonaws.com'
+        host = 'https://dynamodb.ap-south-1.amazonaws.com'
     admin_verification=UnicodeAttribute(null=True)
     company_type= UnicodeAttribute(null=True)
     address = UnicodeAttribute(null=True)
 
 class Post(Model):
     class Meta:
-        table_name = 'new'
-        region = 'us-east-1'
+        table_name = 'Artwrk'
+        region = 'ap-south-1'
         aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
         aws_secret_access_key = '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'
-        host = 'https://dynamodb.us-east-1.amazonaws.com'
+        host = 'https://dynamodb.ap-south-1.amazonaws.com'
     id = UnicodeAttribute(hash_key=True)
     compositekey = UnicodeAttribute(range_key=True)
     url = UnicodeAttribute(null=True)
@@ -135,11 +135,11 @@ class Post(Model):
 
 class Job(Model):
     class Meta:
-        table_name = 'new'
-        region = 'us-east-1'
+        table_name = 'Artwrk'
+        region = 'ap-south-1'
         aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
         aws_secret_access_key = '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'
-        host = 'https://dynamodb.us-east-1.amazonaws.com'
+        host = 'https://dynamodb.ap-south-1.amazonaws.com'
     id = UnicodeAttribute(hash_key=True)
     compositekey = UnicodeAttribute(range_key=True)
     url = UnicodeAttribute(null=True)
@@ -153,11 +153,11 @@ class Job(Model):
 
 class Notification(Model):
     class Meta:
-        table_name = 'new'
-        region = 'us-east-1'
+        table_name = 'Artwrk'
+        region = 'ap-south-1'
         aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
         aws_secret_access_key = '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'
-        host = 'https://dynamodb.us-east-1.amazonaws.com'
+        host = 'https://dynamodb.ap-south-1.amazonaws.com'
     id = UnicodeAttribute(hash_key=True)
     compositekey = UnicodeAttribute(range_key=True)
     time = UnicodeAttribute(null=True)
@@ -167,10 +167,10 @@ class Notification(Model):
 class Score_vote(Model):
     class Meta:
         table_name = 'Artwrk'
-        region = 'us-east-1'
+        region = 'ap-south-1'
         aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
         aws_secret_access_key = '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'
-        host = 'https://dynamodb.us-east-1.amazonaws.com'
+        host = 'https://dynamodb.ap-south-1.amazonaws.com'
     id = UnicodeAttribute(hash_key=True)
     compositekey = UnicodeAttribute(range_key=True)
     url = UnicodeAttribute(null=True)
@@ -196,10 +196,10 @@ class Score_vote(Model):
 #     #A test model that uses a global secondary index
 #     class Meta:
 #         table_name = 'Artwrk'
-#         region = 'us-east-1'
+#         region = 'ap-south-1'
 #         aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
 #         aws_secret_access_key = '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'
-#         host = 'https://dynamodb.us-east-1.amazonaws.com'
+#         host = 'https://dynamodb.ap-south-1.amazonaws.com'
 #     forum = UnicodeAttribute(hash_key=True)
 #     thread = UnicodeAttribute(range_key=True)
 #     view_index = ViewIndex()
