@@ -666,11 +666,7 @@ class User_Repository(DAL_abstract):
                         
                         'post_id': i.id,
                         'vote_count':i.vote_count, 
-<<<<<<< HEAD
                         'voters': voter,
-=======
-                        'voters': i.voters,
->>>>>>> 6f77e0a57d456cd7dcb6ed5bdac711cd1ebe7f33
                         'description': i.Description,
                         'url': i.url,
                         'recruiter_id': i.recruiter_id,
