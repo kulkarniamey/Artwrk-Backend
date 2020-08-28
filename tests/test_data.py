@@ -66,8 +66,8 @@ class TestData:
     get_post_event={
         "operation":"get_post",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "id":"artist_huzaif99",
-        "post_id":"post_1598254152.23753_huzaif99",
+        "id":"artist_parimal786",
+        "post_id":"post_1595584510.276805_parimal786",
     }
 
     get_job_event={
@@ -122,7 +122,7 @@ class TestData:
     get_posts_by_user_event={
         "operation":"get_posts_by_user",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "id":"recruiter_parimal4567",
+        "id":"artist_parimal786",
     }
     verify_delete_recruiter_event={
         "operation":"verify_delete_recruiter",

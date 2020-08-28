@@ -415,13 +415,31 @@ class User_Repository(DAL_abstract):
                 post_obj['url'] = post.url
                 post_obj['description'] = post.Description
                 post_obj['vote_count']=post_meta.vote_count
-
-                d = post.rated_by
-                rated = []
-                for key in d:
-                    rated.append({key:d[key]})
                 
+                rated = []
+                try:
+                    d = post.rated_by
+                    
+                    for key in d:
+                        rated.append({key:d[key]})
+                
+                except Exception as e:
+                    print("error:",e)
                 post_obj['rated_by'] = rated
+
+                voter=[]
+                try:
+                    c = post_meta.voters
+                    print("c: ",c)
+                    for key in c:
+                        b = {}
+                        b[key]=c[key]
+                        voter.append(b)
+                
+                except Exception as e:
+                    print("e:",e)
+                post_obj['voters'] = voter
+
                 return post_obj
         except Exception as e:
             logger.warning(e)
@@ -484,6 +502,7 @@ class User_Repository(DAL_abstract):
     def vote(self,event):
         try:
             #Getting object of both users
+            post=self.get_object(event['id'],event['post_id'])
             user=self.get_object(event['post_id'],'post_metadata')   
             upvoter=self.get_object(event['other_id'],"profile")   
             actions=[]    
@@ -504,7 +523,8 @@ class User_Repository(DAL_abstract):
                     voters[event['other_id']]=upvoter.username  
                     actions.append(Post.vote_count.set(upvoteCount))   
                     actions.append(Post.voters.set(new)) 
-                    user.update(actions)  
+                    user.update(actions)
+                    post.update(actions)  
                     liked_posts=upvoter.liked_posts
                     liked_posts.remove(event['post_id'])
                     upvoter.update([User.liked_posts.set(liked_posts)])
@@ -529,7 +549,8 @@ class User_Repository(DAL_abstract):
     
                     #updating all actions 
                     try:    
-                        user.update(actions)     
+                        user.update(actions)  
+                        post.update(actions)   
                     except:  
                         print("upvoter id already exist")   
 
@@ -607,14 +628,28 @@ class User_Repository(DAL_abstract):
     def get_posts_by_user(self,event):
         try:
             a = []
+            voter=[]
             for i in Post.query(event['id'],User.compositekey.startswith('post')):
+                try:
+                    c = i.voters
+                    print(c)
+                    for key in c:
+                        b = {}
+                        b[key]=c[key]
+                        voter.append(b)
+                
+                except Exception as e:
+                    print(e)
+
                 a.append(
                     {
                         'postid':i.compositekey,
                         'description':i.Description,
+                        'voters': voter,
                         'url': i.url,
                     }
                 )
+            print(a)
             return a
         except Exception as e:
             logger.warning(e)
