@@ -166,7 +166,7 @@ class Notification(Model):
 
 class Score_vote(Model):
     class Meta:
-        table_name = 'Artwrk'
+        table_name = 'scoring_table'
         region = 'ap-south-1'
         aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
         aws_secret_access_key = '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'
