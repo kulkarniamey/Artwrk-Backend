@@ -10,6 +10,9 @@ import requests
 from requests_aws4auth import AWS4Auth
 import boto3
 s3=boto3.resource('s3')
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('scoring_table')
+region = 'ap-south-1'
 
 class User_Repository(DAL_abstract):
     def delete_user(self,user_id,email):
@@ -216,7 +219,7 @@ class User_Repository(DAL_abstract):
                     
                             'profile_pic':user.profile_pic,
                     
-                            'resume': user.Resume,
+                            'resume': user.resume,
 
                             'awards_recognition':user.awards_recognition,
 
@@ -287,6 +290,7 @@ class User_Repository(DAL_abstract):
                             'address':user.address,
                             'username':user.username,
                             }
+            print(profile)
             return profile
 
         except Exception as e:
@@ -509,7 +513,9 @@ class User_Repository(DAL_abstract):
             #Getting object of both users
             post=self.get_object(event['id'],event['post_id'])
             user=self.get_object(event['post_id'],'post_metadata')   
-            upvoter=self.get_object(event['other_id'],"profile")   
+            upvoter=self.get_object(event['other_id'],"profile") 
+            user_profile  = self.get_object(event['id'],"profile") 
+            print(user_profile.artist_score)
             actions=[]    
             flag=1   
             new={}
@@ -524,16 +530,27 @@ class User_Repository(DAL_abstract):
 
                 if flag==0:
                     upvoteCount=user.vote_count-1     
-                    voters = user.voters    
+                    voters = user.voters
+                    artist_s= user_profile.artist_score-10
                     voters[event['other_id']]=upvoter.username  
                     actions.append(Post.vote_count.set(upvoteCount))   
-                    actions.append(Post.voters.set(new)) 
+                    actions.append(Post.voters.set(new))
+                    actions.append(Artist.artist_score.set(artist_s))
+                    user_profile.update(actions)
                     user.update(actions)
                     post.update(actions)  
                     liked_posts=upvoter.liked_posts
                     liked_posts.remove(event['post_id'])
                     upvoter.update([User.liked_posts.set(liked_posts)])
-                    return True 
+                    print(table.creation_date_time)
+                    table.delete_item(
+                        Key={
+                            'id': event['id'],
+                            'compositekey': 'votePost'
+                        }
+                    )
+
+                    return True
 
                            
                 if flag==1:    
@@ -548,10 +565,9 @@ class User_Repository(DAL_abstract):
                     actions.append(Post.voters.set(voters)) 
 
                     #For triggering artist score lambda
-                    if event['type'] =='artist':  
-                        with Score_vote.batch_write() as batch:
-                                batch.save(Score_vote(id=event['id'],compositekey='votePost',vote_count=upvoteCount,voters=voters)) 
-    
+                    if event['type'] =='artist':
+                        x=Score_vote(id=event['id'],compositekey='votePost',vote_count=upvoteCount,voters=voters) 
+                        x.save()
                     #updating all actions 
                     try:    
                         user.update(actions)  

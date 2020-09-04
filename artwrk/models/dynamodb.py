@@ -86,6 +86,7 @@ class User(Model):
     applied_jobs = MapAttribute(null=True)
     rated_by  =MapAttribute(null=True)
     liked_posts = ListAttribute(null=True)
+    artist_score=NumberAttribute(null=True)
 
 class Artist(User):
     class Meta:
@@ -101,7 +102,7 @@ class Artist(User):
     skill_tags = ListAttribute(null=True)
     current_employer =UnicodeAttribute(null=True)
     certificates = ListAttribute(null=True)
-    Resume = UnicodeAttribute(null=True)
+    resume = UnicodeAttribute(null=True)
     applied_jobs=MapAttribute(null=True)
     rated_by = MapAttribute(null=True)
     rate=NumberAttribute(null=True)
