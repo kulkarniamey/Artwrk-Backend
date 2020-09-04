@@ -197,14 +197,14 @@ class User_Repository(DAL_abstract):
                 for key in a:
                     b = {}
                     b[key]=a[key]
-                    followers.append(b)
+                    following.append(b)
                 
 
                 a = user.applied_jobs
                 for key in a:
                     b = {}
                     b[key]=a[key]
-                    followers.append(b)
+                    applied_jobs.append(b)
 
                 profile={
 
