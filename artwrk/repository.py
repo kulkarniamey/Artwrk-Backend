@@ -213,6 +213,10 @@ class User_Repository(DAL_abstract):
                             'username': user.username,
 
                             'artist_score':user.artist_score,
+                    
+                            'profile_pic':user.profile_pic,
+                    
+                            'resume': user.resume,
 
                             'awards_recognition':user.awards_recognition,
 
@@ -269,6 +273,7 @@ class User_Repository(DAL_abstract):
                 profile={
                             'user_id': user.id,
                             'awards_recognition':user.awards_recognition,
+                            'profile_pic':user.profile_pic,
                             'email_verfication':user.email_verification,
                             'facebook_link':user.facebook_link,
                             'followers':followers,
