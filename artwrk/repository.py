@@ -216,7 +216,7 @@ class User_Repository(DAL_abstract):
                     
                             'profile_pic':user.profile_pic,
                     
-                            'resume': user.resume,
+                            'resume': user.Resume,
 
                             'awards_recognition':user.awards_recognition,
 
