@@ -8,7 +8,7 @@ import boto3
 import json
 import requests
 from requests_aws4auth import AWS4Auth
-import boto3
+
 s3=boto3.resource('s3')
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('scoring_table')
