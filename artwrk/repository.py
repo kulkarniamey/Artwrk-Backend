@@ -423,12 +423,13 @@ class User_Repository(DAL_abstract):
     def get_all_notifications(self,event):
         try:
             a = []
-            for i in Notification.query(event['id'],User.compositekey.startswith('notification')):
+            for i in Notification.query(event['id'],User.compositekey.startswith('notification'),scan_index_forward=False):
                 a.append({
                         "notification":i.notification,
                         "flag":i.flag,
                         "link_id":i.link_id,
                 })
+            print(a)
             return a
         except Exception as e:
             logger.warning(e)
@@ -505,7 +506,7 @@ class User_Repository(DAL_abstract):
     def get_jobs_by_user(self,id):
         jobs=[]
         try:
-            job_list=Job.query(id,User.compositekey.startswith('job'))
+            job_list=Job.query(id,User.compositekey.startswith('job'),scan_index_forward=False)
             for i in job_list:
                 jobs.append({
                     'jobId': i.compositekey,
@@ -618,7 +619,7 @@ class User_Repository(DAL_abstract):
             # profile=self.get_object(id,'profile')
             # if profile.type == "admin" :
             if event['type'] == "admin":
-                search=User.query("applications",User.compositekey.startswith('recruiter_'))
+                search=User.query("applications",User.compositekey.startswith('recruiter_'),scan_index_forward=False)
             for i in search:
                 recruiters.append({
                     'recruiter_id': i.compositekey,
@@ -670,7 +671,7 @@ class User_Repository(DAL_abstract):
         try:
             a = []
             voter=[]
-            for i in Post.query(event['id'],User.compositekey.startswith('post')):
+            for i in Post.query(event['id'],User.compositekey.startswith('post'),scan_index_forward=False):
                 try:
                     c = i.voters
                     print(c)
@@ -700,7 +701,7 @@ class User_Repository(DAL_abstract):
     def get_all_jobs(self):
         try:
             a = []
-            for i in GSIModel.index.query('job_metadata'):
+            for i in GSIModel.index.query('job_metadata',scan_index_forward=False):
                 a.append(
                     {
                         'jobId': i.id,
@@ -722,7 +723,7 @@ class User_Repository(DAL_abstract):
         
             voter=[]
             print(1)
-            for i in GSIModel.index.query('post_metadata'):
+            for i in GSIModel.index.query('post_metadata',scan_index_forward=False):
                 
                 try:
                     c = i.voters

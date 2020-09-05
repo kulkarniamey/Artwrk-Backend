@@ -159,13 +159,14 @@ class Notification(Model):
         aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
         aws_secret_access_key = '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'
         host = 'https://dynamodb.ap-south-1.amazonaws.com'
+        
     id = UnicodeAttribute(hash_key=True)
     compositekey = UnicodeAttribute(range_key=True)
     time = UnicodeAttribute(null=True)
     notification = UnicodeAttribute(null=True)
     flag = NumberAttribute(null=True)
     link_id = UnicodeAttribute(null=True)
-    
+
 class Score_vote(Model):
     class Meta:
         table_name = 'scoring_table'
