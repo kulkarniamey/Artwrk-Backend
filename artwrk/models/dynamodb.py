@@ -164,7 +164,8 @@ class Notification(Model):
     time = UnicodeAttribute(null=True)
     notification = UnicodeAttribute(null=True)
     flag = NumberAttribute(null=True)
-
+    link_id = UnicodeAttribute(null=True)
+    
 class Score_vote(Model):
     class Meta:
         table_name = 'scoring_table'

@@ -50,7 +50,7 @@ class User_Repository(DAL_abstract):
                         batch.save(Recruiter(id=id,compositekey="profile",type=type,email=email,password=password,otp=otp,username=username,email_verification="False",admin_verification="False",awards_recognition=[],followers={},following={}))
                         batch.save(User(id=unique_email,compositekey="unique_email",password=password,user_id=id))
                         batch.save(User(id="applications",compositekey=id))
-                        User_Repository.send_notification(['admin'],username+" has just joined Artwrk. Click to verify his profile.")
+                        User_Repository.send_notification(['admin'],username+" has just joined Artwrk. Click to verify his profile.",id)
                 return {"email":email,"otp":otp,'username':username}
             else:
                 return False
@@ -388,7 +388,7 @@ class User_Repository(DAL_abstract):
                 applied_job[event['recruiter_id']]=event['job_id']
                 actions.append(Artist.applied_jobs.set(applied_job))  
                 user.update(actions)
-                User_Repository.send_notification([event['recruiter_id']],"%s has applied to your job for %s"%(user.username,job.jobTitle))
+                User_Repository.send_notification([event['recruiter_id']],"%s has applied to your job for %s"%(user.username,job.jobTitle),event['id'])
                 return True
         except Exception as e:
             logger.warning(e)   
@@ -412,7 +412,7 @@ class User_Repository(DAL_abstract):
                 actions.append(User.followers.set(follower))
                 user1.update(actions)    
 
-                User_Repository.send_notification([event['other_id']],'%s has started following you.'%(user1.username))
+                User_Repository.send_notification([event['other_id']],'%s has started following you.'%(user1.username),event['id'])
                 return True
             else:
                 return False
@@ -424,8 +424,10 @@ class User_Repository(DAL_abstract):
         try:
             a = []
             for i in Notification.query(event['id'],User.compositekey.startswith('notification')):
-                a.append({"notification":i.notification,
-                          "flag":i.flag,
+                a.append({
+                        "notification":i.notification,
+                        "flag":i.flag,
+                        "link_id":i.link_id,
                 })
             return a
         except Exception as e:
@@ -518,12 +520,12 @@ class User_Repository(DAL_abstract):
             logger.warning(e)
 
     @classmethod
-    def send_notification(self,to,notification):
+    def send_notification(self,to,notification,link_id):
         flag=0
         compositekey="notification_"+str(datetime.datetime.now().timestamp())
         for i in to:
             with Notification.batch_write() as batch:
-                batch.save(Notification(id=i,compositekey=compositekey,notification=notification,flag=flag))          
+                batch.save(Notification(id=i,compositekey=compositekey,notification=notification,flag=flag,link_id=link_id))          
         return True
 
     def vote(self,event):
@@ -594,7 +596,7 @@ class User_Repository(DAL_abstract):
                         print("upvoter id already exist")   
 
                     #Notification to the user 
-                    User_Repository.send_notification([event['id']],event['post_id']+" liked by "+event['other_id'])
+                    User_Repository.send_notification([event['id']],event['post_id']+" liked by "+event['other_id'],event['other_id'])
                     return True    
         except Exception as e:    
             logger.warning(e)    
@@ -855,7 +857,7 @@ class User_Repository(DAL_abstract):
             post_meta.update([Artist.rated_by.set(rated_by),Artist.rate.set(rate)])
 
             #sending notification to the host for the post has been .
-            User_Repository.send_notification([event['id']],'%s has rated your post %s stars.'%(event['user_id'],event['rate_score']))
+            User_Repository.send_notification([event['id']],'%s has rated your post %s stars.'%(event['user_id'],event['rate_score']),event['user_id'])
             
             return True
         except Exception as e:

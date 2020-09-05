@@ -2,9 +2,9 @@ class TestData:
     create_user_event={
         "operation":"create_user",
         "username":"prashant3",
-        "email":"pdolawat654@gmail.com",
+        "email":"pdolawat65478@gmail.com",
         "password":"jnec12345",
-        "type":"artist",
+        "type":"recruiter",
         }
 
     delete_user_event={
@@ -46,21 +46,21 @@ class TestData:
     apply_job_event={
         "operation":"apply_job",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "id":"artist_pallavi",
-        "recruiter_id":"recruiter_vdolawat",
-        "job_id":"job_1596987093.61326_parimal4567",
+        "id":"artist_prashant",
+        "recruiter_id":"recruiter_Amey_recruiter",
+        "job_id":"job_1599067882.908197_Amey_recruiter",
     }
 
     get_all_notifications={
         "operation":"get_all_notifications",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "id":"artist_huzaif99",
+        "id":"artist_Amey_artist",
     }
     connect_to_users={
         "operation":"connect_to_users",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "id":"artist_pallavi",
-        "other_id":"artist_vanshika",
+        "id":"artist_prashant",
+        "other_id":"artist_parimal67",
     }
 
     get_post_event={
@@ -87,15 +87,16 @@ class TestData:
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
         "id":"artist_parimal67",
         "post_id":"post_1598628067.195_parimal67",
+        "other_id":"artist_prashant",
         "type":"artist"
         }
 
     rate_post_event={
         "operation":"rate_post",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "id":"artist_huzaif99",
-        "user_id":"artist_avnee",
-        "post_id":"post_1598254152.23753_huzaif99",
+        "id":"artist_parimal67",
+        "user_id":"artist_prashant",
+        "post_id":"post_1598628067.195_parimal67",
         "rate_score":5,
         }
 
