@@ -294,9 +294,19 @@ class User_Repository(DAL_abstract):
                 user=User.get(user_id,'profile')                    
                 profile={
                             'user_id': user.id,
+                            'awards_recognition':["Admin"],
+                            'profile_pic':user.profile_pic,
                             'email_verfication':user.email_verification,
+                            'facebook_link':"fb.com",
+                            'followers':{},
+                            'following':{},
+                            'name':"admin",
                             'type':user.type,
+                            'twitter_link':"twitter.com",
                             'email':user.email,
+                            'admin_verification':"None",
+                            'company_type':"Admin",
+                            'address':"admin",
                             'username':user.username,
                             }
             return profile
