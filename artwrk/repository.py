@@ -290,7 +290,15 @@ class User_Repository(DAL_abstract):
                             'address':user.address,
                             'username':user.username,
                             }
-            print(profile)
+            else:
+                user=User.get(user_id,'profile')                    
+                profile={
+                            'user_id': user.id,
+                            'email_verfication':user.email_verification,
+                            'type':user.type,
+                            'email':user.email,
+                            'username':user.username,
+                            }
             return profile
 
         except Exception as e:
