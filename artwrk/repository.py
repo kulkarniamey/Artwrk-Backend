@@ -44,10 +44,10 @@ class User_Repository(DAL_abstract):
             if self.validate_unique_constraints(username,email):
                 with User.batch_write() as batch:
                     if type=='artist':
-                        batch.save(Artist(id=id,compositekey="profile",type=type,email=email,password=password,otp=otp,username=username,email_verification="False",skill_tags=[],education_history=[],employer_history=[],awards_recognition=[],followers={},following={},certificates=[],applied_jobs={},artist_score=0,liked_posts=[]))
+                        batch.save(Artist(id=id,compositekey="profile",type=type,email=email,password=password,otp=otp,username=username,email_verification="False",skill_tags=[],education_history=[],employer_history=[],awards_recognition=[],followers={},following={},certificates=[],applied_jobs={},artist_score=0,liked_posts=[],profile_pic="https://artwrk-test-upload.s3.ap-south-1.amazonaws.com/default/default.png"))
                         batch.save(User(id=unique_email,compositekey="unique_email",password=password,user_id=id))
                     else:
-                        batch.save(Recruiter(id=id,compositekey="profile",type=type,email=email,password=password,otp=otp,username=username,email_verification="False",admin_verification="False",awards_recognition=[],followers={},following={}))
+                        batch.save(Recruiter(id=id,compositekey="profile",type=type,email=email,password=password,otp=otp,username=username,email_verification="False",admin_verification="False",awards_recognition=[],followers={},following={},profile_pic="https://artwrk-test-upload.s3.ap-south-1.amazonaws.com/default/default.png"))
                         batch.save(User(id=unique_email,compositekey="unique_email",password=password,user_id=id))
                         batch.save(User(id="applications",compositekey=id))
                         User_Repository.send_notification(['admin'],username+" has just joined Artwrk. Click to verify his profile.")
@@ -249,7 +249,7 @@ class User_Repository(DAL_abstract):
 
                             'artist_type':user.artist_type,
 
-
+                            'profile_pic':user.profile_pic
 
                         }
 
@@ -284,6 +284,7 @@ class User_Repository(DAL_abstract):
                             'company_type':user.company_type,
                             'address':user.address,
                             'username':user.username,
+                            'profile_pic':user.profile_pic,
                             }
             return profile
 
@@ -307,7 +308,7 @@ class User_Repository(DAL_abstract):
                         if key=="email_verification":
                             actions.append(Artist.email_verification.set(event[key]))
                         if key=="otp":
-                            actions.append(User.otp.set(event[key]))                                
+                            actions.append(User.otp.set(event[key]))
                         if key=="facebook_link":
                             actions.append(User.facebook_link.set(event[key]))
                         if key=="twitter_link":

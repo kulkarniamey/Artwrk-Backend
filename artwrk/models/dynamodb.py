@@ -106,6 +106,7 @@ class Artist(User):
     applied_jobs=MapAttribute(null=True)
     rated_by = MapAttribute(null=True)
     rate=NumberAttribute(null=True)
+    profile_pic= UnicodeAttribute(null=True)
 
 
 class Recruiter(User):
@@ -118,6 +119,8 @@ class Recruiter(User):
     admin_verification=UnicodeAttribute(null=True)
     company_type= UnicodeAttribute(null=True)
     address = UnicodeAttribute(null=True)
+    profile_pic=UnicodeAttribute(null=True)
+
 
 class Post(Model):
     class Meta:
