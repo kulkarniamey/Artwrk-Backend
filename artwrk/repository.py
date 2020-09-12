@@ -50,7 +50,7 @@ class User_Repository(DAL_abstract):
                         batch.save(Recruiter(id=id,compositekey="profile",type=type,email=email,password=password,otp=otp,username=username,email_verification="False",admin_verification="False",awards_recognition=[],followers={},following={}))
                         batch.save(User(id=unique_email,compositekey="unique_email",password=password,user_id=id))
                         batch.save(User(id="applications",compositekey=id))
-                        User_Repository.send_notification(['admin'],username+" has just joined Artwrk. Click to verify his profile.",id)
+                        User_Repository.send_notification(['admin'],username+" has just joined Artwrk. Click to verify his profile.")
                 return {"email":email,"otp":otp,'username':username}
             else:
                 return False
@@ -200,14 +200,14 @@ class User_Repository(DAL_abstract):
                 for key in a:
                     b = {}
                     b[key]=a[key]
-                    following.append(b)
+                    followers.append(b)
                 
 
                 a = user.applied_jobs
                 for key in a:
                     b = {}
                     b[key]=a[key]
-                    applied_jobs.append(b)
+                    followers.append(b)
 
                 profile={
 
@@ -216,10 +216,6 @@ class User_Repository(DAL_abstract):
                             'username': user.username,
 
                             'artist_score':user.artist_score,
-                    
-                            'profile_pic':user.profile_pic,
-                    
-                            'resume': user.resume,
 
                             'awards_recognition':user.awards_recognition,
 
@@ -276,7 +272,6 @@ class User_Repository(DAL_abstract):
                 profile={
                             'user_id': user.id,
                             'awards_recognition':user.awards_recognition,
-                            'profile_pic':user.profile_pic,
                             'email_verfication':user.email_verification,
                             'facebook_link':user.facebook_link,
                             'followers':followers,
@@ -288,25 +283,6 @@ class User_Repository(DAL_abstract):
                             'admin_verification':user.admin_verification,
                             'company_type':user.company_type,
                             'address':user.address,
-                            'username':user.username,
-                            }
-            else:
-                user=User.get(user_id,'profile')                    
-                profile={
-                            'user_id': user.id,
-                            'awards_recognition':["Admin"],
-                            'profile_pic':user.profile_pic,
-                            'email_verfication':user.email_verification,
-                            'facebook_link':"fb.com",
-                            'followers':{},
-                            'following':{},
-                            'name':"admin",
-                            'type':user.type,
-                            'twitter_link':"twitter.com",
-                            'email':user.email,
-                            'admin_verification':"None",
-                            'company_type':"Admin",
-                            'address':"admin",
                             'username':user.username,
                             }
             return profile
@@ -388,7 +364,7 @@ class User_Repository(DAL_abstract):
                 applied_job[event['recruiter_id']]=event['job_id']
                 actions.append(Artist.applied_jobs.set(applied_job))  
                 user.update(actions)
-                User_Repository.send_notification([event['recruiter_id']],"%s has applied to your job for %s"%(user.username,job.jobTitle),event['id'])
+                User_Repository.send_notification([event['recruiter_id']],"%s has applied to your job for %s"%(user.username,job.jobTitle))
                 return True
         except Exception as e:
             logger.warning(e)   
@@ -412,7 +388,7 @@ class User_Repository(DAL_abstract):
                 actions.append(User.followers.set(follower))
                 user1.update(actions)    
 
-                User_Repository.send_notification([event['other_id']],'%s has started following you.'%(user1.username),event['id'])
+                User_Repository.send_notification([event['other_id']],'%s has started following you.'%(user1.username))
                 return True
             else:
                 return False
@@ -423,13 +399,10 @@ class User_Repository(DAL_abstract):
     def get_all_notifications(self,event):
         try:
             a = []
-            for i in Notification.query(event['id'],User.compositekey.startswith('notification'),scan_index_forward=False):
-                a.append({
-                        "notification":i.notification,
-                        "flag":i.flag,
-                        "link_id":i.link_id,
+            for i in Notification.query(event['id'],User.compositekey.startswith('notification')):
+                a.append({"notification":i.notification,
+                          "flag":i.flag,
                 })
-            print(a)
             return a
         except Exception as e:
             logger.warning(e)
@@ -506,7 +479,7 @@ class User_Repository(DAL_abstract):
     def get_jobs_by_user(self,id):
         jobs=[]
         try:
-            job_list=Job.query(id,User.compositekey.startswith('job'),scan_index_forward=False)
+            job_list=Job.query(id,User.compositekey.startswith('job'))
             for i in job_list:
                 jobs.append({
                     'jobId': i.compositekey,
@@ -521,12 +494,12 @@ class User_Repository(DAL_abstract):
             logger.warning(e)
 
     @classmethod
-    def send_notification(self,to,notification,link_id):
+    def send_notification(self,to,notification):
         flag=0
         compositekey="notification_"+str(datetime.datetime.now().timestamp())
         for i in to:
             with Notification.batch_write() as batch:
-                batch.save(Notification(id=i,compositekey=compositekey,notification=notification,flag=flag,link_id=link_id))          
+                batch.save(Notification(id=i,compositekey=compositekey,notification=notification,flag=flag))          
         return True
 
     def vote(self,event):
@@ -534,9 +507,7 @@ class User_Repository(DAL_abstract):
             #Getting object of both users
             post=self.get_object(event['id'],event['post_id'])
             user=self.get_object(event['post_id'],'post_metadata')   
-            upvoter=self.get_object(event['other_id'],"profile") 
-            user_profile  = self.get_object(event['id'],"profile") 
-            print(user_profile.artist_score)
+            upvoter=self.get_object(event['other_id'],"profile")   
             actions=[]    
             flag=1   
             new={}
@@ -551,27 +522,16 @@ class User_Repository(DAL_abstract):
 
                 if flag==0:
                     upvoteCount=user.vote_count-1     
-                    voters = user.voters
-                    artist_s= user_profile.artist_score-10
+                    voters = user.voters    
                     voters[event['other_id']]=upvoter.username  
                     actions.append(Post.vote_count.set(upvoteCount))   
-                    actions.append(Post.voters.set(new))
-                    actions.append(Artist.artist_score.set(artist_s))
-                    user_profile.update(actions)
+                    actions.append(Post.voters.set(new)) 
                     user.update(actions)
                     post.update(actions)  
                     liked_posts=upvoter.liked_posts
                     liked_posts.remove(event['post_id'])
                     upvoter.update([User.liked_posts.set(liked_posts)])
-                    print(table.creation_date_time)
-                    table.delete_item(
-                        Key={
-                            'id': event['id'],
-                            'compositekey': 'votePost'
-                        }
-                    )
-
-                    return True
+                    return True 
 
                            
                 if flag==1:    
@@ -586,9 +546,10 @@ class User_Repository(DAL_abstract):
                     actions.append(Post.voters.set(voters)) 
 
                     #For triggering artist score lambda
-                    if event['type'] =='artist':
-                        x=Score_vote(id=event['id'],compositekey='votePost',vote_count=upvoteCount,voters=voters) 
-                        x.save()
+                    if event['type'] =='artist':  
+                        with Score_vote.batch_write() as batch:
+                                batch.save(Score_vote(id=event['id'],compositekey='votePost',vote_count=upvoteCount,voters=voters)) 
+    
                     #updating all actions 
                     try:    
                         user.update(actions)  
@@ -597,7 +558,7 @@ class User_Repository(DAL_abstract):
                         print("upvoter id already exist")   
 
                     #Notification to the user 
-                    User_Repository.send_notification([event['id']],event['post_id']+" liked by "+event['other_id'],event['other_id'])
+                    User_Repository.send_notification([event['id']],event['post_id']+" liked by "+event['other_id'])
                     return True    
         except Exception as e:    
             logger.warning(e)    
@@ -619,7 +580,7 @@ class User_Repository(DAL_abstract):
             # profile=self.get_object(id,'profile')
             # if profile.type == "admin" :
             if event['type'] == "admin":
-                search=User.query("applications",User.compositekey.startswith('recruiter_'),scan_index_forward=False)
+                search=User.query("applications",User.compositekey.startswith('recruiter_'))
             for i in search:
                 recruiters.append({
                     'recruiter_id': i.compositekey,
@@ -671,7 +632,7 @@ class User_Repository(DAL_abstract):
         try:
             a = []
             voter=[]
-            for i in Post.query(event['id'],User.compositekey.startswith('post'),scan_index_forward=False):
+            for i in Post.query(event['id'],User.compositekey.startswith('post')):
                 try:
                     c = i.voters
                     print(c)
@@ -701,7 +662,7 @@ class User_Repository(DAL_abstract):
     def get_all_jobs(self):
         try:
             a = []
-            for i in GSIModel.index.query('job_metadata',scan_index_forward=False):
+            for i in GSIModel.index.query('job_metadata'):
                 a.append(
                     {
                         'jobId': i.id,
@@ -723,7 +684,7 @@ class User_Repository(DAL_abstract):
         
             voter=[]
             print(1)
-            for i in GSIModel.index.query('post_metadata',scan_index_forward=False):
+            for i in GSIModel.index.query('post_metadata'):
                 
                 try:
                     c = i.voters
@@ -858,7 +819,7 @@ class User_Repository(DAL_abstract):
             post_meta.update([Artist.rated_by.set(rated_by),Artist.rate.set(rate)])
 
             #sending notification to the host for the post has been .
-            User_Repository.send_notification([event['id']],'%s has rated your post %s stars.'%(event['user_id'],event['rate_score']),event['user_id'])
+            User_Repository.send_notification([event['id']],'%s has rated your post %s stars.'%(event['user_id'],event['rate_score']))
             
             return True
         except Exception as e:

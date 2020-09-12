@@ -10,25 +10,15 @@ class Service(User_Repository):
         deleted=User_Repository.delete_user(self,user_id=event['user_id'],email=event['email'])
         if deleted:
             return{
-                "statusCode":200,
+                    "statusCode":200,
                 }
         else:
             return{
-                "statusCode":409,
+                    "statusCode":409,
+                    "message": "Invalid profile"
                 }
 
-    def get_all_posts(self):
-        deleted=User_Repository.get_all_posts(self)
-        if deleted:
-            return{
-                "statusCode":200,
-                "jobs": deleted
-                }
-        else:
-            return{
-                "statusCode":409,
-                }
-            
+               
 
 
     def get_all_jobs(self):
@@ -41,6 +31,7 @@ class Service(User_Repository):
         else:
             return{
                 "statusCode":409,
+                "message": "'NoneType' object is not iterable"
                 }
 
     def get_all_posts(self):
@@ -53,6 +44,7 @@ class Service(User_Repository):
         else:
             return{
                 "statusCode":409,
+                "message": "'NoneType' object is not iterable"
                 }
             
 
@@ -172,6 +164,7 @@ class Service(User_Repository):
         else:
             return{
                 "statusCode":409,
+                "message": "profile update unsuccessful"
                 }
 
     def apply_job(self,event):
@@ -182,7 +175,8 @@ class Service(User_Repository):
             }       
         else:
             return{
-                "statusCode":409
+                "statusCode":409,
+                "message": "Invalid job post or artist profile"
             }
 
 
@@ -287,7 +281,8 @@ class Service(User_Repository):
             }       
         else:
             return{
-                "statusCode":409
+                "statusCode":409,
+                "message": "Invalid user profile"
             }
 
     def get_all_notifications(self,event):
@@ -300,11 +295,12 @@ class Service(User_Repository):
         elif notifications is None:
             return{
                 "statusCode":200,
-                "Message": "No notifications available"
+                "message": "No notifications available"
             }    
         else:
             return{
-                "statusCode":409
+                "statusCode":409,
+                "message": "Error in fetching notifications"
             }
 
     def get_post(self,event):
@@ -316,7 +312,8 @@ class Service(User_Repository):
             }       
         else:
             return{
-                "statusCode":409
+                "statusCode":409,
+                "message": "Invalid post"
              }
 
     def get_job(self,event):
@@ -328,7 +325,8 @@ class Service(User_Repository):
             }       
         else:
             return{
-                "statusCode":409
+                "statusCode":409,
+                "message": "Invalid job details"
              }
 
     def vote(self,event):
@@ -340,6 +338,7 @@ class Service(User_Repository):
         else:
             return{
                 "statusCode":409,
+                "message": "Invalid post details"
                 }
 
     def get_unverified_recruiter_list(self,event):
@@ -358,6 +357,7 @@ class Service(User_Repository):
         else:
             return{
                 "statusCode":409,
+                "message": "Error in fetching unverified recruiter list"
             }
 
     def verify_delete_recruiter(self,event):
@@ -368,7 +368,8 @@ class Service(User_Repository):
             }
         else:
             return{
-                "statusCode":409
+                "statusCode":409,
+                "message": "Invalid recruiter id"
             }
 
     def get_posts_by_user(self,event):
@@ -380,7 +381,8 @@ class Service(User_Repository):
             }
         else:
             return{
-                "statusCode":409
+                "statusCode":409,
+                "message": "No posts available"
             }
 
     def get_all_jobs_by_user(self,event):
@@ -392,7 +394,8 @@ class Service(User_Repository):
             }
         else:
             return{
-                "statusCode":409
+                "statusCode":409,
+                "message": "No jobs available"
             }
         
     def get_profile(self,event):
@@ -422,7 +425,8 @@ class Service(User_Repository):
             }
         else:
             return{
-                "statusCode":409
+                "statusCode":409,
+                "message": "No such profile exists"
             }
 
     def delete_post(self,event):
@@ -434,6 +438,7 @@ class Service(User_Repository):
         else:
             return{
                 "statusCode":409,
+                "message": "Invalid post details"
             }
 
     def delete_job(self,event):
@@ -445,6 +450,7 @@ class Service(User_Repository):
         else:
             return{
                 "statusCode":409,
+                "message": "Invalid job details"
             }
     
     def rate_post(self,event):
@@ -456,4 +462,5 @@ class Service(User_Repository):
         else:
             return{
                 "statusCode":409,
+                "message": "Invalid post details"
             }
