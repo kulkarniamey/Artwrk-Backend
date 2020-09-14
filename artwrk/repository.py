@@ -187,6 +187,8 @@ class User_Repository(DAL_abstract):
 
             applied_jobs={}        
 
+            liked_posts = []
+
             if user_id.startswith('artist'):
                 user=Artist.get(user_id,'profile')
 
@@ -201,6 +203,10 @@ class User_Repository(DAL_abstract):
                 a = user.applied_jobs
                 for key in a:
                     applied_jobs[key]=a[key]
+
+                a = user.liked_posts
+                for i in a:
+                    liked_posts.append(i)
 
                 profile={
 
@@ -242,13 +248,19 @@ class User_Repository(DAL_abstract):
 
                             'artist_type':user.artist_type,
 
-                            'profile_pic':user.profile_pic
+                            'profile_pic':user.profile_pic,
+
+                            'liked_posts':liked_posts,
 
                         }
 
             elif user_id.startswith("recruiter"):
 
                 user=Recruiter.get(user_id,'profile')
+
+                a = user.liked_posts
+                for i in a:
+                    liked_posts.append(i)
 
                 a = user.followers
                 for key in a:
@@ -274,8 +286,8 @@ class User_Repository(DAL_abstract):
                             'address':user.address,
                             'username':user.username,
                             'profile_pic':user.profile_pic,
+                            'liked_posts':liked_posts,
                             }
-            print(profile)
             return profile
 
         except Exception as e:
