@@ -635,7 +635,7 @@ class User_Repository(DAL_abstract):
         try:
             a = []
             
-            for i in Post.query(event['id'],User.compositekey.startswith('post')):
+            for i in Post.query(event['id'],User.compositekey.startswith('post'),scan_index_forward=False):
                 try:
                     c = i.voters
                     voter={}
@@ -662,7 +662,7 @@ class User_Repository(DAL_abstract):
     def get_all_jobs(self):
         try:
             a = []
-            for i in GSIModel.index.query('job_metadata'):
+            for i in GSIModel.index.query('job_metadata',scan_index_forward=False):
                 a.append(
                     {
                         'jobId': i.id,
@@ -684,7 +684,7 @@ class User_Repository(DAL_abstract):
         
             voter=[]
             print(1)
-            for i in GSIModel.index.query('post_metadata'):
+            for i in GSIModel.index.query('post_metadata',scan_index_forward=False):
                 
                 try:
                     c = i.voters
