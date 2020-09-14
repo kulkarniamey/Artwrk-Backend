@@ -179,35 +179,28 @@ class User_Repository(DAL_abstract):
 
         try:
 
-            followers=[]
+            followers={}
 
-            following=[]
+            following={}
 
             certificates=[]
 
-            applied_jobs=[]          
+            applied_jobs={}        
 
             if user_id.startswith('artist'):
                 user=Artist.get(user_id,'profile')
 
                 a = user.followers
                 for key in a:
-                    b = {}
-                    b[key]=a[key]
-                    followers.append(b)
+                    followers[key]=a[key]
 
                 a = user.following
                 for key in a:
-                    b = {}
-                    b[key]=a[key]
-                    followers.append(b)
-                
+                    following[key]=a[key]                
 
                 a = user.applied_jobs
                 for key in a:
-                    b = {}
-                    b[key]=a[key]
-                    followers.append(b)
+                    applied_jobs[key]=a[key]
 
                 profile={
 
@@ -259,15 +252,11 @@ class User_Repository(DAL_abstract):
 
                 a = user.followers
                 for key in a:
-                    b = {}
-                    b[key]=a[key]
-                    followers.append(b)
+                    followers[key]=a[key]
 
                 a = user.following
                 for key in a:
-                    b = {}
-                    b[key]=a[key]
-                    followers.append(b)
+                    following[key]=a[key]
                     
                 profile={
                             'user_id': user.id,
@@ -286,6 +275,7 @@ class User_Repository(DAL_abstract):
                             'username':user.username,
                             'profile_pic':user.profile_pic,
                             }
+            print(profile)
             return profile
 
         except Exception as e:

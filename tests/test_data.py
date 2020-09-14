@@ -80,7 +80,7 @@ class TestData:
     get_profile_event={
         "operation":"get_profile",
         # "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "user_id":"admin_admin",
+        "user_id":"artist_prashant",
     }
     vote_event={
         "operation":"vote",
