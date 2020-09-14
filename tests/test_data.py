@@ -103,7 +103,7 @@ class TestData:
     mark_as_read_event={
         "operation":"mark_as_read",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "user_id":"admin",
+        "user_id":"artist_prashant",
         }
     get_unverified_recruiter_list_event={
 
@@ -122,7 +122,7 @@ class TestData:
     get_posts_by_user_event={
         "operation":"get_posts_by_user",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "id":"artist_pdolawat",
+        "id":"artist_Avnee15",
     }
     verify_delete_recruiter_event={
         "operation":"verify_delete_recruiter",

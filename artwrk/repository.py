@@ -634,11 +634,11 @@ class User_Repository(DAL_abstract):
     def get_posts_by_user(self,event):
         try:
             a = []
-            voter=[]
+            
             for i in Post.query(event['id'],User.compositekey.startswith('post')):
                 try:
                     c = i.voters
-                    print(c)
+                    voter=[]
                     for key in c:
                         b = {}
                         b[key]=c[key]
