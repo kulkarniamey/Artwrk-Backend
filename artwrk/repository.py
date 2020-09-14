@@ -402,7 +402,7 @@ class User_Repository(DAL_abstract):
     def get_all_notifications(self,event):
         try:
             a = []
-            for i in Notification.query(event['id'],User.compositekey.startswith('notification')):
+            for i in Notification.query(event['id'],User.compositekey.startswith('notification'),scan_index_forward=False):
                 a.append({"notification":i.notification,
                           "flag":i.flag,
                 })
