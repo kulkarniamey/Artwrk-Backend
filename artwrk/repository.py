@@ -561,7 +561,7 @@ class User_Repository(DAL_abstract):
                         print("upvoter id already exist")   
 
                     #Notification to the user 
-                    User_Repository.send_notification([event['id']],event['post_id']+" liked by "+event['other_id'])
+                    User_Repository.send_notification([event['id']],upvoter.username+" liked by "+event['other_id'])
                     return True    
         except Exception as e:    
             logger.warning(e)    
