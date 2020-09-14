@@ -638,12 +638,10 @@ class User_Repository(DAL_abstract):
             for i in Post.query(event['id'],User.compositekey.startswith('post')):
                 try:
                     c = i.voters
-                    voter=[]
+                    voter={}
                     for key in c:
-                        b = {}
-                        b[key]=c[key]
-                        voter.append(b)
-                
+                        voter[key]=c[key]
+
                 except Exception as e:
                     print(e)
 
@@ -655,7 +653,6 @@ class User_Repository(DAL_abstract):
                         'url': i.url,
                     }
                 )
-            print(a)
             return a
         except Exception as e:
             logger.warning(e)
