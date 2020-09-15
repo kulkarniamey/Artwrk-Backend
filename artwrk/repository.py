@@ -47,7 +47,7 @@ class User_Repository(DAL_abstract):
                         batch.save(Artist(id=id,compositekey="profile",type=type,email=email,password=password,otp=otp,username=username,email_verification="False",skill_tags=[],education_history=[],employer_history=[],awards_recognition=[],followers={},following={},certificates=[],applied_jobs={},artist_score=0,liked_posts=[],profile_pic="https://artwrk-test-upload.s3.ap-south-1.amazonaws.com/default/default.png"))
                         batch.save(User(id=unique_email,compositekey="unique_email",password=password,user_id=id))
                     else:
-                        batch.save(Recruiter(id=id,compositekey="profile",type=type,email=email,password=password,otp=otp,username=username,email_verification="False",admin_verification="False",awards_recognition=[],followers={},following={},profile_pic="https://artwrk-test-upload.s3.ap-south-1.amazonaws.com/default/default.png"))
+                        batch.save(Recruiter(id=id,compositekey="profile",type=type,email=email,password=password,otp=otp,username=username,email_verification="False",liked_posts=[],admin_verification="False",awards_recognition=[],followers={},following={},profile_pic="https://artwrk-test-upload.s3.ap-south-1.amazonaws.com/default/default.png"))
                         batch.save(User(id=unique_email,compositekey="unique_email",password=password,user_id=id))
                         batch.save(User(id="applications",compositekey=id))
                         User_Repository.send_notification(['admin'],username+" has just joined Artwrk. Click to verify his profile.")
@@ -288,6 +288,28 @@ class User_Repository(DAL_abstract):
                             'profile_pic':user.profile_pic,
                             'liked_posts':liked_posts,
                             }
+            else:
+
+                user=Recruiter.get(user_id,'profile')
+                profile={
+                            'user_id': user.id,
+                            'awards_recognition':[],
+                            'email_verfication':user.email_verification,
+                            'facebook_link':"fb.com",
+                            'followers':{},
+                            'following':{},
+                            'name':"admin",
+                            'type':"admin",
+                            'twitter_link':"twitter.com",
+                            'email':user.email,
+                            'admin_verification':True,
+                            'company_type':"admin",
+                            'address':"admin",
+                            'username':"admin",
+                            'profile_pic':user.profile_pic,
+                            'liked_posts':[],
+                            }                
+
             return profile
 
         except Exception as e:
