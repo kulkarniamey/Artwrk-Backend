@@ -306,7 +306,7 @@ class User_Repository(DAL_abstract):
                             'company_type':"admin",
                             'address':"admin",
                             'username':"admin",
-                            'profile_pic':"admin",
+                            'profile_pic':user.profile_pic,
                             'liked_posts':[],
                             }                
 
