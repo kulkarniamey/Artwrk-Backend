@@ -32,3 +32,21 @@ WARNING 2020-08-28 18:52:15,429 - No data found with id : artist_huzaif99 and co
 WARNING 2020-08-28 18:52:48,771 - No data found with id : artist_huzaif99 and composite key : post_1595319127.837497_parimal4567
 WARNING 2020-08-28 18:53:30,176 - 'NoneType' object is not iterable
 WARNING 2020-08-28 18:55:16,527 - 'NoneType' object is not iterable
+WARNING 2020-09-14 18:55:16,109 - __delitem__
+WARNING 2020-09-14 19:00:00,830 - 'MapAttribute' has no attribute 'pop'
+WARNING 2020-09-14 19:11:03,535 - __delitem__
+WARNING 2020-09-14 19:11:45,025 - __delitem__
+WARNING 2020-09-14 19:15:53,434 - 'artist_prashant'
+WARNING 2020-09-14 19:16:52,259 - 'artist_prashant'
+WARNING 2020-09-14 19:18:10,311 - 'artist_prashant'
+WARNING 2020-09-14 19:19:18,436 - 'artist_prashant'
+WARNING 2020-09-14 19:21:14,194 - 'artist_prashant'
+WARNING 2020-09-14 19:34:55,261 - checkKey() missing 1 required positional argument: 'key'
+WARNING 2020-09-14 19:59:54,914 - checkKey() missing 1 required positional argument: 'key'
+WARNING 2020-09-14 20:00:40,268 - checkKey() missing 1 required positional argument: 'key'
+WARNING 2020-09-14 20:01:26,525 - checkKey() missing 1 required positional argument: 'key'
+WARNING 2020-09-14 20:03:14,846 - checkKey() missing 1 required positional argument: 'key'
+WARNING 2020-09-14 23:56:36,841 - checkKey() missing 1 required positional argument: 'key'
+WARNING 2020-09-14 23:58:46,546 - checkKey() missing 1 required positional argument: 'key'
+WARNING 2020-09-15 19:07:37,733 - 'artist_prashant'
+WARNING 2020-09-15 19:12:01,283 - 'User' object has no attribute 'follower'

@@ -16,7 +16,7 @@ class TestArtWrkLambda(unittest.TestCase):
         # self.assertEqual(lambda_handler(test_data.change_password_event,"context"),test_data.success)
         # self.assertEqual(lambda_handler(test_data.update_profile_event,"context"),test_data.success)
         # self.assertEqual(lambda_handler(test_data.apply_job_event,"context"),test_data.success)
-        # self.assertEqual(lambda_handler(test_data.connect_to_users,"context"),test_data.success)
+        self.assertEqual(lambda_handler(test_data.connect_to_users,"context"),test_data.success)
         # self.assertEqual(lambda_handler(test_data.get_all_notifications,"context"),test_data.success)
         # self.assertEqual(lambda_handler(test_data.get_post_event,"context"),test_data.success)
         #self.assertEqual(lambda_handler(test_data.get_job_event,"context"),test_data.success)

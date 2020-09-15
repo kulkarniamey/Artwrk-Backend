@@ -381,21 +381,49 @@ class User_Repository(DAL_abstract):
 
             if user1 and user2:
                 followingg=user2.following
-                followingg[event['id']]=user1.username
-                actions.append(User.following.set(followingg))
-                user2.update(actions)
-            
-                actions=[]
-                follower=user1.followers
-                follower[event['other_id']]=user2.username
-                actions.append(User.followers.set(follower))
-                user1.update(actions)    
+                followerr=user1.followers
+                
+                following={}
+                for key in followingg:
+                    following[key]=followingg[key]
 
-                User_Repository.send_notification([event['other_id']],'%s has started following you.'%(user1.username))
+                follower={}
+                for key in followerr:
+                    follower[key]=followerr[key]
+
+                if event['id'] in user2.following and event['other_id'] in user1.followers:
+                    
+                    del following[event['id']]
+                    
+                    del follower[event['other_id']]
+
+                    actions=[]
+                    actions.append(User.following.set(following))
+                    user2.update(actions)
+
+                    actions=[]
+                    actions.append(User.followers.set(follower))
+                    user1.update(actions)
+                    print("remove")
+
+                else:
+                    print("1")
+                    followingg[event['id']]=user1.username
+                    actions.append(User.following.set(followingg))
+                    user2.update(actions)
+
+                    actions=[]
+                    followerr[event['other_id']]=user2.username
+                    actions.append(User.followers.set(followerr))
+                    user1.update(actions)
+                    
+                    User_Repository.send_notification([event['other_id']],'%s has started following you.'%(user1.username))
+                
                 return True
             else:
                 return False
         except Exception as e:
+            print("errror")
             logger.warning(e)
             return False
 
