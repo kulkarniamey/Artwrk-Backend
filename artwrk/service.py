@@ -1,5 +1,4 @@
 from artwrk.repository import User_Repository
-from artwrk.config.config import email,password,smtp_host
 from botocore.exceptions import ClientError
 import boto3
 import jwt

@@ -1,7 +1,7 @@
 from pynamodb.models import Model
 from pynamodb.attributes import UnicodeAttribute,NumberAttribute,ListAttribute,MapAttribute
 from pynamodb.indexes import GlobalSecondaryIndex, AllProjection
-
+from artwrk.config.config import AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY,AWS_REGION,DYNAMODB_HOST,TABLE_NAME
 
 class GSI(GlobalSecondaryIndex):
     """
@@ -14,10 +14,10 @@ class GSI(GlobalSecondaryIndex):
         write_capacity_units = 2
         # All attributes are projected
         projection = AllProjection()
-        region = 'ap-south-1'
-        aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
-        aws_secret_access_key = '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'
-        host = 'https://dynamodb.ap-south-1.amazonaws.com'
+        region = AWS_REGION
+        aws_access_key_id = AWS_ACCESS_KEY_ID
+        aws_secret_access_key = AWS_SECRET_ACCESS_KEY
+        host = DYNAMODB_HOST
 
     # This attribute is the hash key for the index
     # Note that this attribute must also exist
@@ -28,11 +28,11 @@ class GSI(GlobalSecondaryIndex):
 class GSIModel(Model):
     
     class Meta:
-        table_name = 'Artwrk'
-        region = 'ap-south-1'
-        aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
-        aws_secret_access_key = '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'
-        host = 'https://dynamodb.ap-south-1.amazonaws.com'
+        table_name = TABLE_NAME
+        region = AWS_REGION
+        aws_access_key_id = AWS_ACCESS_KEY_ID
+        aws_secret_access_key = AWS_SECRET_ACCESS_KEY
+        host = DYNAMODB_HOST
     id = UnicodeAttribute(hash_key=True)
     compositekey = UnicodeAttribute(range_key=True)
     url = UnicodeAttribute(null=True)
@@ -52,11 +52,11 @@ class GSIModel(Model):
 
 class User(Model):
     class Meta:
-        table_name = 'Artwrk'
-        region = 'ap-south-1'
-        aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
-        aws_secret_access_key = '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'
-        host = 'https://dynamodb.ap-south-1.amazonaws.com'
+        table_name = TABLE_NAME
+        region = AWS_REGION
+        aws_access_key_id = AWS_ACCESS_KEY_ID
+        aws_secret_access_key = AWS_SECRET_ACCESS_KEY
+        host = DYNAMODB_HOST
     id = UnicodeAttribute(hash_key=True)
     type = UnicodeAttribute(null=True)
     compositekey = UnicodeAttribute(range_key=True)
@@ -90,11 +90,11 @@ class User(Model):
 
 class Artist(User):
     class Meta:
-        table_name = 'Artwrk'
-        region = 'ap-south-1'
-        aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
-        aws_secret_access_key = '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'
-        host = 'https://dynamodb.ap-south-1.amazonaws.com'
+        table_name = TABLE_NAME
+        region = AWS_REGION
+        aws_access_key_id = AWS_ACCESS_KEY_ID
+        aws_secret_access_key = AWS_SECRET_ACCESS_KEY
+        host = DYNAMODB_HOST
     artist_type= UnicodeAttribute(null=True)
     artist_score=NumberAttribute(null=True)
     employer_history = ListAttribute(null=True)
@@ -111,11 +111,11 @@ class Artist(User):
 
 class Recruiter(User):
     class Meta:
-        table_name = 'Artwrk'
-        region = 'ap-south-1'
-        aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
-        aws_secret_access_key = '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'
-        host = 'https://dynamodb.ap-south-1.amazonaws.com'
+        table_name = TABLE_NAME
+        region = AWS_REGION
+        aws_access_key_id = AWS_ACCESS_KEY_ID
+        aws_secret_access_key = AWS_SECRET_ACCESS_KEY
+        host = DYNAMODB_HOST
     admin_verification=UnicodeAttribute(null=True)
     company_type= UnicodeAttribute(null=True)
     address = UnicodeAttribute(null=True)
@@ -124,11 +124,11 @@ class Recruiter(User):
 
 class Post(Model):
     class Meta:
-        table_name = 'Artwrk'
-        region = 'ap-south-1'
-        aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
-        aws_secret_access_key = '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'
-        host = 'https://dynamodb.ap-south-1.amazonaws.com'
+        table_name = TABLE_NAME
+        region = AWS_REGION
+        aws_access_key_id = AWS_ACCESS_KEY_ID
+        aws_secret_access_key = AWS_SECRET_ACCESS_KEY
+        host = DYNAMODB_HOST
     id = UnicodeAttribute(hash_key=True)
     compositekey = UnicodeAttribute(range_key=True)
     url = UnicodeAttribute(null=True)
@@ -139,11 +139,11 @@ class Post(Model):
 
 class Job(Model):
     class Meta:
-        table_name = 'Artwrk'
-        region = 'ap-south-1'
-        aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
-        aws_secret_access_key = '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'
-        host = 'https://dynamodb.ap-south-1.amazonaws.com'
+        table_name = TABLE_NAME
+        region = AWS_REGION
+        aws_access_key_id = AWS_ACCESS_KEY_ID
+        aws_secret_access_key = AWS_SECRET_ACCESS_KEY
+        host = DYNAMODB_HOST
     id = UnicodeAttribute(hash_key=True)
     compositekey = UnicodeAttribute(range_key=True)
     url = UnicodeAttribute(null=True)
@@ -157,11 +157,11 @@ class Job(Model):
 
 class Notification(Model):
     class Meta:
-        table_name = 'Artwrk'
-        region = 'ap-south-1'
-        aws_access_key_id = 'AKIAVFG6GGAGG3ZN2STD'
-        aws_secret_access_key = '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'
-        host = 'https://dynamodb.ap-south-1.amazonaws.com'
+        table_name = TABLE_NAME
+        region = AWS_REGION
+        aws_access_key_id = AWS_ACCESS_KEY_ID
+        aws_secret_access_key = AWS_SECRET_ACCESS_KEY
+        host = DYNAMODB_HOST
         
     id = UnicodeAttribute(hash_key=True)
     compositekey = UnicodeAttribute(range_key=True)
