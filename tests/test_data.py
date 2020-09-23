@@ -85,9 +85,9 @@ class TestData:
     vote_event={
         "operation":"vote",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "id":"artist_parimal67",
-        "post_id":"post_1598628067.195_parimal67",
-        "other_id":"artist_prashant",
+        "id":"artist_som2",
+        "post_id":"post_1598729530.054309_som2",
+        "other_id":"artist_prashantd1",
         "type":"artist"
         }
 

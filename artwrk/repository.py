@@ -564,6 +564,9 @@ class User_Repository(DAL_abstract):
             actions=[]    
             flag=1   
             new={}
+            new_rated_by={}
+            rated_by = post.rated_by
+
             if user: 
                 #Validating whether the voter already exists      
                 liked_by=user.voters      
@@ -572,6 +575,11 @@ class User_Repository(DAL_abstract):
                         new[i]=liked_by[i]
                     else:    
                         flag=0
+                for i in rated_by:
+                    if event['other_id']!=i:
+                        new_rated_by[i]=rated_by[i]
+                    else:
+                        continue
 
                 if flag==0:
                     upvoteCount=user.vote_count-1     
@@ -584,6 +592,20 @@ class User_Repository(DAL_abstract):
                     liked_posts=upvoter.liked_posts
                     liked_posts.remove(event['post_id'])
                     upvoter.update([User.liked_posts.set(liked_posts)])
+
+
+                    rate_sum = 0
+                    n=0
+                    for key in new_rated_by:
+                        rate_sum+=new_rated_by[key]
+                        n+=1
+                    if n!=0:
+                        rate = rate_sum/n
+                    else:
+                        rate=0
+                    #updating the ratings.
+                    post.update([Artist.rated_by.set(new_rated_by),Artist.rate.set(rate)])
+                    user.update([Artist.rated_by.set(new_rated_by),Artist.rate.set(rate)])
                     return True 
 
                            
@@ -597,6 +619,24 @@ class User_Repository(DAL_abstract):
                     voters[event['other_id']]=upvoter.username  
                     actions.append(Post.vote_count.set(upvoteCount))   
                     actions.append(Post.voters.set(voters)) 
+                    
+                    #update ratings
+                    
+                    rated_by[event['other_id']] = 3
+
+                    #calculating the ratings for the post
+                    rate_sum = 0
+                    n=0
+                    for key in rated_by:
+                        rate_sum+=rated_by[key]
+                        n+=1
+
+                    rate = rate_sum/n
+
+                    #updating the ratings.
+                    post.update([Artist.rated_by.set(rated_by),Artist.rate.set(rate)])
+                    user.update([Artist.rated_by.set(rated_by),Artist.rate.set(rate)])
+
 
                     #For triggering artist score lambda
                     if event['type'] =='artist':  
@@ -616,6 +656,7 @@ class User_Repository(DAL_abstract):
         except Exception as e:    
             logger.warning(e)    
             return False   
+
 
 
 
