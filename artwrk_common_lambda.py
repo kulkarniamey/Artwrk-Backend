@@ -60,6 +60,12 @@ def lambda_handler(event, context):
         return request_handler.delete_job(event)
     if operation=='get_all_posts':
         return request_handler.get_all_posts()  
+    if operation=='update_timeline':
+        return request_handler.update_timeline(event)
+    if operation=='get_timeline':
+        return request_handler.get_timeline(event)
+    if operation=='update_post':
+        return request_handler.update_post(event)
     else:
         return "INVALID OPERATION"   
     

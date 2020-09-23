@@ -65,6 +65,10 @@ class Schemas:
             Optional('voters'):And(Use(str)),
             Optional('vote_count'):And(Use(str)),
             Optional('type'):And(Use(str)),
+            Optional('posts'):And(Use(str)),
+            Optional('to_do'):And(Use(str)),
+            Optional('index'):And(Use(str)),
+            Optional('new_description'):And(Use(str)),
         }
     )
     

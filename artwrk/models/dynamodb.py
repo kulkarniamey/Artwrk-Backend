@@ -87,6 +87,7 @@ class User(Model):
     rated_by  =MapAttribute(null=True)
     liked_posts = ListAttribute(null=True)
     artist_score=NumberAttribute(null=True)
+    timeline = ListAttribute(null=True)
 
 class Artist(User):
     class Meta:
@@ -136,6 +137,11 @@ class Post(Model):
     Description=UnicodeAttribute(null=True)
     vote_count = NumberAttribute(null=True)
     voters = MapAttribute(null=True)
+    resume = UnicodeAttribute(null=True)
+    applied_jobs=MapAttribute(null=True)
+    rated_by = MapAttribute(null=True)
+    rate=NumberAttribute(null=True)
+    profile_pic= UnicodeAttribute(null=True)
 
 class Job(Model):
     class Meta:

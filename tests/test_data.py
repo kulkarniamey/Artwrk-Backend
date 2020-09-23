@@ -188,6 +188,28 @@ class TestData:
         "username":"prashant3",
         }
 
+    update_timeline_event={
+        "operation":"update_timeline",
+        "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
+        "id":"artist_som2",
+        "to_do":"add", #or "add"
+        "index":[1,2],                                               #if index=remove then it is neccessary
+        "posts":['post_1598827793.022893_som2','post_1598827752.222635_som2','post_1598827413.608792_som2'],               #if index= add then it is necessary 
+        
+    }
+    get_timeline_event={
+        "operation":"get_timeline",
+        "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
+        "id":"artist_som2",
+    }
+    update_post_event={
+        "operation":"update_post",
+        "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
+        "id":"artist_som2",
+        "post_id":"post_1598827252.04142_som2",
+        "new_description":"Change the world",
+    }
+
     update_profile_event={
         "operation":"update_profile",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",

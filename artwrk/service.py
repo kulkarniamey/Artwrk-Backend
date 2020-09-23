@@ -463,3 +463,37 @@ class Service(User_Repository):
                 "statusCode":409,
                 "message": "Invalid post details"
             }
+    def update_timeline(self,event):
+        updated = User_Repository.update_timeline(self,event)
+        if updated:
+            return{
+                "statusCode":200,
+            }
+        else:
+            return{
+                "statusCode":409,
+            }
+
+    def get_timeline(self,event):
+        timeline = User_Repository.get_timeline(self,event)
+        if timeline:
+            return{
+                "statusCode":200,
+                "timeline":timeline,
+            }
+        else:
+            return{
+                "statusCode":409,
+            }
+
+    def update_post(self,event):
+        updated = User_Repository.update_post(self,event)
+        if updated:
+            return{
+                "statusCode":200,
+            }
+        else:
+            return{
+                "statusCode":409,
+                "message": "Invalid post details"
+            }

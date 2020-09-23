@@ -242,3 +242,26 @@ class RequestHandler:
             logger.warning(e)
             return {"statusCode":409,"error":"Invalid Request Body"}
 
+    def update_timeline(self,event):
+        try:
+            Schemas.Post.validate(event)
+            return Service.update_timeline(event)
+        except Exception as e:
+            logger.warning(e)
+            return {"statusCode":409,"error":"Invalid Request Body"}
+    
+    def get_timeline(self,event):
+        try:
+            Schemas.Post.validate(event)
+            return Service.get_timeline(event)
+        except Exception as e:
+            logger.warning(e)
+            return {"statusCode":409,"error":"Invalid Request Body"}
+
+    def update_post(self,event):
+        try:
+            Schemas.Post.validate(event)
+            return Service.update_post(event)
+        except Exception as e:
+            logger.warning(e)
+            return {"statusCode":409,"error":"Invalid Request Body"}

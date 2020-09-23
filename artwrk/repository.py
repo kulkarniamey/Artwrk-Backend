@@ -876,3 +876,72 @@ class User_Repository(DAL_abstract):
             logger.warning(e)
             return False
         
+    def update_timeline(self,event):
+        try:
+            #get user object
+            user = self.get_object(event['id'],'profile')
+            n =0 
+            p =0
+            action = []
+            #if user wants to add posts to timeline
+            if event['to_do'] =='add':
+                # this is nothing but a queue like implementaion in Pynamodb ListAttribute of len=10.
+                for _ in user.timeline:
+                    n+=1
+                for _ in event['posts']:
+                    p+=1
+                if n+p>10:
+                    for _ in range(n+p-10):
+                        user.update([Artist.timeline.remove_indexes(0)])
+                    action.append(Artist.timeline.set(Artist.timeline.append(event['posts'])))
+                else:
+                    action.append(Artist.timeline.set(Artist.timeline.append(event['posts'])))
+                user.update(action)
+                return True
+            else:
+                #if user wants to remove posts from the timeline.
+                for j in range(len(event['index'])):
+                    event['index'][j]-=j
+                print(event['index'])
+                for i in event['index']:
+                    user.update([Artist.timeline.remove_indexes(i)])
+                return True 
+        except Exception as e:
+            logger.warning(e)
+            return False
+
+    #function returns the object of timeline consists of user posts.
+    def get_timeline(self,event):
+        try:
+            user = self.get_object(event['id'],'profile')
+            timeline_list = []
+            for i in user.timeline:  
+                post = self.get_object(i,'post_metadata')
+                timeline_list.append(
+                    {
+                        'postid':i,
+                        'description':post.Description,
+                        'url': post.url,
+                    }
+                )
+            print(timeline_list)
+            return timeline_list
+        except Exception as e:
+            logger.warning(e)
+            return False
+
+    #fuction to update the post's description.
+    def update_post(self,event):
+        try:
+            #get post object to be updated
+            post = self.get_object(event['id'],event['post_id'])
+            post_meta = self.get_object(event['post_id'],'post_metadata')
+
+            #update the description of given post.
+            post.update([Post.Description.set(event['new_description'])])  
+            post_meta.update([Post.Description.set(event['new_description'])]) 
+            print(post.Description)
+            return True
+        except Exception as e:
+            logger.warning(e)
+            return False
