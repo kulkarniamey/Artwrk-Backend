@@ -50,3 +50,7 @@ WARNING 2020-09-14 23:56:36,841 - checkKey() missing 1 required positional argum
 WARNING 2020-09-14 23:58:46,546 - checkKey() missing 1 required positional argument: 'key'
 WARNING 2020-09-15 19:07:37,733 - 'artist_prashant'
 WARNING 2020-09-15 19:12:01,283 - 'User' object has no attribute 'follower'
+WARNING 2020-09-25 19:02:44,540 - 'User' object has no attribute 'title'
+WARNING 2020-09-25 19:03:42,899 - 'User' object has no attribute 'title'
+WARNING 2020-09-25 19:04:45,487 - 'User' object has no attribute 'Title'
+WARNING 2020-09-25 19:15:23,197 - 'GSIModel' object has no attribute 'Title'

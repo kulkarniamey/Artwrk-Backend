@@ -471,7 +471,8 @@ class User_Repository(DAL_abstract):
                 post_obj['url'] = post.url
                 post_obj['description'] = post.Description
                 post_obj['vote_count']=post_meta.vote_count
-                
+                post_obj['title']=post_meta.Title
+
                 rated = []
                 try:
                     d = post.rated_by
@@ -740,6 +741,7 @@ class User_Repository(DAL_abstract):
                     {
                         'postid':i.compositekey,
                         'description':i.Description,
+                        'title':i.Title,
                         'voters': voter,
                         'url': i.url,
                     }
@@ -797,6 +799,7 @@ class User_Repository(DAL_abstract):
                         'vote_count':i.vote_count, 
                         'voters': voter,
                         'description': i.Description,
+                        'title':i.Title,
                         'url': i.url,
                         'recruiter_id': i.recruiter_id,
                         'date_time': i.date_time,                        
