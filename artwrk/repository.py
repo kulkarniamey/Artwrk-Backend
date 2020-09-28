@@ -483,14 +483,12 @@ class User_Repository(DAL_abstract):
                     print("error:",e)
                 post_obj['rated_by'] = rated
 
-                voter=[]
+                voter={}
                 try:
                     c = post_meta.voters
                     print("c: ",c)
                     for key in c:
-                        b = {}
-                        b[key]=c[key]
-                        voter.append(b)
+                        voter[key]=c[key]
                 
                 except Exception as e:
                     print("e:",e)
@@ -774,17 +772,15 @@ class User_Repository(DAL_abstract):
         try:
             a = []
         
-            voter=[]
-            print(1)
+            
             for i in GSIModel.index.query('post_metadata',scan_index_forward=False):
-                
+                voter={}    
                 try:
                     c = i.voters
                     
                     for key in c:
-                        b = {}
-                        b[key]=c[key]
-                        voter.append(b)
+                        voter[key]=c[key]
+                        
                 
                 except Exception as e:
                     print(e)
@@ -804,7 +800,7 @@ class User_Repository(DAL_abstract):
                         'date_time': i.date_time,                        
                     }
                 )
-
+            print(a)
             return a
         except Exception as e:
             logger.warning(e)
