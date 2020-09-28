@@ -796,11 +796,9 @@ class User_Repository(DAL_abstract):
                         'description': i.Description,
                         'title':i.Title,
                         'url': i.url,
-                        'user_id': i.id,
                         'date_time': i.date_time,                        
                     }
                 )
-            print(a)
             return a
         except Exception as e:
             logger.warning(e)
