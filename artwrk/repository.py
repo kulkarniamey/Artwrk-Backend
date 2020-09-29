@@ -471,6 +471,7 @@ class User_Repository(DAL_abstract):
                 post_obj['description'] = post_meta.Description
                 post_obj['vote_count']=post_meta.vote_count
                 post_obj['title']=post_meta.Title
+                post_obj['user_id']=post_meta.user_Id
 
                 rated = []
                 try:
@@ -796,6 +797,7 @@ class User_Repository(DAL_abstract):
                         'description': i.Description,
                         'title':i.Title,
                         'url': i.url,
+                        'user_id': i.user_Id,
                         'date_time': i.date_time,                        
                     }
                 )
