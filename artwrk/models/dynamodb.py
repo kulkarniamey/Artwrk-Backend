@@ -145,6 +145,7 @@ class Post(Model):
     rate=NumberAttribute(null=True)
     profile_pic= UnicodeAttribute(null=True)
     Title = UnicodeAttribute(null=True)
+    user_Id = UnicodeAttribute(null=True)
 
 class Job(Model):
     class Meta:
