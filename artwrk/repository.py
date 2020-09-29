@@ -797,7 +797,7 @@ class User_Repository(DAL_abstract):
                         'description': i.Description,
                         'title':i.Title,
                         'url': i.url,
-                        'user_id': i.user_Id,
+#                         'user_id': i.user_Id,
                         'date_time': i.date_time,                        
                     }
                 )
