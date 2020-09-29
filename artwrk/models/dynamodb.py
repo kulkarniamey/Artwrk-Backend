@@ -49,6 +49,7 @@ class GSIModel(Model):
     date_time=UnicodeAttribute(null=True)
     vote_count=NumberAttribute(null=True)
     Title=UnicodeAttribute(null=True)
+    artist_id = UnicodeAttribute(null=True)
     index=GSI()
 
 class User(Model):
