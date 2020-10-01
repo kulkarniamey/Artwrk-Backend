@@ -464,7 +464,7 @@ class User_Repository(DAL_abstract):
 
     def get_post(self,event):
         try:
-            post_meta = self.get_object(event['post_id'],'post_metadata')
+            post_meta = GSIModel.index.query(event['post_id'],'post_metadata')[0]
             if post_meta:
                 post_obj ={}
                 post_obj['url'] = post_meta.url
