@@ -51,6 +51,7 @@ class GSIModel(Model):
     Title=UnicodeAttribute(null=True)
     artist_id = UnicodeAttribute(null=True)
     rated_by = MapAttribute(null=True)
+    
     index=GSI()
 
 class User(Model):
