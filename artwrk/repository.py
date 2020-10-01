@@ -510,6 +510,7 @@ class User_Repository(DAL_abstract):
                 job_obj['description']=job.Description
                 job_obj['companyTitle'] = job.companyTitle
                 job_obj['jobTitle'] = job.jobTitle
+                job_obj['user_id'] = job.id
                 a = job.applicants
                 c=0
                 for key in a:
@@ -540,6 +541,7 @@ class User_Repository(DAL_abstract):
                     'companyTitle': i.companyTitle,
                     'description': i.Description,
                     'url': i.url,
+                    'user_id': i.id,
                 })
             return jobs
 
@@ -743,6 +745,7 @@ class User_Repository(DAL_abstract):
                         'title':i.Title,
                         'voters': voter,
                         'url': i.url,
+                        'user_id': i.id,
                     }
                 )
             return a
