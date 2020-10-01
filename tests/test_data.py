@@ -65,9 +65,7 @@ class TestData:
 
     get_post_event={
         "operation":"get_post",
-        "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "id":"artist_terrific12",
-        "post_id":"post_1600176360.66497_terrific12",
+        "post_id":"post_1601552896.742808_prashant",
     }
 
     get_job_event={

@@ -464,24 +464,25 @@ class User_Repository(DAL_abstract):
 
     def get_post(self,event):
         try:
-            post_meta = GSIModel.index.query(event['post_id'],'post_metadata')[0]
-            if post_meta:
-                post_obj ={}
-                post_obj['url'] = post_meta.url
-                post_obj['description'] = post_meta.Description
-                post_obj['vote_count']=post_meta.vote_count
-                post_obj['title']=post_meta.Title
-                post_obj['user_id']=post_meta.artist_id
+            post_meta = GSIModel.index.query(event['post_id'])
+            for i in post_meta:
+                if post_meta:
+                    post_obj ={}
+                    post_obj['url'] = i.url
+                    post_obj['description'] = i.Description
+                    post_obj['vote_count']=i.vote_count
+                    post_obj['title']=i.Title
+                    post_obj['user_id']=i.artist_id
 
-                rated = []
-                try:
-                    d = post_meta.rated_by
+                    rated = []
+                    try:
+                        d = i.rated_by
+                        
+                        for key in d:
+                            rated.append({key:d[key]})
                     
-                    for key in d:
-                        rated.append({key:d[key]})
-                
-                except Exception as e:
-                    print("error:",e)
+                    except Exception as e:
+                        print("error:",e)
                 post_obj['rated_by'] = rated
 
                 voter={}
