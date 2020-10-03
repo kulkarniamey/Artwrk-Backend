@@ -467,6 +467,7 @@ class User_Repository(DAL_abstract):
             post_meta = Post.get(event['post_id'],"post_metadata")
             if post_meta:
                 post_obj ={}
+                post_obj['post_id'] = post_meta.id
                 post_obj['url'] = post_meta.url
                 post_obj['description'] = post_meta.Description
                 post_obj['vote_count']=post_meta.vote_count
@@ -739,7 +740,7 @@ class User_Repository(DAL_abstract):
 
                 a.append(
                     {
-                        'postid':i.compositekey,
+                        'post_id':i.compositekey,
                         'description':i.Description,
                         'title':i.Title,
                         'voters': voter,
