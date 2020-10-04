@@ -515,7 +515,7 @@ class User_Repository(DAL_abstract):
                     actions.append(Post.vote_count.set(upvoteCount))   
                     actions.append(Post.voters.set(new)) 
                     user.update(actions)  
-                    return True 
+                    return True
 
                            
                 if flag==1:    
@@ -617,6 +617,7 @@ class User_Repository(DAL_abstract):
                         'postid':i.compositekey,
                         'description':i.Description,
                         'url': i.url,
+                        'vote_count': i.vote_count,
                     }
                 )
             return a
