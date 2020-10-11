@@ -200,7 +200,7 @@ class User_Repository(DAL_abstract):
 
                 a = user.applied_jobs
                 for key in a:
-                    applied_jobs.append=a[key]
+                    applied_jobs.append(a[key])
 
                 a = user.liked_posts
                 for i in a:
