@@ -183,9 +183,7 @@ class User_Repository(DAL_abstract):
 
             following={}
 
-            certificates=[]
-
-            applied_jobs={}        
+            applied_jobs = []        
 
             liked_posts = []
 
@@ -202,7 +200,7 @@ class User_Repository(DAL_abstract):
 
                 a = user.applied_jobs
                 for key in a:
-                    applied_jobs[key]=a[key]
+                    applied_jobs.append=a[key]
 
                 a = user.liked_posts
                 for i in a:
