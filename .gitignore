@@ -15,3 +15,7 @@ artwrk/models/__pycache__/__init__.cpython-38.pyc
 artwrk/requests/__pycache__/__init__.cpython-38.pyc
 artwrk/schemas/__pycache__/__init__.cpython-38.pyc
 tests/__pycache__/__init__.cpython-38.pyc
+artwrk/__pycache__/repository.cpython-38.pyc
+Logger.log
+artwrk/models/__pycache__/dynamodb.cpython-38.pyc
+artwrk/__pycache__/repository.cpython-38.pyc

@@ -48,6 +48,10 @@ class GSIModel(Model):
     recruiter_id=UnicodeAttribute(null=True)
     date_time=UnicodeAttribute(null=True)
     vote_count=NumberAttribute(null=True)
+    Title=UnicodeAttribute(null=True)
+    artist_id = UnicodeAttribute(null=True)
+    rated_by = MapAttribute(null=True)
+    
     index=GSI()
 
 class User(Model):
@@ -88,8 +92,12 @@ class User(Model):
     liked_posts = ListAttribute(null=True)
     artist_score=NumberAttribute(null=True)
     timeline = ListAttribute(null=True)
+<<<<<<< HEAD
     avg_likes= NumberAttribute(null=True)
     avg_ratings = NumberAttribute(null=True)
+=======
+    Title = UnicodeAttribute(null=True)
+>>>>>>> 4ee771c296dd6492991516117dc8ca49da76473f
 
 class Artist(User):
     class Meta:
@@ -144,6 +152,8 @@ class Post(Model):
     rated_by = MapAttribute(null=True)
     rate=NumberAttribute(null=True)
     profile_pic= UnicodeAttribute(null=True)
+    Title = UnicodeAttribute(null=True)
+    artist_id = UnicodeAttribute(null=True)
 
 class Job(Model):
     class Meta:

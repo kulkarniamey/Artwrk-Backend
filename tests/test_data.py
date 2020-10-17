@@ -65,9 +65,7 @@ class TestData:
 
     get_post_event={
         "operation":"get_post",
-        "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "id":"artist_parimal67",
-        "post_id":"post_1598628067.195_parimal67",
+        "post_id":"post_1601552896.742808_prashant",
     }
 
     get_job_event={
@@ -116,13 +114,13 @@ class TestData:
     get_all_jobs_by_user_event={
         "operation":"get_all_jobs_by_user",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "id":"recruiter_vdolawat",
+        "id":"recruiter_hero23",
     }
 
     get_posts_by_user_event={
         "operation":"get_posts_by_user",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "id":"artist_Avnee15",
+        "id":"artist_prashant",
     }
     verify_delete_recruiter_event={
         "operation":"verify_delete_recruiter",

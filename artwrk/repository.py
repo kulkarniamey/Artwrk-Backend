@@ -183,9 +183,7 @@ class User_Repository(DAL_abstract):
 
             following={}
 
-            certificates=[]
-
-            applied_jobs={}        
+            applied_jobs = []        
 
             liked_posts = []
 
@@ -202,7 +200,7 @@ class User_Repository(DAL_abstract):
 
                 a = user.applied_jobs
                 for key in a:
-                    applied_jobs[key]=a[key]
+                    applied_jobs.append(a[key])
 
                 a = user.liked_posts
                 for i in a:
@@ -477,17 +475,19 @@ class User_Repository(DAL_abstract):
 
     def get_post(self,event):
         try:
-            post = self.get_object(event['id'],event['post_id'])
-            post_meta = self.get_object(event['post_id'],'post_metadata')
-            if post and post_meta:
+            post_meta = Post.get(event['post_id'],"post_metadata")
+            if post_meta:
                 post_obj ={}
-                post_obj['url'] = post.url
-                post_obj['description'] = post.Description
+                post_obj['post_id'] = post_meta.id
+                post_obj['url'] = post_meta.url
+                post_obj['description'] = post_meta.Description
                 post_obj['vote_count']=post_meta.vote_count
-                
+                post_obj['title']=post_meta.Title
+                post_obj['user_id']=post_meta.artist_id
+
                 rated = []
                 try:
-                    d = post.rated_by
+                    d = post_meta.rated_by
                     
                     for key in d:
                         rated.append({key:d[key]})
@@ -496,14 +496,12 @@ class User_Repository(DAL_abstract):
                     print("error:",e)
                 post_obj['rated_by'] = rated
 
-                voter=[]
+                voter={}
                 try:
                     c = post_meta.voters
                     print("c: ",c)
                     for key in c:
-                        b = {}
-                        b[key]=c[key]
-                        voter.append(b)
+                        voter[key]=c[key]
                 
                 except Exception as e:
                     print("e:",e)
@@ -523,6 +521,7 @@ class User_Repository(DAL_abstract):
                 job_obj['description']=job.Description
                 job_obj['companyTitle'] = job.companyTitle
                 job_obj['jobTitle'] = job.jobTitle
+                job_obj['user_id'] = job.id
                 a = job.applicants
                 c=0
                 for key in a:
@@ -553,6 +552,7 @@ class User_Repository(DAL_abstract):
                     'companyTitle': i.companyTitle,
                     'description': i.Description,
                     'url': i.url,
+                    'user_id': i.id,
                 })
             return jobs
 
@@ -758,10 +758,12 @@ class User_Repository(DAL_abstract):
 
                 a.append(
                     {
-                        'postid':i.compositekey,
+                        'post_id':i.compositekey,
                         'description':i.Description,
+                        'title':i.Title,
                         'voters': voter,
                         'url': i.url,
+                        'user_id': i.id,
                     }
                 )
             return a
@@ -793,17 +795,15 @@ class User_Repository(DAL_abstract):
         try:
             a = []
         
-            voter=[]
-            print(1)
+            
             for i in GSIModel.index.query('post_metadata',scan_index_forward=False):
-                
+                voter={}    
                 try:
                     c = i.voters
                     
                     for key in c:
-                        b = {}
-                        b[key]=c[key]
-                        voter.append(b)
+                        voter[key]=c[key]
+                        
                 
                 except Exception as e:
                     print(e)
@@ -817,12 +817,12 @@ class User_Repository(DAL_abstract):
                         'vote_count':i.vote_count, 
                         'voters': voter,
                         'description': i.Description,
+                        'title':i.Title,
                         'url': i.url,
-                        'recruiter_id': i.recruiter_id,
+                        'user_id': i.artist_id,
                         'date_time': i.date_time,                        
                     }
                 )
-
             return a
         except Exception as e:
             logger.warning(e)
