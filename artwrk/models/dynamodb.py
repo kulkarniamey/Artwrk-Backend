@@ -88,6 +88,8 @@ class User(Model):
     liked_posts = ListAttribute(null=True)
     artist_score=NumberAttribute(null=True)
     timeline = ListAttribute(null=True)
+    avg_likes= NumberAttribute(null=True)
+    avg_ratings = NumberAttribute(null=True)
 
 class Artist(User):
     class Meta:
@@ -191,7 +193,11 @@ class Score_vote(Model):
     vote_count = NumberAttribute(null=True)
     voters = MapAttribute(null=True)  
     post_id=UnicodeAttribute(null=True)  
-
+    rated_by = MapAttribute(null=True)
+    rate=NumberAttribute(null=True)
+    followers = MapAttribute(null=True)
+    skill_tags = ListAttribute(null=True)
+    education_history = ListAttribute(null=True)
 
 # class ViewIndex(GlobalSecondaryIndex):
 #     #This class represents a global secondary index

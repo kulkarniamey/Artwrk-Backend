@@ -59,8 +59,8 @@ class TestData:
     connect_to_users={
         "operation":"connect_to_users",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "id":"artist_prashant",
-        "other_id":"artist_parimal67",
+        "id":"artist_som3",
+        "other_id":"artist_Amey_artist",
     }
 
     get_post_event={
@@ -85,19 +85,19 @@ class TestData:
     vote_event={
         "operation":"vote",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "id":"artist_som2",
-        "post_id":"post_1598729530.054309_som2",
-        "other_id":"artist_prashantd1",
+        "id":"artist_som3",
+        "post_id":"post_1601551773.460599_som3",
+        "other_id":"artist_Amey_artist",
         "type":"artist"
         }
 
     rate_post_event={
         "operation":"rate_post",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "id":"artist_parimal67",
-        "user_id":"artist_prashant",
-        "post_id":"post_1598628067.195_parimal67",
-        "rate_score":5,
+        "id":"artist_som3",
+        "user_id":"artist_Avnee15",
+        "post_id":"post_1601551773.460599_som3",
+        "rate_score":2,
         }
 
     mark_as_read_event={
@@ -213,21 +213,21 @@ class TestData:
     update_profile_event={
         "operation":"update_profile",
         "authorizationToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicHJhc2hhbnQiLCJ1c2VyX3R5cGUiOiJhcnRpc3QiLCJleHAiOjE1OTQ5NDEzMzl9.7jvoJBNaR3OmCGFuglJPju1cNKxvWgoSKG9wEy6HyW0",
-        "id":"artist_prashant",
-        "name":"prashant",
-        "username":"p._078",
-        "facebook_link":"abc",
-        "twitter_link":"def",
-        "employer_history":["Artwrk1"],
+        "id":"artist_som3",
+        # "name":"prashant",
+        # "username":"p._078",
+        # "facebook_link":"abc",
+        # "twitter_link":"def",
+        # "employer_history":["Artwrk1"],
         "skill_tags":["ASP.NET"],
-        "awards_recognition":["6* Codechef"],
-        "education_history":["1"],
-        "current_employer":"Infosys",
-        "del_skill_tags": 0,
-        "del_employer_history":0,
-        "del_awards_recognition":0,
-        "del_education_history":0,
-        "del_certificates":0,
+        # "awards_recognition":["6* Codechef"],
+        # "education_history":["2"],
+        # "current_employer":"Infosys",
+        #  "del_skill_tags": 0,
+        # "del_employer_history":0,
+        # "del_awards_recognition":0,
+        # "del_education_history":0,
+        # "del_certificates":0,
     }
     sign_in_success={
         'statusCode': 200,

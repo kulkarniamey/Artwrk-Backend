@@ -44,7 +44,7 @@ class User_Repository(DAL_abstract):
             if self.validate_unique_constraints(username,email):
                 with User.batch_write() as batch:
                     if type=='artist':
-                        batch.save(Artist(id=id,compositekey="profile",type=type,email=email,password=password,otp=otp,username=username,email_verification="False",skill_tags=[],education_history=[],employer_history=[],awards_recognition=[],followers={},following={},certificates=[],applied_jobs={},artist_score=0,liked_posts=[],profile_pic="https://artwrk-test-upload.s3.ap-south-1.amazonaws.com/default/default.png"))
+                        batch.save(Artist(id=id,compositekey="profile",type=type,email=email,password=password,otp=otp,username=username,email_verification="False",skill_tags=[],education_history=[],employer_history=[],awards_recognition=[],followers={},following={},certificates=[],applied_jobs={},artist_score=0,avg_ratings=0,avg_likes=0,no_of_posts=0,liked_posts=[],profile_pic="https://artwrk-test-upload.s3.ap-south-1.amazonaws.com/default/default.png"))
                         batch.save(User(id=unique_email,compositekey="unique_email",password=password,user_id=id))
                     else:
                         batch.save(Recruiter(id=id,compositekey="profile",type=type,email=email,password=password,otp=otp,username=username,email_verification="False",liked_posts=[],admin_verification="False",awards_recognition=[],followers={},following={},profile_pic="https://artwrk-test-upload.s3.ap-south-1.amazonaws.com/default/default.png"))
@@ -328,7 +328,9 @@ class User_Repository(DAL_abstract):
                         if key=="employer_history":
                             actions.append(Artist.employer_history.set(Artist.employer_history.append(event[key])))
                         if key=="education_history":
-                            actions.append(Artist.education_history.set(Artist.education_history.append(event[key])))
+                            user.update([Artist.education_history.set(Artist.education_history.append(event[key]))])
+                            with Score_vote.batch_write() as batch:
+                                batch.save(Score_vote(id=event['id'],compositekey='education_history',education_history = event[key]))
                         if key=="email_verification":
                             actions.append(Artist.email_verification.set(event[key]))
                         if key=="otp":
@@ -344,17 +346,23 @@ class User_Repository(DAL_abstract):
                         if key=="password":
                             actions.append(Artist.password.set(event[key]))
                         if key=="skill_tags":
-                            actions.append(Artist.skill_tags.set(Artist.skill_tags.append(event[key])))
+                            user.update([Artist.skill_tags.set(Artist.skill_tags.append(event[key]))])
+                            with Score_vote.batch_write() as batch:
+                                batch.save(Score_vote(id=event['id'],compositekey='skill_tags',skill_tags = event[key]))
                         if key=="awards_recognition":
                             actions.append(User.awards_recognition.set(User.awards_recognition.append(event[key])))
                         if key=="del_skill_tags":
-                            actions.append(Artist.skill_tags.remove_indexes(event[key]))
+                            user.update([(Artist.skill_tags.remove_indexes(event[key]))])
+                            with Score_vote.batch_write() as batch:
+                                batch.save(Score_vote(id=event['id'],compositekey='del_Skill_tags'))
                         if key=="del_awards_recognition":
                             actions.append(User.awards_recognition.remove_indexes(event[key]))
                         if key=="del_employer_history":
                             actions.append(Artist.employer_history.remove_indexes(event[key]))
                         if key=="del_education_history":
-                            actions.append(Artist.education_history.remove_indexes(event[key]))
+                            user.update([(Artist.education_history.remove_indexes(event[key]))])
+                            with Score_vote.batch_write() as batch:
+                                batch.save(Score_vote(id=event['id'],compositekey='del_education_history'))
                         if key=="del_certificates":
                             index = event[key]
                             artist=Artist.get(event['id'],'profile')
@@ -366,8 +374,8 @@ class User_Repository(DAL_abstract):
                             obj = s3.Object("artwrk-test-upload",b)
                             obj.delete()
                             actions.append(Artist.certificates.remove_indexes(index))
-                            
-                user.update(actions)
+                if actions:            
+                    user.update(actions)
                 return True
         except Exception as e:
             logger.warning(e)
@@ -426,6 +434,8 @@ class User_Repository(DAL_abstract):
                     actions=[]
                     actions.append(User.followers.set(follower))
                     user1.update(actions)
+                    with Score_vote.batch_write() as batch:
+                        batch.save(Score_vote(id=event['id'],compositekey='follower',followers = follower))
                     print("remove")
 
                 else:
@@ -438,8 +448,11 @@ class User_Repository(DAL_abstract):
                     followerr[event['other_id']]=user2.username
                     actions.append(User.followers.set(followerr))
                     user1.update(actions)
-                    
+                    with Score_vote.batch_write() as batch:
+                        batch.save(Score_vote(id=event['id'],compositekey='follower',followers = followerr))
+
                     User_Repository.send_notification([event['other_id']],'%s has started following you.'%(user1.username))
+                
                 
                 return True
             else:
@@ -558,8 +571,9 @@ class User_Repository(DAL_abstract):
     def vote(self,event):
         try:
             #Getting object of both users
+            user = self.get_object(event['id'],"profile")
             post=self.get_object(event['id'],event['post_id'])
-            user=self.get_object(event['post_id'],'post_metadata')   
+            postmeta=self.get_object(event['post_id'],'post_metadata')   
             upvoter=self.get_object(event['other_id'],"profile")   
             actions=[]    
             flag=1   
@@ -567,9 +581,9 @@ class User_Repository(DAL_abstract):
             new_rated_by={}
             rated_by = post.rated_by
 
-            if user: 
+            if postmeta and post: 
                 #Validating whether the voter already exists      
-                liked_by=user.voters      
+                liked_by=postmeta.voters      
                 for i in liked_by:     
                     if event['other_id']!=i:
                         new[i]=liked_by[i]
@@ -582,13 +596,11 @@ class User_Repository(DAL_abstract):
                         continue
 
                 if flag==0:
-                    upvoteCount=user.vote_count-1     
-                    voters = user.voters    
-                    voters[event['other_id']]=upvoter.username  
-                    actions.append(Post.vote_count.set(upvoteCount))   
-                    actions.append(Post.voters.set(new)) 
-                    user.update(actions)
-                    post.update(actions)  
+                    upvoteCount=postmeta.vote_count-1     
+                    voters = postmeta.voters    
+                    voters[event['other_id']]=upvoter.username
+                    postmeta.update([Post.vote_count.set(upvoteCount),Post.voters.set(new)])
+                    post.update([Post.vote_count.set(upvoteCount),Post.voters.set(new)])
                     liked_posts=upvoter.liked_posts
                     liked_posts.remove(event['post_id'])
                     upvoter.update([User.liked_posts.set(liked_posts)])
@@ -605,7 +617,14 @@ class User_Repository(DAL_abstract):
                         rate=0
                     #updating the ratings.
                     post.update([Artist.rated_by.set(new_rated_by),Artist.rate.set(rate)])
-                    user.update([Artist.rated_by.set(new_rated_by),Artist.rate.set(rate)])
+                    postmeta.update([Artist.rated_by.set(new_rated_by),Artist.rate.set(rate)])
+                    
+                    #updating user's avg_likes,avg_ratings and no_of_posts
+                    self.update_likes_rates(event['id'],user)
+
+                    if event['type'] =='artist':  
+                        with Score_vote.batch_write() as batch:
+                            batch.save(Score_vote(id=event['id'],compositekey='votePost',vote_count=upvoteCount,voters=voters)) 
                     return True 
 
                            
@@ -614,11 +633,13 @@ class User_Repository(DAL_abstract):
                     liked_posts=upvoter.liked_posts
                     liked_posts.append(event['post_id'])
                     upvoter.update([User.liked_posts.set(liked_posts)])
-                    upvoteCount=user.vote_count+1     
-                    voters = user.voters    
-                    voters[event['other_id']]=upvoter.username  
-                    actions.append(Post.vote_count.set(upvoteCount))   
-                    actions.append(Post.voters.set(voters)) 
+                    upvoteCount=postmeta.vote_count+1     
+                    voters = postmeta.voters    
+                    voters[event['other_id']]=upvoter.username
+
+                    #updating voters and vote_count
+                    post.update([Post.vote_count.set(upvoteCount),Post.voters.set(voters)])
+                    postmeta.update([Post.vote_count.set(upvoteCount),Post.voters.set(voters)])
                     
                     #update ratings
                     
@@ -635,20 +656,19 @@ class User_Repository(DAL_abstract):
 
                     #updating the ratings.
                     post.update([Artist.rated_by.set(rated_by),Artist.rate.set(rate)])
-                    user.update([Artist.rated_by.set(rated_by),Artist.rate.set(rate)])
+                    postmeta.update([Artist.rated_by.set(rated_by),Artist.rate.set(rate)])
+
+
+                    #updating user's avg_likes,avg_ratings and no_of_posts
+                    self.update_likes_rates(event['id'],user)
+                    return True 
 
 
                     #For triggering artist score lambda
                     if event['type'] =='artist':  
                         with Score_vote.batch_write() as batch:
                                 batch.save(Score_vote(id=event['id'],compositekey='votePost',vote_count=upvoteCount,voters=voters)) 
-    
-                    #updating all actions 
-                    try:    
-                        user.update(actions)  
-                        post.update(actions)   
-                    except:  
-                        print("upvoter id already exist")   
+
 
                     #Notification to the user 
                     User_Repository.send_notification([event['id']],upvoter.username+" liked your Artwork.")
@@ -890,6 +910,7 @@ class User_Repository(DAL_abstract):
     def rate_post(self,event):
         try:
             #get objects to be updated.
+            user = self.get_object(event['id'],'profile')
             post = self.get_object(event['id'],event['post_id'])
             post_meta = self.get_object(event['post_id'],'post_metadata')
             #adding user who rated the post.
@@ -905,12 +926,21 @@ class User_Repository(DAL_abstract):
 
             rate = rate_sum/n
 
+            
+            
             #updating the ratings.
             post.update([Artist.rated_by.set(rated_by),Artist.rate.set(rate)])
             post_meta.update([Artist.rated_by.set(rated_by),Artist.rate.set(rate)])
 
+            #updating user's avg_likes,avg_ratings and no_of_posts
+            self.update_likes_rates(event['id'],user)
+
             #sending notification to the host for the post has been .
             User_Repository.send_notification([event['id']],'%s has rated your post %s stars.'%(event['user_id'],event['rate_score']))
+
+            #trigger scoring lambda
+            with Score_vote.batch_write() as batch:
+                batch.save(Score_vote(id=event['id'],compositekey='rate',rated_by=rated_by,rate=rate)) 
             
             return True
         except Exception as e:
@@ -983,6 +1013,25 @@ class User_Repository(DAL_abstract):
             post_meta.update([Post.Description.set(event['new_description'])]) 
             print(post.Description)
             return True
+        except Exception as e:
+            logger.warning(e)
+            return False
+
+
+    def update_likes_rates(self,id,user):
+        try:
+            count=0
+            likes = 0
+            ratings = 0
+            for i in Post.query(id,Post.compositekey.startswith('post_')):
+                likes += i.vote_count
+                ratings += i.rate
+                count+=1
+            
+            avg_likes = likes/count
+            avg_ratings = ratings/count
+            user.update([User.avg_likes.set(avg_likes),User.avg_ratings.set(avg_ratings),User.no_of_posts.set(count)])
+            return None
         except Exception as e:
             logger.warning(e)
             return False
