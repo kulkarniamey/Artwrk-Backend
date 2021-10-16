@@ -1,0 +1,7 @@
+{
+    "table_name" : "Artwrk",
+    "region" : "ap-south-1",
+    "aws_access_key_id" : "AKIAVFG6GGAGG3ZN2STD",
+    "aws_secret_access_key" : "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",
+    "host" : "https://dynamodb.ap-south-1.amazonaws.com"
+}

@@ -1,0 +1,80 @@
+WARNING 2020-08-10 17:46:48,967 - 'GSIModel' object has no attribute 'jobTitle'
+WARNING 2020-08-10 17:49:27,936 - 'GSIModel' object has no attribute 'Description'
+WARNING 2020-08-10 21:05:05,213 - 'User' object has no attribute 'applied_jobs'
+WARNING 2020-08-10 21:05:57,721 - 'NoneType' object does not support item assignment
+WARNING 2020-08-24 14:57:16,459 - 'User' object has no attribute 'rated_by'
+WARNING 2020-08-24 14:58:06,827 - No data found with id : artist_huzaif99 and composite key : post_1598254110.360502_huzaif99
+WARNING 2020-08-24 14:58:07,814 - No data found with id : post_1598254110.360502_huzaif99 and composite key : post_metadata
+WARNING 2020-08-24 14:58:07,815 - 'bool' object has no attribute 'rated_by'
+WARNING 2020-08-24 15:05:07,820 - 'MapAttribute' has no attribute 'values'
+WARNING 2020-08-24 15:06:00,180 - 'MapAttribute' has no attribute 'values'
+WARNING 2020-08-24 15:06:32,377 - 'MapAttribute' has no attribute 'values'
+WARNING 2020-08-24 15:08:05,749 - 'MapAttribute' has no attribute 'values'
+WARNING 2020-08-24 15:10:04,250 - object of type 'MapAttribute' has no len()
+WARNING 2020-08-27 09:55:23,636 - 'NoneType' object is not iterable
+WARNING 2020-08-27 10:01:07,509 - 'NoneType' object is not iterable
+WARNING 2020-08-27 10:02:19,696 - 'NoneType' object is not iterable
+WARNING 2020-08-27 10:05:57,439 - Failed to query items: Read timeout on endpoint URL: "https://dynamodb.us-east-1.amazonaws.com/"
+WARNING 2020-08-27 10:06:01,617 - Unable to describe table: Could not connect to the endpoint URL: "https://dynamodb.us-east-1.amazonaws.com/"
+WARNING 2020-08-27 10:24:50,603 - Unable to describe table: Could not connect to the endpoint URL: "https://dynamodb.us-east-1.amazonaws.com/"
+WARNING 2020-08-27 10:26:31,617 - Unable to describe table: Could not connect to the endpoint URL: "https://dynamodb.us-east-1.amazonaws.com/"
+WARNING 2020-08-27 10:26:57,488 - Unable to describe table: Could not connect to the endpoint URL: "https://dynamodb.us-east-1.amazonaws.com/"
+WARNING 2020-08-27 10:27:58,394 - Unable to describe table: Could not connect to the endpoint URL: "https://dynamodb.us-east-1.amazonaws.com/"
+WARNING 2020-08-27 10:29:17,856 - 'GSIModel' object has no attribute 'voter'
+WARNING 2020-08-27 10:32:50,026 - 'NoneType' object is not iterable
+WARNING 2020-08-27 10:38:47,691 - 'NoneType' object is not iterable
+WARNING 2020-08-27 10:43:55,953 - 'NoneType' object is not iterable
+WARNING 2020-08-28 17:40:00,997 - 'NoneType' object is not iterable
+WARNING 2020-08-28 17:48:37,025 - name 'c' is not defined
+WARNING 2020-08-28 17:49:18,550 - name 'c' is not defined
+WARNING 2020-08-28 17:52:52,570 - 'NoneType' object is not iterable
+WARNING 2020-08-28 18:52:15,429 - No data found with id : artist_huzaif99 and composite key : post_1595319127.837497_parimal4567
+WARNING 2020-08-28 18:52:48,771 - No data found with id : artist_huzaif99 and composite key : post_1595319127.837497_parimal4567
+WARNING 2020-08-28 18:53:30,176 - 'NoneType' object is not iterable
+WARNING 2020-08-28 18:55:16,527 - 'NoneType' object is not iterable
+WARNING 2020-09-14 18:55:16,109 - __delitem__
+WARNING 2020-09-14 19:00:00,830 - 'MapAttribute' has no attribute 'pop'
+WARNING 2020-09-14 19:11:03,535 - __delitem__
+WARNING 2020-09-14 19:11:45,025 - __delitem__
+WARNING 2020-09-14 19:15:53,434 - 'artist_prashant'
+WARNING 2020-09-14 19:16:52,259 - 'artist_prashant'
+WARNING 2020-09-14 19:18:10,311 - 'artist_prashant'
+WARNING 2020-09-14 19:19:18,436 - 'artist_prashant'
+WARNING 2020-09-14 19:21:14,194 - 'artist_prashant'
+WARNING 2020-09-14 19:34:55,261 - checkKey() missing 1 required positional argument: 'key'
+WARNING 2020-09-14 19:59:54,914 - checkKey() missing 1 required positional argument: 'key'
+WARNING 2020-09-14 20:00:40,268 - checkKey() missing 1 required positional argument: 'key'
+WARNING 2020-09-14 20:01:26,525 - checkKey() missing 1 required positional argument: 'key'
+WARNING 2020-09-14 20:03:14,846 - checkKey() missing 1 required positional argument: 'key'
+WARNING 2020-09-14 23:56:36,841 - checkKey() missing 1 required positional argument: 'key'
+WARNING 2020-09-14 23:58:46,546 - checkKey() missing 1 required positional argument: 'key'
+WARNING 2020-09-15 19:07:37,733 - 'artist_prashant'
+WARNING 2020-09-15 19:12:01,283 - 'User' object has no attribute 'follower'
+WARNING 2020-10-04 10:12:26,135 - No data found with id : post_1598827413.608792_som2 and composite key : post_metadata
+WARNING 2020-10-04 10:12:26,198 - 'bool' object has no attribute 'Description'
+WARNING 2020-10-16 17:17:22,739 - No data found with id : artist_Avnee15 and composite key : post_1599160804.959736_som3
+WARNING 2020-10-16 17:17:22,992 - No data found with id : post_1599160804.959736_som3 and composite key : post_metadata
+WARNING 2020-10-16 17:17:22,993 - 'bool' object has no attribute 'rated_by'
+WARNING 2020-10-16 17:18:55,648 - No data found with id : artist_Avnee15 and composite key : post_1599160804.959736_som3
+WARNING 2020-10-16 17:18:57,442 - No data found with id : post_1599160804.959736_som3 and composite key : post_metadata
+WARNING 2020-10-16 17:18:57,442 - 'bool' object has no attribute 'rated_by'
+WARNING 2020-10-16 17:19:31,767 - No data found with id : post_1599160804.959736_som3 and composite key : post_metadata
+WARNING 2020-10-16 17:19:31,974 - 'bool' object has no attribute 'update'
+WARNING 2020-10-16 17:19:56,670 - No data found with id : post_1599160804.959736_som3 and composite key : post_metadata
+WARNING 2020-10-16 17:19:56,992 - 'bool' object has no attribute 'update'
+WARNING 2020-10-16 17:22:10,076 - No data found with id : post_1599160804.959736_som3 and composite key : post_metadata
+WARNING 2020-10-16 17:22:10,077 - can only concatenate str (not "BeginsWith") to str
+WARNING 2020-10-16 17:22:38,086 - No data found with id : post_1599160804.959736_som3 and composite key : post_metadata
+WARNING 2020-10-16 17:22:38,086 - can only concatenate str (not "BeginsWith") to str
+WARNING 2020-10-16 17:25:11,122 - can only concatenate str (not "BeginsWith") to str
+WARNING 2020-10-16 17:25:28,492 - can only concatenate str (not "BeginsWith") to str
+WARNING 2020-10-16 18:14:21,426 - name 'update_likes_rates' is not defined
+WARNING 2020-10-16 18:14:51,241 - name 'Exceptions' is not defined
+WARNING 2020-10-16 20:12:24,578 - the value of `actions` is expected to be a non-empty list
+WARNING 2020-10-16 21:46:31,460 - type object 'User' has no attribute 'no_of_posts'
+WARNING 2020-10-16 21:48:02,559 - type object 'User' has no attribute 'no_of_posts'
+WARNING 2020-10-16 21:51:06,501 - type object 'User' has no attribute 'no_of_posts'
+WARNING 2020-10-16 21:53:58,421 - type object 'User' has no attribute 'no_of_posts'
+WARNING 2020-10-17 15:15:21,148 - type object 'User' has no attribute 'no_of_posts'
+WARNING 2020-10-17 15:19:25,422 - type object 'User' has no attribute 'no_of_posts'
+WARNING 2020-10-17 15:33:18,050 - type object 'User' has no attribute 'no_of_posts'
